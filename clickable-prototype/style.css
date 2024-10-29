@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.heading {
+  text-align: center;
+}
+
+.seperator {
+  margin: 3rem 0;
+}
+
+
+
+.image-product {
+    width: 189px;
+    height: 221px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 3rem;
+  
+}
+
