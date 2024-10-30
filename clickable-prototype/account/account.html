@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Form</title>
+    <link rel="stylesheet" href="account.css" />
+  </head>
+  <body>
+    <div class="account-container">
+      <div class="profile-image">
+        <img src="profile.png" alt="Profil" />
+      </div>
+
+      <div class="form-container">
+        <div class="form-group">
+          <input type="text" placeholder="Vorname" />
+          <input type="text" placeholder="Nachname" />
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="E-Mail" />
+          <input type="tel" placeholder="Telefonnummer" />
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Adresse" />
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Adresszusatz" />
+        </div>
+        <div class="form-group">
+          <select>
+            <option hidden>Land</option>
+            <option>Deutschland</option>
+            <option>Österreich</option>
+            <option>Schweiz</option>
+          </select>
+          <input type="text" placeholder="Stadt" />
+        </div>
+        <div class="form-group">
+          <input type="date" />
+        </div>
+
+        <div class="button-group">
+          <button class="button cancel">Abbrechen</button>
+          <button class="button save">Änderungen speichern</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

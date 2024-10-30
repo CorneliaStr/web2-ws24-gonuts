@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Upload Form</title>
+    <link rel="stylesheet" href="addProduct.css" />
+  </head>
+  <body>
+    <div class="product-form-container">
+      <div class="drop-container">
+          <input type="file"accept="image/*" required />
+      </div>
+
+      <div class="product-details">
+        <input type="text" placeholder="Produktname" class="input-field" required minlength="3" maxlength="100" pattern="[a-zA-Z0-9]+" />
+        <input type="text" placeholder="Preis" class="input-field" required pattern="[0-9]+"/>
+        <input type="text" placeholder="Lagerbestand" class="input-field" pattern="[0-9]+" />
+        <input type="text" placeholder="Tags" class="input-field" minlength="3" maxlength="50" pattern="[a-zA-Z ]+/>
+        <textarea class="input-field" placeholder="Beschreibung"></textarea>
+
+        <button class="submit-btn">Artikel zum Katalog hinzufügen</button>
+      </div>
+    </div>
+  </body>
+</html>
