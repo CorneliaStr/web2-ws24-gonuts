@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="payment.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="Warenkorb-Navigation">
+            <span>1. Warenkorb</span>
+            <span>2. Versand</span>
+            <span class="active">3. Zahlmethode</span>
+        </nav>
+
+        <div class="grid-container">
+            <!-- Versand Section -->
+            <section class="shipping-section" aria-labelledby="shipping-heading">
+                <h3 id="shipping-heading">Bezahlmethode</h3>
+
+                <div class="shipping-option">
+                    <input type="radio" name="shipping" id="express-shipping">
+                    <label for="express-shipping">Auf Rechnung<br></label>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="buttons">
+                    <a href="/clickable-prototype/shipping/shipping.html">
+                        <button class="btn btn-continue">Bezahlen</button>
+                    </a>
+                    <a href="/clickable-prototype/home/home.html">
+                        <button class="btn btn-cancel">Abbrechen</button>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <aside class="summary" aria-labelledby="summary-heading">
+                <h3 id="summary-heading">Übersicht</h3>
+
+                <!-- Produktübersicht -->
+                <div class="product-summary">
+                    <img src="produkt.png" alt="Produktbild" class="summary-image">
+                    <div class="product-details">
+                        <h4>PRODUKTNAME</h4>
+                        <span class="product-price">30€</span>
+                    </div>
+                </div>
+
+                <div class="product-summary">
+                    <img src="produkt.png" alt="Produktbild" class="summary-image">
+                    <div class="product-details">
+                        <h4>PRODUKTNAME</h4>
+                        <span class="product-price">45€</span>
+                    </div>
+                </div>
+
+                <div class="summary-item"><span>GESAMTPREIS</span> <span>75€</span></div>
+                <div class="summary-item"><span>VERSAND</span> <span>FREI</span></div>
+                <div class="summary-item total"><span>GESAMT</span> <span>75€</span></div>
+            </aside>
+        </div>
+
+
+    </div>
+</body>
+</html>
