@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile Form</title>
+    <title>Account</title>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="account.css" />
   </head>
@@ -15,15 +15,15 @@
 
       <div class="form-container">
         <div class="form-group">
-          <input type="text" placeholder="Vorname" />
-          <input type="text" placeholder="Nachname" />
+          <input type="text" placeholder="Vorname" value="Anna"/>
+          <input type="text" placeholder="Nachname" value="Meier" />
         </div>
         <div class="form-group">
-          <input type="email" placeholder="E-Mail" />
+          <input type="email" placeholder="E-Mail" value="anna.meier@gmail.com"/>
           <input type="tel" placeholder="Telefonnummer" />
         </div>
         <div class="form-group">
-          <input type="text" placeholder="Adresse" />
+          <input type="text" placeholder="Adresse" value="Emil-Figge-Straße 42"/>
         </div>
         <div class="form-group">
           <input type="text" placeholder="Adresszusatz" />
@@ -31,19 +31,19 @@
         <div class="form-group">
           <select>
             <option hidden>Land</option>
-            <option>Deutschland</option>
+            <option selected="selected">Deutschland</option>
             <option>Österreich</option>
             <option>Schweiz</option>
           </select>
-          <input type="text" placeholder="Stadt" />
+          <input type="text" placeholder="Stadt" value="Dortmund"/>
         </div>
         <div class="form-group">
           <input type="date" />
         </div>
 
         <div class="button-group">
-          <button class="cancel">Abbrechen</button>
-          <button>Änderungen speichern</button>
+          <button class="cancel" onclick="history.back()">Abbrechen</button>
+          <button onclick="history.back()">Änderungen speichern</button>
         </div>
       </div>
     </div>
