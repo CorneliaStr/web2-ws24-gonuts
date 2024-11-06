@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="cart.css">
+    </head>
+    
+<body>
+
+<div class="container">
+    <nav class="breadcrumb" aria-label="Warenkorb-Navigation">
+        <span class="active">1. Warenkorb</span>
+        <span>2. Versand</span>
+        <span>Zahlmethode</span>
+    </nav>
+
+    <div class="grid-container">
+        <section aria-labelledby="cart-heading">
+            <h3 id="cart-heading">Warenkorb</h3>
+            
+            <article aria-label="Produkt 1">
+                <img src="produkt.png" alt="Produktbild">
+                <div class="product-details">
+                    <h4>PRODUKTNAME</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                    <span class="product-price">30€</span>
+                </div>
+                <select class="quantity-select" aria-label="Anzahl">
+                    <option>1 Stück</option>
+                    <option>2 Stück</option>
+                    <option>3 Stück</option>
+                    <option>4 Stück</option>
+                </select>
+            </article>
+
+            <article aria-label="Produkt 2">
+                <img src="produkt.png" alt="Produktbild">
+                <div class="product-details">
+                    <h4>PRODUKTNAME</h4>
+                    <p>Cras auctor tortor in augue ultricies, ut viverra urna accumsan. Quisque euismod est.</p>
+                    <span class="product-price">15€</span>
+                </div>
+                <select class="quantity-select" aria-label="Anzahl">
+                    <option>1 Stück</option>
+                    <option>2 Stück</option>
+                    <option>3 Stück</option>
+                    <option>4 Stück</option>
+                </select>
+            </article>
+        </section>
+    
+        <aside aria-labelledby="summary-heading">
+            <h3 id="summary-heading">Übersicht</h3>
+            <hr>
+            <div class="summary-item"><span>SUMME ARTIKEL</span> <span>75€</span></div>
+            <div class="summary-item"><span>VERSAND</span> <span>FREI</span></div>
+            <hr>
+            <div class="summary-item total"><span>GESAMT</span> <span>75€</span></div>
+        </aside>
+    </div>
+   
+    <div class="buttons">
+        <a href="/clickable-prototype/shipping/shipping.html">
+            <button class="btn btn-continue">Weiter</button>
+        </a>
+        <a href="/clickable-prototype/home/home.html">
+            <button class="btn btn-cancel">Abbrechen</button>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

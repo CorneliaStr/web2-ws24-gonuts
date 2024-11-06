@@ -1,0 +1,47 @@
+.account-container {
+    display: flex;
+    background: #ffffff;
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.profile-image {
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.profile-image img{
+    width: 150px;
+    height: 150px;
+}
+
+.form-container {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group select,
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 10px;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: right;
+}
+
+button.cancel {
+    background-color: #555;
+    color: #fff;
+}
