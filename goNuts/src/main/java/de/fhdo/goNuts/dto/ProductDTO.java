@@ -1,21 +1,24 @@
-package de.fhdo.goNuts.domain;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+package de.fhdo.goNuts.dto;
 
 import java.util.Objects;
 
-@Entity
-public class Product {
-    @Id
-    @GeneratedValue
+public class ProductDTO {
     private Long id;
-    
+
     private String name;
     private String description;
     private Double price;
     private String image;
+
+    public ProductDTO() {}
+
+    public ProductDTO(Long id, String name, String description, Double price, String image) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
@@ -60,7 +63,7 @@ public class Product {
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product product)) return false;
+        if (!(o instanceof ProductDTO product)) return false;
 
         return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(image, product.image);
     }
