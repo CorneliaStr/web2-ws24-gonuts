@@ -1,19 +1,21 @@
-package de.fhdo.goNuts.domain;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+package de.fhdo.goNuts.dto;
 
 import java.util.Objects;
 
-@Entity
-public class Account {
-    @Id
+public class AccountDTO {
     private String email;
-    
+
     private String password;
-    
+
     private boolean admin;
+
+    public AccountDTO() {}
+
+    public AccountDTO(String email, String password, boolean admin) {
+        this.email = email;
+        this.password = password;
+        this.admin = admin;
+    }
 
     public String getEmail() {
         return email;
@@ -42,7 +44,7 @@ public class Account {
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Account account)) return false;
+        if (!(o instanceof AccountDTO account)) return false;
 
         return admin == account.admin && Objects.equals(email, account.email) && Objects.equals(password, account.password);
     }
