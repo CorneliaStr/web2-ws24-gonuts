@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+
+.heading {
+    text-align: center;
+}
+
+.seperator {
+    margin: 3rem 0;
+}
+
+h2 {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+button, input[type=file]::file-selector-button {
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+}
+
+input[type=file]{
+    cursor: pointer;
+}
+
+input, select, input[type="date"], textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.image-product {
+    width: 189px;
+    height: 221px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.products-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 3rem;
+
+}
+
+
+/* Footer Styling */
+.footer {
+    background-color: #f9f9f9;
+    padding: 20px 0;
+    border-top: 1px solid #e0e0e0;
+    font-size: 14px;
+}
+
+.footer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.footer-logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.footer-column address {
+    font-style: normal;
+    color: #333;
+    margin-top: 10px;
+}
+
+.footer-column h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.footer-menu,
+.footer-social {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-menu li,
+.footer-social li {
+    margin-bottom: 5px;
+}
+
+.footer-menu li a,
+.footer-social li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.footer-menu li a:hover,
+.footer-social li a:hover {
+    color: #555;
+    text-decoration: underline;
+}
+
+/* Copyright */
+.footer-column span {
+    display: block;
+    margin-top: 10px;
+    color: #999;
+}
