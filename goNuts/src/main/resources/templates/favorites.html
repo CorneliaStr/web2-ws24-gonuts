@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Merkliste</title>
+    <link rel="stylesheet" href="/style.css" >
+    <link rel="stylesheet" href="/favorites.css" >
+</head>
+<body>
+<div class="favorites-container">
+    <h2>Merkliste</h2>
+    <ul>
+        <li th:each="product : ${products}">
+            <div class="element-group">
+                <a >
+                    <img th:src="${product.image}" class="image-product" alt="...">
+                    <div class="element-group-v">
+                        <h5 th:text="${product.name}">Produktname</h5>
+                        <p th:text="${product.price}">0€</p>
+                    </div>
+                </a>
+                <div class="element-group">
+                    <input type="number" class="number-step" name="points" step="1" min="0" max="50">
+                    <button class="cart-button">Zum Warenkorb hinzufügen</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
