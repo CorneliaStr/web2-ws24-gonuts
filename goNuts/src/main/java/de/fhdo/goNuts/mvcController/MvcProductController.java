@@ -23,4 +23,11 @@ public class MvcProductController {
         return "favorites";
     }
 
+    @GetMapping("shop")
+    public String showShop(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
+        return "shop";
+    }
+
+
 }
