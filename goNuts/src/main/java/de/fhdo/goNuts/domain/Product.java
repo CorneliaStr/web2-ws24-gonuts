@@ -1,9 +1,8 @@
 package de.fhdo.goNuts.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,13 +16,17 @@ public class Product {
     private Double price;
     private String image;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Tag> tags;
+
     public Product() {}
 
-    public Product(String name, String description, Double price, String image) {
+    public Product(String name, String description, Double price, String image, List<Tag> tags) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
+        this.tags = tags;
     }
 
     public Long getId() {
@@ -64,6 +67,14 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override

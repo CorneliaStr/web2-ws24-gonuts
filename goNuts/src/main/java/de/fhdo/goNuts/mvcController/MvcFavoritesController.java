@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("shop")
+@RequestMapping("favorites")
 public class MvcFavoritesController {
     private ProductService productService;
 
@@ -18,9 +18,9 @@ public class MvcFavoritesController {
     }
 
     @GetMapping
-    public String showShop(Model model) {
+    public String showFavorites(Model model) {
         model.addAttribute("products", productService.getAllProducts());
-        return "shop";
+        return "favorites";
     }
 
 }

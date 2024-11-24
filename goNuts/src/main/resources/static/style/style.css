@@ -9,6 +9,8 @@ body {
     display: flex;
     justify-content: center;
     background-color: #f5f5f5;
+    flex-direction: column;
+    align-items: center;
 }
 
 .heading {
@@ -71,6 +73,7 @@ input, select, input[type="date"], textarea {
     padding: 20px 0;
     border-top: 1px solid #e0e0e0;
     font-size: 14px;
+    width: 100%;
 }
 
 .footer-container {
