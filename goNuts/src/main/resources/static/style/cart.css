@@ -1,0 +1,106 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+.container {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+}
+.breadcrumb {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    color: #777;
+    font-size: 14px;
+}
+.breadcrumb .active {
+    color: #000;
+    font-weight: bold;
+}
+section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.image-product{
+    width: 80%;
+    height: 80%;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+.product-details {
+    flex: 1;
+}
+.product-details h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+.product-details p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+.product-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+.quantity-select {
+    margin-left: 10px;
+    padding: 5px;
+}
+aside h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 16px;
+}
+.total {
+    font-weight: bold;
+    font-size: 20px;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.btn-continue {
+    background-color: #333;
+    color: #fff;
+}
+.btn-cancel {
+    background-color: #ddd;
+    color: #333;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 60% 35%;
+    gap: 5%;
+}
+
+.shop-container{
+padding-top: 3%;
+display:grid;
+grid-template-columns: 20% 50% 20%;
+}
