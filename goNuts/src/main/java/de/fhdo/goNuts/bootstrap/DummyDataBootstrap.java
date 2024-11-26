@@ -1,8 +1,12 @@
 package de.fhdo.goNuts.bootstrap;
 
+import de.fhdo.goNuts.domain.Order;
+import de.fhdo.goNuts.domain.OrderPosition;
 import de.fhdo.goNuts.domain.Product;
-import de.fhdo.goNuts.dto.ProductDTO;
+import de.fhdo.goNuts.domain.Tag;
+import de.fhdo.goNuts.repository.OrderRepository;
 import de.fhdo.goNuts.repository.ProductRepository;
+import de.fhdo.goNuts.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -15,14 +19,12 @@ import java.util.Date;
 
 @Component
 public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedEvent> {
-    private ProductRepository productRepository;
-    private OrderRepository orderRepository;
     private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
     private final TagRepository tagRepository;
 
     @Autowired
-    public DummyDataBootstrap(ProductRepository productRepository, TagRepository tagRepository) {
-    public DummyDataBootstrap(ProductRepository productRepository, OrderRepository orderRepository) {
+    public DummyDataBootstrap(ProductRepository productRepository, TagRepository tagRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.tagRepository = tagRepository;
