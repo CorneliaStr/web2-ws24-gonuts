@@ -18,6 +18,10 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderPosition> orderPosition;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     public Long getId() {
         return id;
     }
@@ -42,4 +46,7 @@ public class Order {
         this.orderPosition = orderPosition;
     }
 
+    public Customer getCustomer() { return customer; }
+
+    public void setCustomer(Customer customer) { this.customer = customer; }
 }

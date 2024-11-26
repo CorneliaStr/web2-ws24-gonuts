@@ -1,12 +1,8 @@
 package de.fhdo.goNuts.bootstrap;
 
-import de.fhdo.goNuts.domain.Order;
-import de.fhdo.goNuts.domain.OrderPosition;
-import de.fhdo.goNuts.domain.Product;
-import de.fhdo.goNuts.domain.Tag;
-import de.fhdo.goNuts.repository.OrderRepository;
-import de.fhdo.goNuts.repository.ProductRepository;
-import de.fhdo.goNuts.repository.TagRepository;
+import de.fhdo.goNuts.domain.*;
+import de.fhdo.goNuts.interfaces.FavoritesService;
+import de.fhdo.goNuts.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -22,12 +18,16 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
     private final TagRepository tagRepository;
+    private final FavoritesRepository favoritesRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public DummyDataBootstrap(ProductRepository productRepository, TagRepository tagRepository, OrderRepository orderRepository) {
+    public DummyDataBootstrap(ProductRepository productRepository, TagRepository tagRepository, OrderRepository orderRepository, FavoritesRepository favoritesRepository, CustomerRepository customerRepository) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.tagRepository = tagRepository;
+        this.favoritesRepository = favoritesRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -43,7 +43,6 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         Tag tag5 = tagRepository.saveAndFlush(new Tag("Weihnachtlich"));
         Tag tag6 = tagRepository.saveAndFlush(new Tag("Schokolade"));
 
-
         Product product1 = new Product("Product1", "Produkt1", 1.50, "/images/placeholder.jpg", List.of(tag1));
         Product product2 = new Product("Product2", "Produkt2", 24.99, "/images/placeholder.jpg", List.of(tag2, tag3));
         Product product3 = new Product("Product3", "Produkt3", 120.0, "/images/placeholder.jpg", List.of(tag3, tag4));
@@ -51,7 +50,7 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         Product product5 = new Product("Product5", "Produkt5", 1111.99, "/images/placeholder.jpg", List.of(tag5, tag6));
         Product product6 = new Product("Product6", "Produkt6", 0.99, "/images/placeholder.jpg", List.of(tag5, tag1));
         Product product7 = new Product("Product7", "Produkt7", 1.50, "/images/placeholder.jpg", List.of(tag2, tag6));
-        Product product8 = new Product("Product7", "Produkt8", 1.50, "/images/placeholder.jpg", List.of(tag4));
+        Product product8 = new Product("Product8", "Produkt8", 1.50, "/images/placeholder.jpg", List.of(tag4));
 
         productRepository.save(product1);
         productRepository.save(product2);
@@ -62,10 +61,13 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         productRepository.save(product7);
         productRepository.save(product8);
 
+        Customer customer1 = new Customer("Bernd", "Bunt", null, "Dortmund", null);
+        customerRepository.save(customer1);
 
         // Bestellung erstellen
         Order order1 = new Order();
         order1.setDate(new Date());
+        order1.setCustomer(customer1);
 
         // Bestellpositionen erstellen
         OrderPosition orderPosition1 = new OrderPosition();
@@ -81,6 +83,12 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
 
         // Bestellung speichern (kaskadiert Bestellpositionen)
         orderRepository.save(order1);
+
+        Favorites favorites1 = new Favorites();
+        favorites1.setCustomer(customer1);
+        favorites1.setProducts(Arrays.asList(product1, product2, product4, product7));
+
+        favoritesRepository.save(favorites1);
     }
 
 }

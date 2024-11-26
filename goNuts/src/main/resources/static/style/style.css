@@ -38,6 +38,10 @@ button, input[type=file]::file-selector-button {
     color: #fff;
 }
 
+a{
+    cursor: pointer;
+}
+
 input[type=file]{
     cursor: pointer;
 }
@@ -51,8 +55,6 @@ input, select, input[type="date"], textarea {
 }
 
 .image-product {
-    width: 189px;
-    height: 221px;
     border-width: 2px;
     border-style: solid;
     border-radius: 4px 4px 4px 4px;

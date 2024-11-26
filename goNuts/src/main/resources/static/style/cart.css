@@ -1,14 +1,8 @@
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
 .container {
-    width: 60%;
-    margin: auto;
+    background: #ffffff;
+    justify-content: center;
     padding: 20px;
+    width: 70%;
 }
 .breadcrumb {
     display: flex;
