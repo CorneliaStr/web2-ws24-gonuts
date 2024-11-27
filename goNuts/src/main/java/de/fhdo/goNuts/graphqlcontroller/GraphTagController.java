@@ -1,6 +1,7 @@
 package de.fhdo.goNuts.graphqlcontroller;
 
 import de.fhdo.goNuts.domain.Tag;
+import de.fhdo.goNuts.dto.TagDTO;
 import de.fhdo.goNuts.interfaces.TagService;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ public class GraphTagController {
     }
 
     @QueryMapping("tags")
-    public List<Tag> getTags() {
+    public List<TagDTO> getTags() {
         return tagService.getTags();
     }
 }

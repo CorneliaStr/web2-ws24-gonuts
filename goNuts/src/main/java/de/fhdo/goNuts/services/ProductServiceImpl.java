@@ -1,6 +1,7 @@
 package de.fhdo.goNuts.services;
 
 import de.fhdo.goNuts.domain.Product;
+import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.ProductService;
 import de.fhdo.goNuts.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -20,15 +22,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<ProductDTO> getAllProducts() {
         List<Product> products = new ArrayList<>();
         productRepository.findAll().forEach(products::add);
-        return products;
+        return productRepository
+                .findAll()
+                .stream()
+                .map(p -> new ProductDTO(p.getId(), p.getName(),p.getDescription(), p.getPrice(), p.getImage()))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Product getProduct(Long id) {
+    public ProductDTO getProduct(Long id) {
         Optional<Product> product = productRepository.findById(id);
-        return product.orElse(null);
+        return  product.stream()
+                .map(p -> new ProductDTO(p.getId(), p.getName(),p.getDescription(), p.getPrice(), p.getImage()))
+                .findAny()
+                .orElse(null);
     }
 }

@@ -1,6 +1,7 @@
 package de.fhdo.goNuts.graphqlcontroller;
 
 import de.fhdo.goNuts.domain.Product;
+import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.ProductService;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ public class GraphProductController {
     }
 
     @QueryMapping("products")
-    public List<Product> getProducts() {
+    public List<ProductDTO> getProducts() {
         return productService.getAllProducts();
     }
 

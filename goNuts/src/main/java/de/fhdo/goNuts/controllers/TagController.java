@@ -1,6 +1,7 @@
 package de.fhdo.goNuts.controllers;
 
 import de.fhdo.goNuts.domain.Tag;
+import de.fhdo.goNuts.dto.TagDTO;
 import de.fhdo.goNuts.interfaces.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class TagController {
     }
 
     @GetMapping
-    public List<Tag> getTags() {
+    public List<TagDTO> getTags() {
         return tagService.getTags();
     }
 }

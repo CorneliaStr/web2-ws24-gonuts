@@ -1,11 +1,12 @@
 package de.fhdo.goNuts.interfaces;
 
 import de.fhdo.goNuts.domain.Product;
+import de.fhdo.goNuts.dto.ProductDTO;
 
 import java.util.List;
 
 public interface ProductService {
-    public List<Product> getAllProducts();
+    public List<ProductDTO> getAllProducts();
 
-    public Product getProduct(Long id);
+    public ProductDTO getProduct(Long id);
 }

@@ -1,6 +1,7 @@
 package de.fhdo.goNuts.controllers;
 
 import de.fhdo.goNuts.domain.Product;
+import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getProducts() {
+    public List<ProductDTO> getProducts() {
         return productService.getAllProducts();
     }
 
