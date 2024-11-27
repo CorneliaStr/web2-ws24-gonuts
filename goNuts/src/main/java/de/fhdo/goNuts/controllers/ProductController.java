@@ -1,11 +1,27 @@
 package de.fhdo.goNuts.controllers;
 
-import org.springframework.stereotype.Controller;
+import de.fhdo.goNuts.domain.Product;
+import de.fhdo.goNuts.interfaces.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RequestMapping("/api/product")
+@RestController
 public class ProductController {
+    private final ProductService productService;
 
-    public void test() {
-
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
+
+    @GetMapping
+    public List<Product> getProducts() {
+        return productService.getAllProducts();
+    }
+
 }

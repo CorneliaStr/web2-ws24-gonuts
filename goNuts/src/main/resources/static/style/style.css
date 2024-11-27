@@ -9,6 +9,8 @@ body {
     display: flex;
     justify-content: center;
     background-color: #f5f5f5;
+    flex-direction: column;
+    align-items: center;
 }
 
 .heading {
@@ -36,6 +38,10 @@ button, input[type=file]::file-selector-button {
     color: #fff;
 }
 
+a{
+    cursor: pointer;
+}
+
 input[type=file]{
     cursor: pointer;
 }
@@ -49,8 +55,6 @@ input, select, input[type="date"], textarea {
 }
 
 .image-product {
-    width: 189px;
-    height: 221px;
     border-width: 2px;
     border-style: solid;
     border-radius: 4px 4px 4px 4px;
@@ -71,6 +75,7 @@ input, select, input[type="date"], textarea {
     padding: 20px 0;
     border-top: 1px solid #e0e0e0;
     font-size: 14px;
+    width: 100%;
 }
 
 .footer-container {

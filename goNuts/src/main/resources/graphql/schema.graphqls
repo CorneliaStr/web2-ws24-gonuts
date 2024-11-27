@@ -1,0 +1,18 @@
+type Query {
+    tags: [Tag!]!
+    products: [Product!]!
+}
+
+type Tag {
+    id: ID!
+    name: String!
+}
+
+type Product {
+    id: ID!
+    name: String
+    description: String
+    price: Float
+    image: String
+    tags: [Tag!]!
+}

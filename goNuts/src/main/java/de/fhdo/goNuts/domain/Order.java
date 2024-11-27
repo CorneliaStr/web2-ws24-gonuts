@@ -12,9 +12,41 @@ public class Order {
     @Id
     @GeneratedValue
     private Long id;
-    
+
     private Date date;
-    
-    @OneToMany
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderPosition> orderPosition;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public List<OrderPosition> getOrderPosition() {
+        return orderPosition;
+    }
+
+    public void setOrderPosition(List<OrderPosition> orderPosition) {
+        this.orderPosition = orderPosition;
+    }
+
+    public Customer getCustomer() { return customer; }
+
+    public void setCustomer(Customer customer) { this.customer = customer; }
 }

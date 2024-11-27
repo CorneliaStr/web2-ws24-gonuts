@@ -3,16 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Shop</title>
+    <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/style/style.css">
-    <link rel="stylesheet" href="/style/shop.css">
+    <link rel="stylesheet" href="/style/style.css" >
+    <link rel="stylesheet" href="/style/cart.css" >
     <link rel="stylesheet" href="/style/header.css">
 </head>
 
 <body>
-
 <header class="header">
     <div class="logo">
         <a href="">
@@ -37,31 +36,51 @@
     </div>
 </header>
 
-<div class="shop-container">
-    <div class="filter-button-container">
-        <button class="filter-button"
-                th:each="tag : ${tags}"
-                th:text="${tag.name}">Nuss-Mix</button>
+<div class="container">
+    <nav class="breadcrumb" aria-label="Warenkorb-Navigation">
+        <span class="active">1. Warenkorb</span>
+        <span>2. Versand</span>
+        <span>Zahlmethode</span>
+    </nav>
+
+    <div class="grid-container">
+        <section aria-labelledby="cart-heading">
+            <h3 id="cart-heading">Warenkorb</h3>
+
+                <div  class="shop-container" th:each="product : ${products}">
+                    <img th:src="${product.image}" class="image-product" alt="...">
+                    <div>
+                        <h5 th:text="${product.name}">Nuts</h5>
+                        <p th:text="${product.price}">20 €</p>
+                    </div>
+                    <select class="quantity-select" aria-label="Anzahl">
+                        <option>1 Stück</option>
+                        <option>2 Stück</option>
+                        <option>3 Stück</option>
+                        <option>4 Stück</option>
+                    </select>
+                </div>
+
+        </section>
+
+        <aside aria-labelledby="summary-heading">
+            <h3 id="summary-heading">Übersicht</h3>
+            <hr>
+            <div class="summary-item"><span>SUMME ARTIKEL</span> <span th:text="${gesamtpreis} + ' €'"></span></div>
+            <div class="summary-item"><span>VERSAND</span> <span>FREI</span></div>
+            <hr>
+            <div class="summary-item total"><span>GESAMT</span> <span th:text="${gesamtpreis} + ' €'"></span></div>
+        </aside>
     </div>
 
-
-    <div class="heading">
-        <h2>Ergebnisse</h2>
-    </div>
-
-    <section class="products-list">
-        <a href="../product/product.html" class="product" th:each="product : ${products}">
-            <!-- Tags oben rechts -->
-            <div class="product-tags">
-                <span th:each="tag : ${product.tags}" th:text="${tag.name}"></span>
-            </div>
-            <img th:src="${product.image}" class="image-product" alt="...">
-            <div>
-                <h5 th:text="${product.name}">Nuts</h5>
-                <p th:text="${product.price} + ' €'">20 €</p>
-            </div>
+    <div class="buttons">
+        <a href="">
+            <button class="btn btn-continue">Weiter</button>
         </a>
-    </section>
+        <a href="">
+            <button class="btn btn-cancel">Abbrechen</button>
+        </a>
+    </div>
 </div>
 
 <footer class="footer">
@@ -99,5 +118,4 @@
 </footer>
 
 </body>
-
 </html>
