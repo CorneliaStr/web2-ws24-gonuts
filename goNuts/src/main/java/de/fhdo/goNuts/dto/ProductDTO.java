@@ -1,5 +1,8 @@
 package de.fhdo.goNuts.dto;
 
+import de.fhdo.goNuts.domain.Tag;
+
+import java.util.List;
 import java.util.Objects;
 
 public class ProductDTO {
@@ -10,14 +13,17 @@ public class ProductDTO {
     private Double price;
     private String image;
 
+    private List<TagDTO> tags;
+
     public ProductDTO() {}
 
-    public ProductDTO(Long id, String name, String description, Double price, String image) {
+    public ProductDTO(Long id, String name, String description, Double price, String image, List<TagDTO> tags) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
+        this.tags = tags;
     }
 
     public Long getId() {
@@ -58,6 +64,14 @@ public class ProductDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<TagDTO> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagDTO> tags) {
+        this.tags = tags;
     }
 
     @Override

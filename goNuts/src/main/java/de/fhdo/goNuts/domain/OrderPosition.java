@@ -1,9 +1,6 @@
 package de.fhdo.goNuts.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class OrderPosition {
@@ -11,11 +8,18 @@ public class OrderPosition {
     @GeneratedValue
     private Long id;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    public OrderPosition() {}
+
+    public OrderPosition(Order order, Product product) {
+        this.order = order;
+        this.product = product;
+    }
 
     public Long getId() {
         return id;

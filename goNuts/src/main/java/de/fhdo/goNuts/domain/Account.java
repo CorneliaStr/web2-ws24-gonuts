@@ -15,6 +15,14 @@ public class Account {
     
     private boolean admin;
 
+    public Account() {}
+
+    public Account(String email, String password, boolean admin) {
+        this.email = email;
+        this.password = password;
+        this.admin = admin;
+    }
+
     public String getEmail() {
         return email;
     }

@@ -2,6 +2,7 @@ package de.fhdo.goNuts.bootstrap;
 
 import de.fhdo.goNuts.domain.*;
 import de.fhdo.goNuts.interfaces.FavoritesService;
+import de.fhdo.goNuts.mapper.*;
 import de.fhdo.goNuts.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -90,5 +91,4 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
 
         favoritesRepository.save(favorites1);
     }
-
 }

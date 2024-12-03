@@ -1,19 +1,17 @@
 package de.fhdo.goNuts.dto;
 
-import de.fhdo.goNuts.domain.Customer;
-
 import java.util.List;
 import java.util.Objects;
 
 public class FavoritesDTO {
     private Long id;
-    private Customer customer;
+    private CustomerDTO customer;
     private List<ProductDTO> products;
 
     public FavoritesDTO() {
     }
 
-    public FavoritesDTO(Long id, Customer customer, List<ProductDTO> products) {
+    public FavoritesDTO(Long id, CustomerDTO customer, List<ProductDTO> products) {
         this.id = id;
         this.customer = customer;
         this.products = products;
@@ -27,11 +25,11 @@ public class FavoritesDTO {
         this.id = id;
     }
 
-    public Customer getCustomer() {
+    public CustomerDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
 

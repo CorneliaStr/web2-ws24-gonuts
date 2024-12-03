@@ -20,6 +20,13 @@ public class Favorites {
             inverseJoinColumns={@JoinColumn(name="productId")})
     private List<Product> products;
 
+    public Favorites() {}
+
+    public Favorites(Customer customer, List<Product> products) {
+        this.customer = customer;
+        this.products = products;
+    }
+
     public Long getId() {
         return id;
     }

@@ -22,9 +22,15 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    public Long getId() {
-        return id;
+    public Order() {}
+
+    public Order(Date date, List<OrderPosition> orderPosition, Customer customer) {
+        this.date = date;
+        this.orderPosition = orderPosition;
+        this.customer = customer;
     }
+
+    public Long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;
