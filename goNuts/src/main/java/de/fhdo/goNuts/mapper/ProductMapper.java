@@ -4,6 +4,7 @@ import de.fhdo.goNuts.domain.Product;
 import de.fhdo.goNuts.domain.Tag;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.dto.TagDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 public class ProductMapper implements Mapper<Product, ProductDTO> {
     private final TagMapper tagMapper;
 
+    @Autowired
     public ProductMapper(TagMapper tagMapper) {
         this.tagMapper = tagMapper;
     }
