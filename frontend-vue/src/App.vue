@@ -1,20 +1,16 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import SharedHeader from './components/shared/SharedHeader.vue'
+import SharedFooter from './components/shared/SharedFooter.vue'
+import Shop from './components/Shop.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <shared-header></shared-header>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <shop></shop>
+
+  <shared-footer></shared-footer>
 </template>
 
 <style scoped>
