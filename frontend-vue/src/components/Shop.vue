@@ -30,8 +30,8 @@
 <script setup>
 import FilterTag from './FilterTag.vue'
 import { computed, onMounted, ref } from "vue";
-import tagService from "@/components/services/TagService.js";
-import productService from "@/components/services/productService.js";
+import tagService from "@/services/TagService.js";
+import productService from "@/services/productService.js";
 import ProductCard from "@/components/ProductCard.vue";
 
 const {tags, fetchTags} = tagService();

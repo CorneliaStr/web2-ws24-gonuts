@@ -1,5 +1,5 @@
 <template>
-  <a href="../product/product.html" class="product">
+  <router-link :to="'/product/' + product.id" class="product">
     <!-- Tags oben rechts -->
     <div class="product-tags">
       <span v-for="tag in product.tags" :key="tag.id">{{ tag.name }}</span>
@@ -10,7 +10,7 @@
       <h5>{{ product.name }}</h5>
       <p>{{ product.price }} €</p>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script setup>

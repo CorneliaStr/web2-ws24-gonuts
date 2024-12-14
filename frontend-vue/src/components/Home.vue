@@ -24,8 +24,8 @@
 
 <script setup>
 import Carousel from 'primevue/carousel';
-import productService from "@/components/services/productService.js";
-import { onMounted, ref } from "vue";
+import productService from "@/services/productService.js";
+import { onMounted } from "vue";
 import ProductCard from "@/components/ProductCard.vue";
 
 const {products, fetchProducts} = productService();
