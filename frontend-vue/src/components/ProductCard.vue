@@ -30,6 +30,11 @@ const props = defineProps(["product"]);
   text-decoration: none;
   color: inherit;
 
+  width: 280px;
+  height: 500px;
+
+  max-width: 280px;
+  max-height: 300px;
   position: relative;
 }
 

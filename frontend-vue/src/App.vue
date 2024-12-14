@@ -2,13 +2,14 @@
 import SharedHeader from './components/shared/SharedHeader.vue'
 import SharedFooter from './components/shared/SharedFooter.vue'
 import Shop from './components/Shop.vue'
+import Home from "@/components/Home.vue";
 </script>
 
 <template>
   <shared-header></shared-header>
 
     <main class="app-container">
-      <shop></shop>
+      <home></home>
     </main>
 
   <shared-footer></shared-footer>
