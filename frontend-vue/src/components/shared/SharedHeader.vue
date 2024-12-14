@@ -24,10 +24,8 @@
     </header>
 </template>
 
-<script>
-export default {
-  name: 'SharedHeader',
-}
+<script setup>
+
 </script>
 
 <style>
