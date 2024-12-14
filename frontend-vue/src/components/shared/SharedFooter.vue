@@ -15,9 +15,9 @@
             <div class="footer-column">
                 <h4>HAUPTMENÜ</h4>
                 <ul class="footer-menu">
-                    <li><a href="">Home</a></li>
-                    <li><a href="../shop">Produkte</a></li>
-                    <li><a href="../favorites?id=1">Merkliste</a></li>
+                    <li><router-link to="/">Home</router-link></li>
+                    <li><router-link to="../shop">Produkte</router-link></li>
+                    <li><router-link to="../favorites?id=1">Merkliste</router-link></li>
                 </ul>
             </div>
 
