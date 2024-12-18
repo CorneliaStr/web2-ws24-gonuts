@@ -12,10 +12,8 @@
       <router-link to="/">Home</router-link>
       <router-link to="../shop">Produkte</router-link>
       <router-link to="../favorites?id=1">Merkliste</router-link>
+      <router-link to="../cart">Warenkorb</router-link>
     </nav>
-    <button class="cart-btn" onclick="location.href='../cart?id=1'">
-      <span class="cart-icon">🛒</span> Warenkorb
-    </button>
     <div class="profile-icon">
       <router-link to="/account">
         <img src="@/assets/images/profile.png" alt="Profil">
