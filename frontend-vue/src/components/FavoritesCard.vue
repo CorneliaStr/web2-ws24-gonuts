@@ -7,6 +7,7 @@
         <strong>{{product.price}} €</strong>
       </div>
     </router-link>
+
     <div class="element-group">
       <input class="number-step" value="1" max="50" min="1" name="points" step="1" type="number">
       <button class="cart-button">Zum Warenkorb hinzufügen</button>
