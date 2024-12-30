@@ -5,9 +5,9 @@
         <img src="@/assets/images/GoNutsLogo.jpg" alt="GoNuts Logo">
       </router-link>
     </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Suche...">
-    </div>
+
+    <search-bar class="search-bar" />
+
     <nav class="nav-links">
       <router-link to="/">Home</router-link>
       <router-link to="../shop">Produkte</router-link>
@@ -27,6 +27,7 @@
 
 <script setup>
 
+import SearchBar from "@/components/SearchBar.vue";
 </script>
 
 <style>
