@@ -3,7 +3,7 @@ import { ref, onBeforeMount, computed } from 'vue';
 import orderService from "@/services/orderService.js";
 import Button from 'primevue/button';
 
-const { order, fetchOrderById } = orderService();
+const { order, fetchCart } = orderService();
 
 // Initialisiere mit einem Standardwert
 order.value = {
@@ -12,7 +12,7 @@ order.value = {
 
 onBeforeMount(async () => {
     try {
-        await fetchOrderById(1); // Läd die Order-Daten
+        await fetchCart(); // Läd die Order-Daten
     } catch (error) {
         console.error('Failed to fetch order:', error);
     }

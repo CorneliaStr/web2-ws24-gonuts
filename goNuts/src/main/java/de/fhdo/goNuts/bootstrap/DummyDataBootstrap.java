@@ -85,6 +85,26 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         // Bestellung speichern (kaskadiert Bestellpositionen)
         orderRepository.save(order1);
 
+
+        // Bestellung erstellen
+        Order order2 = new Order();
+        order2.setCustomer(customer1);
+
+        // Bestellpositionen erstellen
+        OrderPosition orderPosition3 = new OrderPosition();
+        orderPosition3.setProduct(product1);
+        orderPosition3.setOrder(order2);
+
+        OrderPosition orderPosition4 = new OrderPosition();
+        orderPosition4.setProduct(product2);
+        orderPosition4.setOrder(order2);
+
+        // Bestellpositionen der Bestellung hinzufügen
+        order2.setOrderPosition(Arrays.asList(orderPosition3, orderPosition4));
+
+        // Bestellung speichern (kaskadiert Bestellpositionen)
+        orderRepository.save(order2);
+
         Favorites favorites1 = new Favorites();
         favorites1.setCustomer(customer1);
         favorites1.setProducts(Arrays.asList(product1, product2, product4, product7));

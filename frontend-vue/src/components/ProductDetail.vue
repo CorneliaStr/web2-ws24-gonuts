@@ -18,11 +18,10 @@
       </p>
       <div>
         <router-link to="/favorites">
-          <button class="button-secondary">Zur Merkliste hinzufügen</button>
-        </router-link>
-        <a href="/cart">
-          <button class="button-primary">Zum Warenkorb hinzufügen</button>
-        </a>
+          <button class="button-secondary" >Zur Merkliste hinzufügen</button>
+        </router-link to="/cart">
+          <button class="button-primary" @click="addToCart(product)">Zum Warenkorb hinzufügen</button>
+
       </div>
     </div>
   </section>
@@ -40,10 +39,12 @@
 import { computed, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
 import productService from "@/services/productService.js";
+import orderService from "@/services/orderService";
 import ProductCard from "@/components/ProductCard.vue";
 
 const route = useRoute();
 const {product, products, fetchProductById, fetchProducts} = productService();
+const {productDTO, fetchAddToCart} = orderService();
 
 const similarProducts = computed(() => {
   if (!product.value || !product.value.tags) return [];
@@ -56,6 +57,13 @@ onBeforeMount(() => {
   fetchProductById(route.params.id);
   fetchProducts();
 });
+
+const addToCart = async (product) =>{
+  console.log(product)
+  fetchAddToCart(product);
+}
+
+
 </script>
 
 <style scoped>
