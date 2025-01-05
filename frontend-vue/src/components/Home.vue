@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <img src="@/assets/images/banner.png" class="banner-image" alt="Banner">
   </div>
@@ -12,14 +11,11 @@
     <template #item="slotProps">
       <section class="products-list">
         <product-card :product="slotProps.data"></product-card>
-
       </section>
     </template>
-
   </Carousel>
 
   <hr class="seperator">
-
 </template>
 
 <script setup>
@@ -33,16 +29,10 @@ const {products, fetchProducts} = productService();
 onMounted(() => {
   fetchProducts()
 });
-
-
 </script>
 
-
 <style scoped>
-
 .banner-image {
   width: 100%;
 }
-
-
 </style>

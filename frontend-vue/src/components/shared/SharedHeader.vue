@@ -11,23 +11,53 @@
     <nav class="nav-links">
       <router-link to="/">Home</router-link>
       <router-link to="../shop">Produkte</router-link>
-      <router-link to="../favorites/1">Merkliste</router-link>
       <router-link to="../cart">Warenkorb</router-link>
     </nav>
     <button class="cart-btn" onclick="location.href='../cart?id=1'">
       <span class="cart-icon">🛒</span> Warenkorb
     </button>
-    <div class="profile-icon">
-      <router-link to="/account">
+
+    <div ref="accountContainer">
+      <div class="profile-icon" @click="toggleAccountMenu">
         <img src="@/assets/images/profile.png" alt="Profil">
-      </router-link>
+      </div>
+
+      <account-menu ref="accountMenu"/>
     </div>
   </header>
 </template>
 
 <script setup>
-
+import {ref, onMounted, onUnmounted} from 'vue';
 import SearchBar from "@/components/SearchBar.vue";
+import AccountMenu from '../AccountMenu.vue';
+
+const accountMenu = ref(null);
+const accountContainer = ref(null);
+
+const toggleAccountMenu = () => {
+  if (accountMenu.value) {
+    accountMenu.value.toggleMenu();
+  }
+};
+
+/**
+ * Ruft handleClickOutsideOfMenu auf. Als Referenz wird der AccountContainer übergeben, damit das Account-Icon ebenfalls als "innerhalb" des Menüs wahrgenommen wird.
+ */
+const callHandleClickOutsideOfMenu = (event) => {
+  if (accountMenu.value) {
+    accountMenu.value.handleClickOutsideOfMenu(event, accountContainer);
+  }
+};
+
+
+onMounted(() => {
+  document.addEventListener('click', callHandleClickOutsideOfMenu);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', callHandleClickOutsideOfMenu);
+});
 </script>
 
 <style>
@@ -100,6 +130,7 @@ header {
 .profile-icon img {
   width: 40px;
   height: 40px;
+  cursor: pointer;
 }
 
 </style>

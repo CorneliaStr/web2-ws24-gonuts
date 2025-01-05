@@ -24,6 +24,10 @@
   margin: 3rem 0;
 }
 
+h1, h2, h3, h4, h5, p {
+  color: #333;
+}
+
 h2 {
   margin-left: 20px;
   margin-bottom: 20px;
