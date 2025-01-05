@@ -5,13 +5,13 @@ import de.fhdo.goNuts.domain.Order;
 import de.fhdo.goNuts.domain.OrderPosition;
 import de.fhdo.goNuts.domain.Product;
 import de.fhdo.goNuts.dto.OrderDTO;
+import de.fhdo.goNuts.dto.OrderPositionDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.mapper.OrderMapper;
 import de.fhdo.goNuts.mapper.ProductMapper;
 import de.fhdo.goNuts.repository.CustomerRepository;
 import de.fhdo.goNuts.repository.OrderRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,28 +52,31 @@ public class OrderServiceImpl implements OrderService {
 
         Optional<Customer> customer = this.customerRepository.findById(1L);
         //Optional<Order> order = this.orderRepository.findById(1L);
-        System.out.println(customer);
         Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(customer);
         List<Order> order2 = this.orderRepository.findAll();
-        System.out.println(order2);
         return order.map(o -> orderMapper.mapEntityToDto(o)).orElse(null);
     }
-
 
     @Override
     public void  addProductToOrder(ProductDTO productDTO) {
 
-
-
         Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(this.customerRepository.findById(1L));
-        List<OrderPosition> currentOrderPositions = order.get().getOrderPosition();
 
+        //Falls schon vorhanden +1
+        for(OrderPosition positon : order.get().getOrderPosition()){
+            if(positon.getProduct().getId().equals(productDTO.getId())){
+                positon.setQuantity(positon.getQuantity()+1);
+                return;
+            }
+        }
+
+        //Ansonsten neue Position anlegen
         OrderPosition newOrderPosition = new OrderPosition();
-        Product product = productMapper.mapDtoToEntity(productDTO);
-        newOrderPosition.setProduct(product);
         newOrderPosition.setOrder(order.get());
-        currentOrderPositions.add(newOrderPosition);
-        order.get().setOrderPosition(currentOrderPositions);
-        orderRepository.save(order.get());
+        newOrderPosition.setProduct(this.productMapper.mapDtoToEntity(productDTO));
+        List<OrderPosition> orderPositionList = order.get().getOrderPosition();
+        orderPositionList.add(newOrderPosition);
+        order.get().setOrderPosition(orderPositionList);
     }
+
 }

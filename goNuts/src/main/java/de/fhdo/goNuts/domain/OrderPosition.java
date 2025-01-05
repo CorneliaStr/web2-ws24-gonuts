@@ -14,6 +14,8 @@ public class OrderPosition {
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
+    private long quantity;
+
     public OrderPosition() {}
 
     public OrderPosition(Order order, Product product) {
@@ -39,6 +41,14 @@ public class OrderPosition {
 
     public Product getProduct() {
         return product;
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
     }
 
     public void setProduct(Product product) {
