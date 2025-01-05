@@ -32,7 +32,7 @@ const navigateToFavorites = () =>  {
 };
 
 const logout = () => {
-  authStore.deleteToken();
+  authStore.logout();
   closeMenu();
 };
 
