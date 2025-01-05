@@ -6,16 +6,17 @@
 </template>
 
 <script setup>
-import {onBeforeMount} from "vue";
+import {computed, onBeforeMount} from "vue";
 import {useRoute} from "vue-router";
-import favoritesService from "@/services/favoritesService.js";
+import{useFavoritesStore} from "@/stores/favoritesStore.js";
 import FavoritesCard from './FavoritesCard.vue';
 
+const favoritesStore = useFavoritesStore();
 const route = useRoute();
-const {favorites, fetchFavoritesById} = favoritesService();
+const favorites = computed(() => favoritesStore.favorites);
 
 onBeforeMount(() => {
-  fetchFavoritesById(route.params.id);
+  favoritesStore.getFavorites(route.params.id);
 });
 </script>
 
