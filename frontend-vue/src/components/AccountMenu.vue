@@ -12,6 +12,9 @@
 <script setup>
 import {ref, defineExpose} from 'vue';
 import router from "@/router/router.js";
+import {useAuthStore} from '@/stores/authStore';
+
+const authStore = useAuthStore();
 
 const menuVisible = ref(false);
 
@@ -29,8 +32,8 @@ const navigateToFavorites = () =>  {
 };
 
 const logout = () => {
+  authStore.deleteToken();
   closeMenu();
-  console.log('Abgemeldet');
 };
 
 /**

@@ -12,10 +12,12 @@ import TagForm from "@/components/Admin/TagForm.vue";
 import TagTable from "@/components/Admin/TagTable.vue";
 import ProductTable from "@/components/Admin/ProductTable.vue";
 import AdminView from "@/components/Admin/AdminView.vue";
+import Login from "@/components/Login.vue";
 
 
 const routes = [
     { path: "/", component: Home },
+    { path: "/login", component: Login },
     { path: "/shop", component: Shop },
     { path: "/product/:id", component: ProductDetail },
     { path: "/favorites/:id", component: Favorites },

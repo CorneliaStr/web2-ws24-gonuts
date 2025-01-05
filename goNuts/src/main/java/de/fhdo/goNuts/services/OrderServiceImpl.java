@@ -11,7 +11,6 @@ import de.fhdo.goNuts.mapper.OrderMapper;
 import de.fhdo.goNuts.mapper.ProductMapper;
 import de.fhdo.goNuts.repository.CustomerRepository;
 import de.fhdo.goNuts.repository.OrderRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

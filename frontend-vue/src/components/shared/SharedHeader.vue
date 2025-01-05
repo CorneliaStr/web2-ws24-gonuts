@@ -16,8 +16,10 @@
       <router-link v-if="!isAdmin" to="/admin">Admin</router-link>
     </nav>
 
-    <div ref="accountContainer">
-      <div class="profile-icon" @click="toggleAccountMenu">
+    <div class="account-container" ref="accountContainer">
+      <router-link v-if="!token" to="../login">Anmelden</router-link>
+
+      <div v-else class="profile-icon" @click="toggleAccountMenu">
         <img src="@/assets/images/profile.png" alt="Profil">
       </div>
 
@@ -27,12 +29,16 @@
 </template>
 
 <script setup>
-import {ref, onMounted, onUnmounted} from 'vue';
+import {ref, onMounted, onUnmounted, computed} from 'vue';
 import SearchBar from "@/components/SearchBar.vue";
 import AccountMenu from '../AccountMenu.vue';
+import {useAuthStore} from '@/stores/authStore';
+
+const authStore = useAuthStore();
 
 const accountMenu = ref(null);
 const accountContainer = ref(null);
+const token = computed(() => authStore.token);
 
 const toggleAccountMenu = () => {
   if (accountMenu.value) {
@@ -102,9 +108,6 @@ header {
   color: #333;
   font-size: 16px;
   font-weight: 500;
-}
-
-.nav-links a {
   position: relative;
   padding-right: 2rem;
 }
@@ -124,6 +127,18 @@ header {
 
 .cart-icon {
   font-size: 18px;
+}
+
+.account-container a {
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
 }
 
 .profile-icon img {

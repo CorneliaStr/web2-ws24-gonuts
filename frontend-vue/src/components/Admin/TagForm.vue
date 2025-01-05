@@ -5,7 +5,7 @@
       <label for="name">Name:</label>
       <input type="text" id="name" v-model="newTag.name" required/>
     </div>
-    <button type="submit">Add Product</button>
+    <button type="submit">Add Tag</button>
   </form>
 </template>
 

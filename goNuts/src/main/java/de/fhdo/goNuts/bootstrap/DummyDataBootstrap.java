@@ -1,18 +1,16 @@
 package de.fhdo.goNuts.bootstrap;
 
 import de.fhdo.goNuts.domain.*;
-import de.fhdo.goNuts.interfaces.FavoritesService;
-import de.fhdo.goNuts.mapper.*;
 import de.fhdo.goNuts.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -20,14 +18,16 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
     private final OrderRepository orderRepository;
     private final TagRepository tagRepository;
     private final FavoritesRepository favoritesRepository;
+    private final AccountRepository accountRepository;
     private final CustomerRepository customerRepository;
 
     @Autowired
-    public DummyDataBootstrap(ProductRepository productRepository, TagRepository tagRepository, OrderRepository orderRepository, FavoritesRepository favoritesRepository, CustomerRepository customerRepository) {
+    public DummyDataBootstrap(ProductRepository productRepository, TagRepository tagRepository, OrderRepository orderRepository, FavoritesRepository favoritesRepository, AccountRepository accountRepository, CustomerRepository customerRepository) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.tagRepository = tagRepository;
         this.favoritesRepository = favoritesRepository;
+        this.accountRepository = accountRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -84,8 +84,12 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         productRepository.save(product15);
         productRepository.save(product16);
 
+        Account account1 = new Account("admin@gmail.com", "admin", true);
+        accountRepository.save(account1);
+        Account account2 = new Account("user@gmail.com", "user", false);
+        accountRepository.save(account2);
 
-        Customer customer1 = new Customer("Bernd", "Bunt", null, "Dortmund", null);
+        Customer customer1 = new Customer("Bernd", "Bunt", LocalDate.of(1990, 2, 12), "Dortmund", account2);
         customerRepository.save(customer1);
 
         // Bestellung erstellen
