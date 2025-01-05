@@ -1,18 +1,17 @@
 <template>
-  <div class="account-menu">
-    <div v-if="menuVisible" class="menu">
-      <ul>
-        <li @click="navigateTo('profile')">Profil</li>
-        <li @click="navigateTo('orders')">Bestellungen</li>
-        <li @click="navigateTo('settings')">Einstellungen</li>
-        <li @click="logout">Abmelden</li>
-      </ul>
-    </div>
+  <div v-if="menuVisible" class="menu">
+    <ul>
+      <li @click="closeMenu">Profil</li>
+      <li @click="closeMenu">Bestellungen</li>
+      <li @click="navigateToFavorites">Favoriten</li>
+      <li @click="logout">Abmelden</li>
+    </ul>
   </div>
 </template>
 
 <script setup>
-import { ref, defineExpose} from 'vue';
+import {ref, defineExpose} from 'vue';
+import router from "@/router/router.js";
 
 const menuVisible = ref(false);
 
@@ -24,13 +23,13 @@ const closeMenu = () => {
   menuVisible.value = false;
 };
 
-const navigateTo = (page) => {
-  closeMenu()
-  console.log(`Navigiere zu: ${page}`);
+const navigateToFavorites = () =>  {
+  closeMenu();
+  router.push('/favorites/1')
 };
 
 const logout = () => {
-  closeMenu()
+  closeMenu();
   console.log('Abgemeldet');
 };
 
@@ -52,11 +51,12 @@ defineExpose({
 <style scoped>
 .menu {
   position: absolute;
-  top: 50px;
-  right: 0;
+  top: 70px;
+  right: 10px;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  border: 1px solid #ccc;
   z-index: 10;
   width: 200px;
 }
