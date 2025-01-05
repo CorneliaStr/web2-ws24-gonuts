@@ -19,8 +19,10 @@
       <div>
         <router-link to="/favorites">
           <button class="button-secondary" >Zur Merkliste hinzufügen</button>
-        </router-link to="/cart">
+        </router-link>
+        <router-link to="/cart">
           <button class="button-primary" @click="addToCart(product)">Zum Warenkorb hinzufügen</button>
+        </router-link>
 
       </div>
     </div>

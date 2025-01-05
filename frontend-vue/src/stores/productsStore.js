@@ -10,6 +10,9 @@ export const useProductsStore = defineStore("products", () => {
 
     // Search Query
     watch([searchQuery, selectedTag], ([query, newTag]) => {
+        if(query === null && newTag === null){
+            filteredProducts.value = products.value;
+        }
         filteredProducts.value = products.value.filter((product) => {
             const matchesQuery = query
                 ? product.name.toLowerCase().includes(query.toLowerCase())

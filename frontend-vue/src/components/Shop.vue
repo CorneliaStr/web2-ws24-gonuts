@@ -42,12 +42,15 @@ const {selectedTag} = storeToRefs(productStore);
 
 // Filter anwenden
 const applyFilter = (filter) => {
-  selectedTag.value = filter;
+  if (selectedTag.value === filter) {
+    selectedTag.value = null;
+  } else {
+    selectedTag.value = filter;
+  }
 };
 
 onMounted(() => {
   productStore.getTags();
-  productStore.getProducts();
 });
 </script>
 
@@ -55,7 +58,6 @@ onMounted(() => {
 .filter-button-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   padding: 20px;
 }
 
