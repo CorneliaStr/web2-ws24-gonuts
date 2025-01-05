@@ -31,7 +31,7 @@ const props = defineProps(["product"]);
 }
 
 .favorite:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .element-group {
