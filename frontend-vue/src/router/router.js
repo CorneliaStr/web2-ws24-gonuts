@@ -13,7 +13,8 @@ import TagTable from "@/components/Admin/TagTable.vue";
 import ProductTable from "@/components/Admin/ProductTable.vue";
 import AdminView from "@/components/Admin/AdminView.vue";
 import Login from "@/components/Login.vue";
-
+import {useAuthStore} from '@/stores/authStore';
+import {computed} from "vue";
 
 const routes = [
     { path: "/", component: Home },
@@ -25,17 +26,28 @@ const routes = [
     { path: "/account", component: Account },
     { path: "/shipping", component: Shipping },
     { path: "/payment", component: Payment },
-    { path: "/admin", component: AdminView },
-    { path: "/productTable", component: ProductTable },
-    { path: "/addProduct", component: ProductForm },
-    { path: "/addTag", component: TagForm },
-    { path: "/tagTable", component: TagTable },
+    { path: "/admin", component: AdminView, meta: { requiresAdmin: true }},
+    { path: "/productTable", component: ProductTable, meta: { requiresAdmin: true } },
+    { path: "/addProduct", component: ProductForm, meta: { requiresAdmin: true } },
+    { path: "/addTag", component: TagForm, meta: { requiresAdmin: true } },
+    { path: "/tagTable", component: TagTable, meta: { requiresAdmin: true } },
 
 ];
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes
+});
+
+router.beforeEach((to, from, next) => {
+    let authStore = useAuthStore();
+    let isAdmin = computed(() => authStore.isAdmin);
+
+    if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin.value) {
+        next("/");
+    } else {
+        next();
+    }
 });
 
 export default router;
