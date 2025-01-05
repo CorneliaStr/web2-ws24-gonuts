@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,7 @@
 <header class="header">
     <div class="logo">
         <a href="">
-            <img src="/images/GoNutsLogo.jpg" alt="GoNuts Logo">
+            <img src="../images/GoNutsLogo.jpg" alt="GoNuts Logo">
         </a>
     </div>
     <div class="search-bar">
@@ -32,7 +32,7 @@
     </button>
     <div class="profile-icon">
         <a href="">
-            <img src="/images/profile.png" alt="Profil">
+            <img src="../images/profile.png" alt="Profil">
         </a>
     </div>
 </header>
@@ -53,23 +53,6 @@
     </section>
 
 </main>
-
-<!-- <div class="shop-container">
-    <div id="tagList" class="filter-button-container">
-        <button class="filter-button"
-                th:each="tag : ${tags}"
-                th:text="${tag.name}">Nuss-Mix</button>
-    </div>
-
-
-    <div class="heading">
-        <h2>Ergebnisse</h2>
-    </div>
-
-    <section class="products-list">
-        
-    </section>
-</div> -->
 
 <footer class="footer">
     <div class="footer-container">
@@ -105,7 +88,8 @@
     </div>
 </footer>
 
-<script src="../js/script.js"></script>
+<script src="../js/script-products.js"></script>
+<script src="../js/script-tags.js"></script>
 </body>
 
 </html>
