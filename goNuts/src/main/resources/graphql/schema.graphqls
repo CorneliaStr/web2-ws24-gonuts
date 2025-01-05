@@ -3,6 +3,27 @@ type Query {
     products: [Product!]!
     product(id: ID!): Product
 }
+type Mutation {
+    createProduct(product: ProductInput!): Product!
+    createTag(tag: TagInput!): Tag!
+}
+
+input ProductInput {
+    name: String
+    description: String
+    price: Float
+    image: String
+    tags: [ProductTagInput!]!
+}
+
+input TagInput {
+    name: String!
+}
+
+input ProductTagInput {
+    id: ID!
+    name: String!
+}
 
 type Tag {
     id: ID!
