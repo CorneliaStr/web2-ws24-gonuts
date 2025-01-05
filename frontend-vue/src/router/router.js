@@ -7,6 +7,11 @@ import Cart from "@/components/Cart.vue";
 import Account from "@/components/Account.vue";
 import Shipping from "@/components/Shipping.vue";
 import Payment from "@/components/Payment.vue";
+import ProductForm from "@/components/Admin/ProductForm.vue";
+import TagForm from "@/components/Admin/TagForm.vue";
+import TagTable from "@/components/Admin/TagTable.vue";
+import ProductTable from "@/components/Admin/ProductTable.vue";
+import AdminView from "@/components/Admin/AdminView.vue";
 
 
 const routes = [
@@ -18,6 +23,11 @@ const routes = [
     { path: "/account", component: Account },
     { path: "/shipping", component: Shipping },
     { path: "/payment", component: Payment },
+    { path: "/admin", component: AdminView },
+    { path: "/productTable", component: ProductTable },
+    { path: "/addProduct", component: ProductForm },
+    { path: "/addTag", component: TagForm },
+    { path: "/tagTable", component: TagTable },
 
 ];
 

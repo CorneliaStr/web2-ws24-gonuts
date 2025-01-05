@@ -61,33 +61,8 @@ onMounted(() => {
   padding: 20px;
 }
 
-filter-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-button {
-  padding: 10px 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
-
-button.active {
-  background-color: #333;
-  color: white;
-  border-color: #333;
-}
-
-.tags span {
-  display: inline-block;
-  margin-right: 5px;
-  padding: 2px 5px;
-  background-color: #e0e0e0;
-  border-radius: 3px;
-  font-size: 12px;
+.admin-section {
+  margin: 5px 10px;
 }
 
 </style>

@@ -28,4 +28,9 @@ public class ProductController {
         return this.productService.getProduct(id);
     }
 
+    @PostMapping
+    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
+        return this.productService.createProduct(productDTO);
+    }
+
 }
