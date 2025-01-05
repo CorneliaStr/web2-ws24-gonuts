@@ -3,6 +3,30 @@ let fetchCart = function(){
          .then(response => response.json())
          .then(json => buildCartProducts(json))
 }
+//TODO Cross-Origin muss noch gelöst werden
+let fetchCartGraphQL = function() {
+fetch( "http://localhost:8080/graphql", {
+    method : `post`,
+    headers: {
+        'Content-Type': `application/json`,
+    },
+    body: JSON.stringify( {
+        query: `
+        {
+            cart {
+                id
+            }
+        }`
+    } )
+} )
+.then( response => response.json() )
+.then( response => console.log( response ) );
+};
+
+let printGraphQL = function(order){
+    console.log(order);
+}
+
 
 let gesamtPreis = 0;
 
@@ -53,3 +77,4 @@ let buildCartProducts = function(order) {
 }
 
 fetchCart();
+//fetchCartGraphQL();
