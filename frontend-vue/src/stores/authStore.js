@@ -39,6 +39,5 @@ export const useAuthStore = defineStore("favorites", () => {
         token,
         login,
         deleteToken,
-        isUserLoggedIn,
     }
 })
