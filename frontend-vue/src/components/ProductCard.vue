@@ -10,6 +10,10 @@
       <h5>{{ product.name }}</h5>
       <p>{{ product.price }} €</p>
     </div>
+
+    <div>
+
+    </div>
   </router-link>
 </template>
 
