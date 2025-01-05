@@ -1,8 +1,9 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import {defineStore} from "pinia";
+import {ref} from "vue";
 
-export const useAuthStore = defineStore("favorites", () => {
+export const useAuthStore = defineStore("auth", () => {
     const token = ref(null);
+    const isAdmin = ref(false);
 
     async function login(email, password) {
         try {
@@ -23,6 +24,7 @@ export const useAuthStore = defineStore("favorites", () => {
             }
 
             token.value = await response.text();
+            checkIsAdmin();
 
             return true;
         } catch (error) {
@@ -31,13 +33,38 @@ export const useAuthStore = defineStore("favorites", () => {
         }
     }
 
-    function deleteToken() {
-       token.value = null;
+    function logout() {
+        token.value = null;
+        isAdmin.value = false;
+    }
+
+    async function checkIsAdmin() {
+        if (!token) {
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:8080/api/auth/isAdmin', {
+                method: 'GET',
+                headers: {
+                    'Authorization': token.value,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+            if (typeof result === 'boolean') {
+                isAdmin.value = result;
+            }
+        } catch (error) {
+            console.error("Fehler bei der Anfrage:", error);
+        }
     }
 
     return {
         token,
+        isAdmin,
         login,
-        deleteToken,
+        logout,
     }
 })

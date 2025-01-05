@@ -26,4 +26,9 @@ public class AuthController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Ungültige E-Mail oder Passwort");
     }
+
+    @GetMapping("/isAdmin")
+    public boolean isAdmin(@RequestHeader("Authorization") String token) {
+        return authService.isAdmin(token);
+    }
 }

@@ -13,7 +13,7 @@
       <router-link to="../shop">Produkte</router-link>
       <router-link to="../cart">Warenkorb</router-link>
       <!-- TODO: Wenn Nutzer Admin ist, dann admin site anzeigen -->
-      <router-link v-if="!isAdmin" to="/admin">Admin</router-link>
+      <router-link v-if="checkIsAdmin()" to="/admin">Admin</router-link>
     </nav>
 
     <div class="account-container" ref="accountContainer">
@@ -39,12 +39,17 @@ const authStore = useAuthStore();
 const accountMenu = ref(null);
 const accountContainer = ref(null);
 const token = computed(() => authStore.token);
+const isAdmin = computed(() => authStore.isAdmin);
 
 const toggleAccountMenu = () => {
   if (accountMenu.value) {
     accountMenu.value.toggleMenu();
   }
 };
+
+const checkIsAdmin = () => {
+  return isAdmin.value;
+}
 
 /**
  * Ruft handleClickOutsideOfMenu auf. Als Referenz wird der AccountContainer übergeben, damit das Account-Icon ebenfalls als "innerhalb" des Menüs wahrgenommen wird.
@@ -117,16 +122,6 @@ header {
   position: absolute;
   right: 0;
   color: #ccc;
-}
-
-.cart-btn {
-  display: flex;
-  gap: 5px;
-  margin-right: 1rem;
-}
-
-.cart-icon {
-  font-size: 18px;
 }
 
 .account-container a {
