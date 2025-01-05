@@ -1,5 +1,5 @@
 <template>
-  <h2>Merkliste</h2>
+  <h2>Favoriten</h2>
 
   <favorites-card v-for="product in favorites.products" :key="product.id" :product="product"></favorites-card>
 
