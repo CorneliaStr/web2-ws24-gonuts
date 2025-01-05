@@ -6,7 +6,7 @@
         :key="tag.id"
         :tag="tag"
         @click="applyFilter(tag)"
-        :class="{ active: activeFilter && activeFilter.id === tag.id }">
+        :class="{ active: selectedTag && selectedTag.id === tag.id }">
 
     </filter-tag>
   </section>
@@ -29,39 +29,35 @@
 
 <script setup>
 import FilterTag from './FilterTag.vue'
-import { computed, onMounted, ref } from "vue";
-import tagService from "@/services/tagService.js";
-import productService from "@/services/productService.js";
+import { computed, onMounted } from "vue";
 import ProductCard from "@/components/ProductCard.vue";
+import { useProductsStore } from "@/stores/productsStore.js";
+import { storeToRefs } from "pinia";
 
-const {tags, fetchTags} = tagService();
-const {products, fetchProducts} = productService();
-
+const productStore = useProductsStore();
+const filteredProducts = computed(() => productStore.filteredProducts)
+const tags = computed(() => productStore.tags);
 // Aktiver Filter
-const activeFilter = ref(null);
+const {selectedTag} = storeToRefs(productStore);
 
 // Filter anwenden
 const applyFilter = (filter) => {
-  activeFilter.value = filter;
+  if (selectedTag.value === filter) {
+    selectedTag.value = null;
+  } else {
+    selectedTag.value = filter;
+  }
 };
 
-const filteredProducts = computed(() => {
-  if (!activeFilter.value) {
-    return products.value; // Keine Filterung, alle Produkte anzeigen
-  }
-  return products.value.filter((product) =>
-      product.tags.some((tag) => tag.id === activeFilter.value.id)
-  );
+onMounted(() => {
+  productStore.getTags();
 });
-
-onMounted(fetchTags(), fetchProducts());
 </script>
 
 <style scoped>
 .filter-button-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   padding: 20px;
 }
 

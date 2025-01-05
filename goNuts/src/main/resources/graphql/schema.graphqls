@@ -1,6 +1,7 @@
 type Query {
     tags: [Tag!]!
     products: [Product!]!
+    product(id: ID!): Product
 }
 
 type Tag {
