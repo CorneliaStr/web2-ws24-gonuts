@@ -28,9 +28,11 @@
 
 <script setup>
 import {ref} from 'vue';
+import { useRouter } from 'vue-router';
 import {useAuthStore} from '@/stores/authStore';
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const email = ref('');
 const password = ref('');
@@ -40,8 +42,8 @@ const handleLogin = async () => {
   const success = await authStore.login(email.value, password.value);
 
   if (success) {
-    console.log('Login erfolgreich, Token gespeichert!');
     errorMessage.value = '';
+    router.push("/")
   } else {
     errorMessage.value =
         'Login fehlgeschlagen. Bitte überprüfen Sie Ihre Zugangsdaten.';

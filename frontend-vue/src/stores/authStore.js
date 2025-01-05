@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("favorites", () => {
             }
 
             token.value = await response.text();
-            console.log('Token:', token);
+
             return true;
         } catch (error) {
             console.error('Fehler beim Login:', error);
@@ -31,7 +31,14 @@ export const useAuthStore = defineStore("favorites", () => {
         }
     }
 
+    function deleteToken() {
+       token.value = null;
+    }
+
     return {
+        token,
         login,
+        deleteToken,
+        isUserLoggedIn,
     }
 })
