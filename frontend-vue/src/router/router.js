@@ -7,10 +7,12 @@ import Cart from "@/components/Cart.vue";
 import Account from "@/components/Account.vue";
 import Shipping from "@/components/Shipping.vue";
 import Payment from "@/components/Payment.vue";
+import Login from "@/components/Login.vue";
 
 
 const routes = [
     { path: "/", component: Home },
+    { path: "/login", component: Login },
     { path: "/shop", component: Shop },
     { path: "/product/:id", component: ProductDetail },
     { path: "/favorites/:id", component: Favorites },

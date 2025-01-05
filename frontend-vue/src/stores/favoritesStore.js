@@ -13,7 +13,6 @@ export const useFavoritesStore = defineStore("favorites", () => {
         }
     }
 
-
     return {
         favorites,
         getFavorites,

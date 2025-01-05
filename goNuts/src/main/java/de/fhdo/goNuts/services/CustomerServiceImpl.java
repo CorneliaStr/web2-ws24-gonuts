@@ -24,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomer(long id) {
         Optional<Customer> customer = customerRepository.findById(id);
+        System.out.println(customer.get().getName());
         return customer.stream()
                 .map(c -> customerMapper.mapEntityToDto(c))
                 .findAny()
