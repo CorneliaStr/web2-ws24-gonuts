@@ -41,4 +41,10 @@ public class ProductServiceImpl implements ProductService {
                 .findAny()
                 .orElse(null);
     }
+
+    @Override
+    public ProductDTO createProduct(ProductDTO productDTO) {
+        Product product = productMapper.mapDtoToEntity(productDTO);
+        return productMapper.mapEntityToDto(productRepository.save(product));
+    }
 }

@@ -12,10 +12,9 @@
       <router-link to="/">Home</router-link>
       <router-link to="../shop">Produkte</router-link>
       <router-link to="../cart">Warenkorb</router-link>
+      <!-- TODO: Wenn Nutzer Admin ist, dann admin site anzeigen -->
+      <router-link v-if="!isAdmin" to="/admin">Admin</router-link>
     </nav>
-    <button class="cart-btn" onclick="location.href='../cart?id=1'">
-      <span class="cart-icon">🛒</span> Warenkorb
-    </button>
 
     <div class="account-container" ref="accountContainer">
       <router-link v-if="!token" to="../login">Anmelden</router-link>

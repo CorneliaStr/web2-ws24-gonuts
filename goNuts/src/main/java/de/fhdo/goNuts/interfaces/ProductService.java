@@ -9,4 +9,6 @@ public interface ProductService {
     public List<ProductDTO> getAllProducts();
 
     public ProductDTO getProduct(Long id);
+
+    public ProductDTO createProduct(ProductDTO productDTO);
 }

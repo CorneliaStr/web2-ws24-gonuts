@@ -18,7 +18,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public OrderDTO getOrderById(@PathVariable Long id){
         return orderService.getOrder(id);
     }
