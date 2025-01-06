@@ -12,11 +12,10 @@ fetch( "http://localhost:8080/graphql", {
     },
     body: JSON.stringify( {
         query: `
-        {
-            cart {
-                id
-            }
-        }`
+       query Warenkorb{
+            cart {id date orderPosition { id quantity  product { name }}}
+        }
+        `
     } )
 } )
 .then( response => response.json() )
@@ -77,4 +76,4 @@ let buildCartProducts = function(order) {
 }
 
 fetchCart();
-//fetchCartGraphQL();
+fetchCartGraphQL();

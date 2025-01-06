@@ -66,6 +66,7 @@ public class OrderServiceImpl implements OrderService {
         for(OrderPosition positon : order.get().getOrderPosition()){
             if(positon.getProduct().getId().equals(productDTO.getId())){
                 positon.setQuantity(positon.getQuantity()+1);
+                this.orderRepository.save(order.get());
                 return;
             }
         }
@@ -74,9 +75,12 @@ public class OrderServiceImpl implements OrderService {
         OrderPosition newOrderPosition = new OrderPosition();
         newOrderPosition.setOrder(order.get());
         newOrderPosition.setProduct(this.productMapper.mapDtoToEntity(productDTO));
+        newOrderPosition.setQuantity(1L);
         List<OrderPosition> orderPositionList = order.get().getOrderPosition();
         orderPositionList.add(newOrderPosition);
         order.get().setOrderPosition(orderPositionList);
+        this.orderRepository.save(order.get());
+
     }
 
 }
