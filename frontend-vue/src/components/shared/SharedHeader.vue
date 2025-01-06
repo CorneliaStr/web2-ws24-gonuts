@@ -11,23 +11,63 @@
     <nav class="nav-links">
       <router-link to="/">Home</router-link>
       <router-link to="../shop">Produkte</router-link>
-      <router-link to="../favorites/1">Merkliste</router-link>
       <router-link to="../cart">Warenkorb</router-link>
+      <!-- TODO: Wenn Nutzer Admin ist, dann admin site anzeigen -->
+      <router-link v-if="checkIsAdmin()" to="/admin">Admin</router-link>
     </nav>
-    <button class="cart-btn" onclick="location.href='../cart?id=1'">
-      <span class="cart-icon">🛒</span> Warenkorb
-    </button>
-    <div class="profile-icon">
-      <router-link to="/account">
+
+    <div class="account-container" ref="accountContainer">
+      <router-link v-if="!token" to="../login">Anmelden</router-link>
+
+      <div v-else class="profile-icon" @click="toggleAccountMenu">
         <img src="@/assets/images/profile.png" alt="Profil">
-      </router-link>
+      </div>
+
+      <account-menu ref="accountMenu"/>
     </div>
   </header>
 </template>
 
 <script setup>
-
+import {ref, onMounted, onUnmounted, computed} from 'vue';
 import SearchBar from "@/components/SearchBar.vue";
+import AccountMenu from '../AccountMenu.vue';
+import {useAuthStore} from '@/stores/authStore';
+
+const authStore = useAuthStore();
+
+const accountMenu = ref(null);
+const accountContainer = ref(null);
+const token = computed(() => authStore.token);
+const isAdmin = computed(() => authStore.isAdmin);
+
+const toggleAccountMenu = () => {
+  if (accountMenu.value) {
+    accountMenu.value.toggleMenu();
+  }
+};
+
+const checkIsAdmin = () => {
+  return isAdmin.value;
+}
+
+/**
+ * Ruft handleClickOutsideOfMenu auf. Als Referenz wird der AccountContainer übergeben, damit das Account-Icon ebenfalls als "innerhalb" des Menüs wahrgenommen wird.
+ */
+const callHandleClickOutsideOfMenu = (event) => {
+  if (accountMenu.value) {
+    accountMenu.value.handleClickOutsideOfMenu(event, accountContainer);
+  }
+};
+
+
+onMounted(() => {
+  document.addEventListener('click', callHandleClickOutsideOfMenu);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', callHandleClickOutsideOfMenu);
+});
 </script>
 
 <style>
@@ -73,9 +113,6 @@ header {
   color: #333;
   font-size: 16px;
   font-weight: 500;
-}
-
-.nav-links a {
   position: relative;
   padding-right: 2rem;
 }
@@ -87,19 +124,22 @@ header {
   color: #ccc;
 }
 
-.cart-btn {
-  display: flex;
-  gap: 5px;
-  margin-right: 1rem;
-}
-
-.cart-icon {
-  font-size: 18px;
+.account-container a {
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
 }
 
 .profile-icon img {
   width: 40px;
   height: 40px;
+  cursor: pointer;
 }
 
 </style>

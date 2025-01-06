@@ -1,12 +1,12 @@
 package de.fhdo.goNuts.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CustomerDTO {
     private Long id;
     private String surname;
     private String name;
-    private Date birthday;
+    private LocalDate birthday;
     private String adress;
 
     private AccountDTO account;
@@ -14,7 +14,7 @@ public class CustomerDTO {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Long id, String surname, String name, Date birthday, String adress, AccountDTO account) {
+    public CustomerDTO(Long id, String surname, String name, LocalDate birthday, String adress, AccountDTO account) {
         this.id = id;
         this.surname = surname;
         this.name = name;
@@ -47,11 +47,11 @@ public class CustomerDTO {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

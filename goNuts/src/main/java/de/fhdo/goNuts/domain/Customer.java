@@ -1,8 +1,11 @@
 package de.fhdo.goNuts.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Customer {
@@ -11,7 +14,7 @@ public class Customer {
     private Long id;
     private String surname;
     private String name;
-    private Date birthday;
+    private LocalDate birthday;
     private String adress;
     
     @OneToOne
@@ -19,7 +22,7 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(String surname, String name, Date birthday, String adress, Account account) {
+    public Customer(String surname, String name, LocalDate birthday, String adress, Account account) {
         this.surname = surname;
         this.name = name;
         this.birthday = birthday;
@@ -51,11 +54,11 @@ public class Customer {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
