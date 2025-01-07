@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cart CSR</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/cart.css">
+    <link rel="stylesheet" href="../style/header.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <a href="">
+                <img src="/frontend-csr/images/GoNutsLogo.jpg" alt="GoNuts Logo">
+            </a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Suche...">
+        </div>
+        <nav class="nav-links">
+            <a href="">Home</a>
+            <a href="../shop">Produkte</a>
+            <a href="../favorites?id=1">Merkliste</a>
+        </nav>
+        <button class="cart-btn" onclick="location.href='../cart?id=1'">
+            <span class="cart-icon">🛒</span> Warenkorb
+        </button>
+        <div class="profile-icon">
+            <a href="">
+                <img src="/frontend-csr/images/profile.png" alt="Profil">
+            </a>
+        </div>
+    </header>
+    
+
+<div class="container">
+    <nav class="breadcrumb" aria-label="Warenkorb-Navigation">
+        <span class="active">1. Warenkorb</span>
+        <span>2. Versand</span>
+        <span>Zahlmethode</span>
+    </nav>
+
+    <div class="grid-container">
+        <section aria-labelledby="cart-heading">
+            <h3 id="cart-heading">Warenkorb</h3>
+            <section id="cartProducts" class="cartProducts"></section>
+        </section>
+
+        <aside aria-labelledby="summary-heading">
+            <h3 id="summary-heading">Übersicht</h3>
+            <hr>
+
+            <div class="summary-item"><span>SUMME ARTIKEL</span>      <div class="cartTotal" id="cartTotal"></div>        </div>
+            <div class="summary-item"><span>VERSAND</span> <span>FREI</span></div>
+            <hr>
+            <div class="summary-item total"><span>GESAMT</span>    <div class="cartGesamt" id="cartGesamt"></div></div>
+        </aside>
+    </div>
+
+    <div class="buttons">
+        <a href="">
+            <button class="btn btn-continue">Weiter</button>
+        </a>
+        <a href="">
+            <button class="btn btn-cancel">Abbrechen</button>
+        </a>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Logo und Adresse -->
+        <div class="footer-column">
+            <img src="/frontend-csr/images/GoNutsLogo.jpg" alt="GoNuts Logo" class="footer-logo">
+            <address>
+                Emil-Figge-Straße 42<br>
+                44227 Dortmund<br>
+                <span>&copy; GoNuts!</span>
+            </address>
+        </div>
+
+        <!-- Hauptmenü -->
+        <div class="footer-column">
+            <h4>HAUPTMENÜ</h4>
+            <ul class="footer-menu">
+                <li><a href="">Home</a></li>
+                <li><a href="../shop">Produkte</a></li>
+                <li><a href="../favorites?id=1">Merkliste</a></li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="footer-column">
+            <h4>FIND US ON</h4>
+            <ul class="footer-social">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">X / Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="../js/cartScript.js"></script>
+
+</body>
+</html>

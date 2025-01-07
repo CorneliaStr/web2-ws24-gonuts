@@ -5,12 +5,15 @@ public class OrderPositionDTO {
     private OrderDTO order;
     private ProductDTO product;
 
+    private long quantity;
+
     public OrderPositionDTO() {}
 
-    public OrderPositionDTO(Long id, OrderDTO order, ProductDTO product) {
+    public OrderPositionDTO(Long id, OrderDTO order, ProductDTO product, long quantity) {
         this.id = id;
         this.order = order;
         this.product = product;
+        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -35,5 +38,13 @@ public class OrderPositionDTO {
 
     public void setProduct(ProductDTO product) {
         this.product = product;
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
     }
 }

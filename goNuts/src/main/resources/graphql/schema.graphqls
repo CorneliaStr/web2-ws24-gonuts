@@ -1,6 +1,10 @@
 type Query {
     tags: [Tag!]!
     products: [Product!]!
+    cart : OrderDTO!
+    customer : [CustomerDTO!]!
+    orders : [OrderDTO]!
+
     product(id: ID!): Product
 }
 type Mutation {
@@ -37,4 +41,27 @@ type Product {
     price: Float
     image: String
     tags: [Tag!]!
+}
+
+type OrderDTO{
+    id : ID!
+    date : String
+    orderPosition : [OrderPositionDTO!]!
+    customer : CustomerDTO
+}
+
+type OrderPositionDTO{
+    id : ID!
+    order : OrderDTO
+    product : Product
+    quantity : Float
+
+}
+
+type CustomerDTO{
+    id : ID!
+    surname : String
+    name : String
+    birthday : String
+    adress : String
 }
