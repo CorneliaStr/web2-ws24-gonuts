@@ -24,7 +24,7 @@ public class OrderPositionMapper implements Mapper<OrderPosition, OrderPositionD
         if (entity == null) return null;
 
         ProductDTO productDTO = productMapper.mapEntityToDto(entity.getProduct());
-        return new OrderPositionDTO(entity.getId(), null, productDTO);
+        return new OrderPositionDTO(entity.getId(), null, productDTO,entity.getQuantity());
     }
 
     @Override
@@ -34,6 +34,7 @@ public class OrderPositionMapper implements Mapper<OrderPosition, OrderPositionD
         Product product = productMapper.mapDtoToEntity(dto.getProduct());
         OrderPosition orderPosition = new OrderPosition(null, product);
         orderPosition.setId(dto.getId());
+        orderPosition.setQuantity(dto.getQuantity());
         return orderPosition;
     }
 }

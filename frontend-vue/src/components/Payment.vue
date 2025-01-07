@@ -2,29 +2,37 @@
 import { ref, onBeforeMount, computed } from 'vue';
 import orderService from "@/services/orderService.js";
 import Button from 'primevue/button';
+import { useOrderStore } from '@/stores/orderStore.js';
 
-const { order, fetchOrderById } = orderService();
+const orderStore = useOrderStore();
+const order = computed(() => orderStore.order);
 
-// Initialisiere mit einem Standardwert
 order.value = {
     orderPosition: [] // Leeres Array, damit keine Fehler beim Zugriff auftreten
 };
 
 onBeforeMount(async () => {
+    /*
     try {
         await fetchOrderById(1); // Läd die Order-Daten
     } catch (error) {
         console.error('Failed to fetch order:', error);
-    }
+    } */
+    orderStore.getOrder();
 });
 
 // Berechne die Gesamtsumme
 const totalPrice = computed(() => {
   return order.value?.orderPosition?.reduce((sum, position) => {
-    return sum + (position.product?.price || 0);
+    return sum + (position.product?.price * position.quantity || 0);
   }, 0) || 0;
 });
 
+
+function placeOrder(){
+    order.value.date= new Date()
+    orderStore.updateOrder(order.value);
+}
 
 </script>
 
@@ -36,14 +44,14 @@ const totalPrice = computed(() => {
         <router-link class="link" to="../payment"><span class="activeLink">3. Bezahlmethode </span></router-link>
     </div>
     <div class="main-content">
-        <div class="warenkorb">
+        <div class="payment">
             <h1>Bezahlmethode</h1>
-            <section class="shipping-section" aria-labelledby="shipping-heading">
-                <h3 id="shipping-heading">Bezahlmethode</h3>
+            <section class="payment-section" aria-labelledby="payment-heading">
+                <h3 id="payment-heading">Bezahlmethode</h3>
 
-                <div class="shipping-option">
-                    <input type="radio" name="shipping" id="express-shipping">
-                    <label for="express-shipping">Auf Rechnung<br></label>
+                <div class="payment-option">
+                    <input type="radio" :checked="true" :disabled="true"  name="payment" id="express-payment">
+                    <label for="express-payment">Auf Rechnung<br></label>
                 </div>
             </section>
         </div>
@@ -56,7 +64,7 @@ const totalPrice = computed(() => {
                             <img 
                                 :src="'/src/assets' + (orderPosition.product?.image || 'default.jpg')" 
                                 class="image-product" 
-                                alt="...">
+                                alt="Produktbild">
                             <div class="beschreibung">
                                 <span>{{ orderPosition.product?.name || 'Unbekanntes Produkt' }}</span>
                                 <p>{{ orderPosition.product?.description || 'Keine Beschreibung verfügbar' }}</p>
@@ -69,14 +77,23 @@ const totalPrice = computed(() => {
             </section>
             <br>
             <hr>
-            <h3>Summe Artikel: {{  totalPrice.toFixed(2)  }}</h3>
-            <h3>Versand: Kostenlos</h3>
+            <h3>
+                Summe Artikel: 
+                <span class="align-right">{{ totalPrice.toFixed(2) }}</span>
+            </h3>
+            <h3>
+                Versand: 
+                <span class="align-right">Kostenlos</span>
+            </h3>
             <hr>
-            <h3>Gesamt: {{  totalPrice.toFixed(2)  }}</h3>
+            <h3>
+                Gesamt: 
+                <span class="align-right">{{ totalPrice.toFixed(2) }}</span>
+            </h3>
         </div>
     </div>
     <section class="buttons">
-        <Button as="router-link" label="Weiter" to="/payment" />
+        <Button label="Bezahlen" v-on:click="placeOrder()"/>
         <Button as="router-link" label="Abbrechen" to="/" severity="secondary" />
     </section>
 </template>
@@ -105,39 +122,47 @@ const totalPrice = computed(() => {
     }
 
     .main-content {
-        width: 100%;
         display: flex;
     }
-    .warenkorb {
-        flex-grow: 2;
+    .payment {
+        flex: 7;
     }
     .uebersicht {
-        flex-grow: 1;
+        flex: 3;
     }
-
-    .product{
+    .uebersicht h3 {
         display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
     }
 
-    .beschreibung{
-        padding-left: 5%;
-        padding-top:1%;
+    .align-right {
+        margin-left: auto; /* Abstand zwischen Text und rechtsbündigem Inhalt */
+        text-align: right; /* Text innerhalb des span rechts ausrichten */
+        display: inline-block;
     }
 
-    .beschreibung p{
-        margin-top: 25%;
+    .product {
+        display: flex; /* Flex-Layout für Bild und Beschreibung */
+        align-items: center; /* Vertikale Zentrierung */
+        gap: 10px; /* Abstand zwischen Bild und Text */
+    }
+    .beschreibung {
+        flex: 1; /* Text nimmt den restlichen Platz (75%) ein */
+        padding: 0 10px; /* Innerer Abstand für den Text */
     }
 
     .beschreibung span {
         font-weight: bold;
     }
-
-    .image-product{
-        width: 20%;
-        height: 20%;
+    
+    .image-product {
+        flex: 0 0 25%;
+        max-width: 100px;
+        max-height: 100px; 
+        height: auto; 
         object-fit: cover;
-        margin-right: 10px;
- 
+        border-radius: 5px; 
     }
 
     .orderList{
@@ -152,37 +177,15 @@ const totalPrice = computed(() => {
         padding: 2%;
     }
 
-    /* Versand Formular Styling */
-.shipping-section {
-    padding: 20px;
-    border-radius: 5px;
-    flex: 1;
-}
-
-.shipping-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.shipping-form input, 
-.shipping-form select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
 /* Versandoptionen Styling */
-.shipping-options {
+.payment-options {
     border: none;
     display: flex;
     gap: 10px;
     margin-top: 10px;
 }
 
-.shipping-option {
+.payment-option {
     flex: 1;
     padding: 15px;
     border: 1px solid #ddd;
@@ -190,7 +193,7 @@ const totalPrice = computed(() => {
     text-align: center;
 }
 
-.shipping-option input[type="radio"] {
+.payment-option input[type="radio"] {
     margin-right: 5px;
 }
 

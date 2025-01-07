@@ -104,10 +104,12 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         OrderPosition orderPosition1 = new OrderPosition();
         orderPosition1.setProduct(product1);
         orderPosition1.setOrder(order1);
+        orderPosition1.setQuantity(1L);
 
         OrderPosition orderPosition2 = new OrderPosition();
         orderPosition2.setProduct(product2);
         orderPosition2.setOrder(order1);
+        orderPosition2.setQuantity(2L);
 
         // Bestellpositionen der Bestellung hinzufügen
         order1.setOrderPosition(Arrays.asList(orderPosition1, orderPosition2));
@@ -124,10 +126,12 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         OrderPosition orderPosition3 = new OrderPosition();
         orderPosition3.setProduct(product1);
         orderPosition3.setOrder(order2);
+        orderPosition3.setQuantity(3L);
 
         OrderPosition orderPosition4 = new OrderPosition();
         orderPosition4.setProduct(product2);
         orderPosition4.setOrder(order2);
+        orderPosition4.setQuantity(4L);
 
         // Bestellpositionen der Bestellung hinzufügen
         order2.setOrderPosition(Arrays.asList(orderPosition3, orderPosition4));

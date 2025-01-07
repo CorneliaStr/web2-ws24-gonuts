@@ -27,8 +27,13 @@ public class OrderController {
     public OrderDTO getCart(){return orderService.getCart();}
 
     @PostMapping("/addProduct")
-    public void addProduct(@RequestBody ProductDTO productDTO) {
+    public void addProductToOrder(@RequestBody ProductDTO productDTO) {
         this.orderService.addProductToOrder(productDTO);
+    }
+
+    @PostMapping("/update")
+    public void updateOrder(@RequestBody OrderDTO orderDTO){
+        this.orderService.updateOrder(orderDTO);
     }
 
 }
