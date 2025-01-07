@@ -3,7 +3,7 @@ let fetchCart = function(){
          .then(response => response.json())
          .then(json => buildCartProducts(json))
 }
-//TODO Cross-Origin muss noch gelöst werden
+
 let fetchCartGraphQL = function() {
 fetch( "http://localhost:8080/graphql", {
     method : `post`,

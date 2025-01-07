@@ -53,7 +53,7 @@ let buildProductList = function (products) {
 
         productList.innerHTML +=
             `
-        <a href="../product/product.html" class="product">
+        <a href="../../clickable-prototype/product/product.html" class="product">
             <!-- Tags oben rechts -->
             <div class="product-tags">
                 ${tagsHtml}
