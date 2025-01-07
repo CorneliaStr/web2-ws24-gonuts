@@ -11,16 +11,19 @@ public class CustomerDTO {
 
     private AccountDTO account;
 
+    private FavoritesDTO favorites;
+
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Long id, String surname, String name, LocalDate birthday, String adress, AccountDTO account) {
+    public CustomerDTO(Long id, String surname, String name, LocalDate birthday, String adress, AccountDTO account, FavoritesDTO favorites) {
         this.id = id;
         this.surname = surname;
         this.name = name;
         this.birthday = birthday;
         this.adress = adress;
         this.account = account;
+        this.favorites = favorites;
     }
 
     public Long getId() {
@@ -70,4 +73,8 @@ public class CustomerDTO {
     public void setAccount(AccountDTO account) {
         this.account = account;
     }
+
+    public FavoritesDTO getFavorites() { return favorites; }
+
+    public void setFavorites(FavoritesDTO favorites) {this.favorites = favorites;}
 }

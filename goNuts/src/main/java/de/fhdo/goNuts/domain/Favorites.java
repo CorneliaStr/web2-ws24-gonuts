@@ -8,10 +8,10 @@ import java.util.Objects;
 @Entity
 public class Favorites {
     @Id
-    @GeneratedValue
     private Long id;
     
     @OneToOne
+    @MapsId
     private Customer customer;
     
     @ManyToMany
@@ -22,8 +22,7 @@ public class Favorites {
 
     public Favorites() {}
 
-    public Favorites(Customer customer, List<Product> products) {
-        this.customer = customer;
+    public Favorites(List<Product> products) {
         this.products = products;
     }
 

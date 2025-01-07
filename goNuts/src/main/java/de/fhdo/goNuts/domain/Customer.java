@@ -1,9 +1,6 @@
 package de.fhdo.goNuts.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -20,14 +17,18 @@ public class Customer {
     @OneToOne
     private Account account;
 
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Favorites favorites;
+
     public Customer() {}
 
-    public Customer(String surname, String name, LocalDate birthday, String adress, Account account) {
+    public Customer(String surname, String name, LocalDate birthday, String adress, Account account, Favorites favorites) {
         this.surname = surname;
         this.name = name;
         this.birthday = birthday;
         this.adress = adress;
         this.account = account;
+        setFavorites(favorites);
     }
 
     public Long getId() {
@@ -76,5 +77,14 @@ public class Customer {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Favorites getFavorites() { return favorites; }
+
+    public void setFavorites(Favorites favorites) {
+        this.favorites = favorites;
+        if (favorites != null) {
+            favorites.setCustomer(this);
+        }
     }
 }
