@@ -6,10 +6,12 @@ type Query {
     orders : [OrderDTO]!
 
     product(id: ID!): Product
+    favorites(customerid: ID!): Favorites!
 }
 type Mutation {
     createProduct(product: ProductInput!): Product!
     createTag(tag: TagInput!): Tag!
+    addProductToFavorites(customerId: ID!, product: ProductInputWithId): Boolean
 }
 
 input ProductInput {
@@ -18,6 +20,15 @@ input ProductInput {
     price: Float
     image: String
     tags: [ProductTagInput!]!
+}
+
+input ProductInputWithId {
+    id: ID!
+    name: String
+    description: String
+    price: Float
+    image: String
+    tags: [TagInput!]!
 }
 
 input TagInput {
@@ -64,4 +75,26 @@ type CustomerDTO{
     name : String
     birthday : String
     adress : String
+}
+
+
+type Account {
+    email: ID!
+    password: String
+    admin: Boolean
+}
+
+type Customer {
+    id: ID!
+    surname: String
+    name: String
+    birthday: String
+    adress: String
+    account: Account!
+}
+
+type Favorites {
+    id: ID!
+    products: [Product!]!
+    customer: Customer
 }

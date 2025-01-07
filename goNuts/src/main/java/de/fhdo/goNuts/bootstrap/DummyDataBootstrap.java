@@ -89,7 +89,10 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
         Account account2 = new Account("user@gmail.com", "user", false);
         accountRepository.save(account2);
 
-        Customer customer1 = new Customer("Bernd", "Bunt", LocalDate.of(1990, 2, 12), "Dortmund", account2);
+        Favorites favorites1 = new Favorites();
+        favorites1.setProducts(Arrays.asList(product1, product2, product4, product7));
+
+        Customer customer1 = new Customer("Bernd", "Bunt", LocalDate.of(1990, 2, 12), "Dortmund", account2, favorites1);
         customerRepository.save(customer1);
 
         // Bestellung erstellen
@@ -135,11 +138,5 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
 
         // Bestellung speichern (kaskadiert Bestellpositionen)
         orderRepository.save(order2);
-
-        Favorites favorites1 = new Favorites();
-        favorites1.setCustomer(customer1);
-        favorites1.setProducts(Arrays.asList(product1, product2, product4, product7));
-
-        favoritesRepository.save(favorites1);
     }
 }
