@@ -55,8 +55,12 @@ export const useProductsStore = defineStore("products", () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(tag.value),
-        });
+        }).then(res => console.log(res.json()));
         getTags();
+    }
+
+    function getProductById(productId) {
+        return products.value.find((product) => product.id == productId);
     }
 
     return {
@@ -69,6 +73,7 @@ export const useProductsStore = defineStore("products", () => {
         getTags,
         createProduct,
         createTag,
+        getProductById,
     };
 
 })

@@ -61,8 +61,17 @@ onMounted(() => {
   padding: 20px;
 }
 
+button.active {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+button:hover {
+  background: #333;
+  color: white;
+}
+
 .admin-section {
   margin: 5px 10px;
 }
-
 </style>

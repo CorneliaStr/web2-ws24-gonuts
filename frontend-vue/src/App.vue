@@ -1,12 +1,12 @@
 <script setup>
 import SharedHeader from './components/shared/SharedHeader.vue'
 import SharedFooter from './components/shared/SharedFooter.vue'
-import { onMounted } from "vue";
+import { onBeforeMount, onMounted } from "vue";
 import { useProductsStore } from "@/stores/productsStore.js";
 
 const productStore = useProductsStore();
 
-onMounted(() => productStore.getProducts());
+onBeforeMount(() => productStore.getProducts());
 </script>
 
 <template>
