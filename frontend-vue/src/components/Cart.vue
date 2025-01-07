@@ -1,30 +1,32 @@
 <script setup>
 import { ref, onBeforeMount, computed } from 'vue';
-import orderService from "@/services/orderService.js";
 import Button from 'primevue/button';
+import { useOrderStore } from '@/stores/orderStore.js';
 
-const { order, fetchCart } = orderService();
 
-// Initialisiere mit einem Standardwert
+const orderStore = useOrderStore();
+const order = computed(() => orderStore.order);
+
 order.value = {
-    orderPosition: [] // Leeres Array, damit keine Fehler beim Zugriff auftreten
+    orderPosition: [] 
 };
 
 onBeforeMount(async () => {
-    try {
-        await fetchCart(); // Läd die Order-Daten
-    } catch (error) {
-        console.error('Failed to fetch order:', error);
-    }
+    orderStore.getCart();
+
 });
 
 // Berechne die Gesamtsumme
 const totalPrice = computed(() => {
   return order.value?.orderPosition?.reduce((sum, position) => {
-    return sum + (position.product?.price || 0);
+    return sum + (position.product?.price * position.quantity || 0);
   }, 0) || 0;
 });
 
+function updateQuantity(orderId, newQuantity) {
+      console.log(`OrderPosition mit ID ${orderId} wurde auf ${newQuantity} aktualisiert.`);
+      orderStore.updateOrder(order.value);
+    };
 
 </script>
 
@@ -52,8 +54,11 @@ const totalPrice = computed(() => {
                                 <p>{{ orderPosition.product?.price || 0 }} €</p>
                             </div>
                         </div>
+                        <select v-model="orderPosition.quantity" @change="updateQuantity(orderPosition.id, orderPosition.quantity)">
+                            <!-- Optionen von 1 bis 100 -->
+                            <option v-for="i in 100" :key="i" :value="i">{{ i }}</option>
+                        </select>
                     </div>
-
                 </div>
                 <div v-else>
                     <p>Loading...</p>
@@ -66,10 +71,19 @@ const totalPrice = computed(() => {
             <h1>Übersicht</h1>
             <br>
             <hr>
-            <h3>Summe Artikel: {{  totalPrice.toFixed(2)  }}</h3>
-            <h3>Versand: Kostenlos</h3>
+            <h3>
+                Summe Artikel: 
+                <span class="align-right">{{ totalPrice.toFixed(2) }}</span>
+            </h3>
+            <h3>
+                Versand: 
+                <span class="align-right">Kostenlos</span>
+            </h3>
             <hr>
-            <h3>Gesamt: {{  totalPrice.toFixed(2)  }}</h3>
+            <h3>
+                Gesamt: 
+                <span class="align-right">{{ totalPrice.toFixed(2) }}</span>
+            </h3>
         </div>
     </div>
     <section class="buttons">
@@ -106,14 +120,30 @@ const totalPrice = computed(() => {
         display: flex;
     }
     .warenkorb {
-        flex-grow: 2;
+        flex: 7;
     }
-    .uebersicht {
-        flex-grow: 1;
+
+    .uebersicht{
+        flex: 3;
+        margin-left: 5%;
+    }
+
+    .uebersicht h3 {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+
+    .align-right {
+        margin-left: auto; 
+        text-align: right;
+        display: inline-block;
     }
 
     .product{
         display: flex;
+        flex: 8;
+        padding: 10px;
     }
 
     .beschreibung{
@@ -121,20 +151,14 @@ const totalPrice = computed(() => {
         padding-top:1%;
     }
 
-    .beschreibung p{
-        margin-top: 25%;
-    }
 
     .beschreibung span {
         font-weight: bold;
     }
 
     .image-product{
-        width: 20%;
-        height: 20%;
-        object-fit: cover;
-        margin-right: 10px;
- 
+        width: 10%;
+        object-fit: cover; 
     }
 
     .orderList{
@@ -143,11 +167,22 @@ const totalPrice = computed(() => {
 
     .productList{
         margin-top:2%;
+        display: flex;
+        width: 100%;
     }
     
     .buttons{
         padding: 2%;
     }
+
+    select{
+        flex: 0.5;
+        margin-right: 10px;
+        height: 50px;
+        width: 20px;
+    }
+
+
 
 
 </style>

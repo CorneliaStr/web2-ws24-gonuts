@@ -8,7 +8,7 @@
       <hr class="seperator">
       <div v-if="product" class="preis">
         <strong>{{ product.price }}€</strong>
-        <input type="number" placeholder="Menge">
+        <input type="number" placeholder="Menge"  v-model="amount" >
       </div>
 
       <hr class="seperator">
@@ -55,13 +55,14 @@ const similarProducts = computed(() => {
   );
 });
 
+const amount = 1;
+
 onBeforeMount(() => {
   fetchProductById(route.params.id);
   fetchProducts();
 });
 
 const addToCart = async (product) =>{
-  console.log(product)
   fetchAddToCart(product);
 }
 

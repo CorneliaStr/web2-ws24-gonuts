@@ -34,6 +34,7 @@ public class OrderPositionMapper implements Mapper<OrderPosition, OrderPositionD
         Product product = productMapper.mapDtoToEntity(dto.getProduct());
         OrderPosition orderPosition = new OrderPosition(null, product);
         orderPosition.setId(dto.getId());
+        orderPosition.setQuantity(dto.getQuantity());
         return orderPosition;
     }
 }

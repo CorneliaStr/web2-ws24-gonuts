@@ -14,4 +14,6 @@ public interface OrderService {
     public OrderDTO getCart();
 
     public void addProductToOrder(ProductDTO productDTO);
+
+    void updateOrder(OrderDTO orderDTO);
 }

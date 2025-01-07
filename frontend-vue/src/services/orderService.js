@@ -17,11 +17,26 @@ export default function orderService() {
 
     const fetchAddToCart = async (productDTO) =>{
         let response = await fetch('http://localhost:8080/api/order/addProduct', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(productDTO),
+        });
+        if (response.ok) {
+            console.log("Product added successfully");
+            return;
+        }
+    }
+
+    const fetchUpdateOrder = async (orderDTO) =>{
+        console.log(JSON.stringify(orderDTO))
+        let response = await fetch('http://localhost:8080/api/order/update', {
             method: 'POST', // HTTP-Methode
             headers: {
-                'Content-Type': 'application/json', // Damit der Server weiß, dass JSON gesendet wird
+                'Content-Type': 'application/json', 
             },
-            body: JSON.stringify(productDTO), // Konvertieren des Objekts in JSON
+            body: JSON.stringify(orderDTO), 
         });
         if (response.ok) {
             console.log("Product added successfully");
@@ -33,6 +48,7 @@ export default function orderService() {
         order,
         fetchOrderById,
         fetchCart,
-        fetchAddToCart
+        fetchAddToCart,
+        fetchUpdateOrder,
     }
 }

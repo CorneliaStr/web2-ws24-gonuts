@@ -11,11 +11,13 @@ import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.mapper.OrderMapper;
 import de.fhdo.goNuts.mapper.ProductMapper;
 import de.fhdo.goNuts.repository.CustomerRepository;
+import de.fhdo.goNuts.repository.OrderPositionRepository;
 import de.fhdo.goNuts.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,16 +26,19 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
+
+    private final OrderPositionRepository orderPositionRepository;
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
 
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerRepository customerRepository, ProductMapper productMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerRepository customerRepository, ProductMapper productMapper, OrderPositionRepository orderPositionRepository) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.orderMapper = orderMapper;
         this.productMapper = productMapper;
+        this.orderPositionRepository = orderPositionRepository;
     }
 
     @Override
@@ -49,11 +54,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO getCart(){
-
         Optional<Customer> customer = this.customerRepository.findById(1L);
         //Optional<Order> order = this.orderRepository.findById(1L);
         Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(customer);
-        List<Order> order2 = this.orderRepository.findAll();
+
+        if(order.isEmpty()){
+            Order newCart = new Order();
+            newCart.setCustomer(customer.get());
+            this.orderRepository.save(newCart);
+            order = this.orderRepository.findByCustomerAndDateIsNull(customer);
+        }
         return order.map(o -> orderMapper.mapEntityToDto(o)).orElse(null);
     }
 
@@ -81,6 +91,15 @@ public class OrderServiceImpl implements OrderService {
         order.get().setOrderPosition(orderPositionList);
         this.orderRepository.save(order.get());
 
+    }
+
+    @Override
+    public void updateOrder(OrderDTO orderDTO) {
+        Order order = orderMapper.mapDtoToEntity(orderDTO);
+        for(OrderPosition orderPosition : order.getOrderPosition()){
+            orderPosition.setOrder(order);
+        }
+        this.orderRepository.save(order);
     }
 
 }
