@@ -3,15 +3,12 @@ package de.fhdo.goNuts.services;
 import de.fhdo.goNuts.domain.Customer;
 import de.fhdo.goNuts.domain.Order;
 import de.fhdo.goNuts.domain.OrderPosition;
-import de.fhdo.goNuts.domain.Product;
 import de.fhdo.goNuts.dto.OrderDTO;
-import de.fhdo.goNuts.dto.OrderPositionDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.mapper.OrderMapper;
 import de.fhdo.goNuts.mapper.ProductMapper;
 import de.fhdo.goNuts.repository.CustomerRepository;
-import de.fhdo.goNuts.repository.OrderPositionRepository;
 import de.fhdo.goNuts.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,18 +24,16 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
 
-    private final OrderPositionRepository orderPositionRepository;
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
 
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerRepository customerRepository, ProductMapper productMapper, OrderPositionRepository orderPositionRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerRepository customerRepository, ProductMapper productMapper) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.orderMapper = orderMapper;
         this.productMapper = productMapper;
-        this.orderPositionRepository = orderPositionRepository;
     }
 
     @Override
