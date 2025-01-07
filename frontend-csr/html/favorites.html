@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merkliste</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/favorites.css">
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <a href="">
+            <img src="../images/GoNutsLogo.jpg" alt="GoNuts Logo">
+        </a>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Suche...">
+    </div>
+    <nav class="nav-links">
+        <a href="">Home</a>
+        <a href="../shop">Produkte</a>
+        <a href="../favorites?id=1">Merkliste</a>
+    </nav>
+    <button class="cart-btn" onclick="location.href='../cart?id=1'">
+        <span class="cart-icon">🛒</span> Warenkorb
+    </button>
+    <div class="profile-icon">
+        <a href="">
+            <img src="../images/profile.png" alt="Profil">
+        </a>
+    </div>
+</header>
+
+<main class="favorites-container">
+    <h2>Favoriten</h2>
+
+    <!-- Sections werden über JS eingefügt -->
+    <div id="favorites-list" class="favorites-list">
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Logo und Adresse -->
+        <div class="footer-column">
+            <img src="../images/GoNutsLogo.jpg" alt="GoNuts Logo" class="footer-logo">
+            <address>
+                Emil-Figge-Straße 42<br>
+                44227 Dortmund<br>
+                <span>&copy; GoNuts!</span>
+            </address>
+        </div>
+
+        <!-- Hauptmenü -->
+        <div class="footer-column">
+            <h4>HAUPTMENÜ</h4>
+            <ul class="footer-menu">
+                <li><a href="">Home</a></li>
+                <li><a href="../shop">Produkte</a></li>
+                <li><a href="../favorites?id=1">Merkliste</a></li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="footer-column">
+            <h4>FIND US ON</h4>
+            <ul class="footer-social">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">X / Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="../js/favoritesScript.js"></script>
+
+</body>
+</html>
