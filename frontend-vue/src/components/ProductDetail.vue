@@ -18,7 +18,7 @@
       </p>
       <div>
         <router-link to="/favorites">
-          <button class="button-secondary" >Zur Merkliste hinzufügen</button>
+          <button class="button-secondary">Zur Merkliste hinzufügen</button>
         </router-link>
         <router-link to="/cart">
           <button class="button-primary" @click="addToCart(product)">Zum Warenkorb hinzufügen</button>
@@ -32,21 +32,25 @@
 
   <h2 class="heading">Ähnliche Produkte</h2>
   <section class="products-list">
-    <product-card v-for="product in similarProducts" :product="product"></product-card>
+    <product-card v-for="product in similarProducts.slice(0,4)" :product="product"></product-card>
   </section>
 
 </template>
 
 <script setup>
-import { computed, onBeforeMount } from "vue";
+import orderService from "@/services/orderService.js";
+import { useProductsStore } from "@/stores/productsStore.js";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import productService from "@/services/productService.js";
-import orderService from "@/services/orderService";
 import ProductCard from "@/components/ProductCard.vue";
 
 const route = useRoute();
-const {product, products, fetchProductById, fetchProducts} = productService();
-const {productDTO, fetchAddToCart} = orderService();
+
+const {fetchAddToCart} = orderService();
+
+const productStore = useProductsStore();
+const products = computed(() => productStore.products);
+const product = ref({});
 
 const similarProducts = computed(() => {
   if (!product.value || !product.value.tags) return [];
@@ -57,16 +61,13 @@ const similarProducts = computed(() => {
 
 const amount = 1;
 
-onBeforeMount(() => {
-  fetchProductById(route.params.id);
-  fetchProducts();
-});
-
 const addToCart = async (product) =>{
   fetchAddToCart(product);
 }
 
-
+onMounted(() => {
+  product.value = productStore.getProductById(route.params.id);
+});
 </script>
 
 <style scoped>
