@@ -3,6 +3,7 @@ package de.fhdo.goNuts.controllers;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,17 +19,17 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<ProductDTO> getProducts() {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path =  "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ProductDTO getProduct(@PathVariable Long id) {
         return this.productService.getProduct(id);
     }
 
-    @PostMapping
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
         return this.productService.createProduct(productDTO);
     }
