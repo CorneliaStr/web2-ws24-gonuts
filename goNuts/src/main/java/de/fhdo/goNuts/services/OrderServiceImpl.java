@@ -63,14 +63,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void  addProductToOrder(ProductDTO productDTO) {
+    public void  addProductToOrder(ProductDTO productDTO, Long quantity) {
 
         Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(this.customerRepository.findById(1L));
 
         //Falls schon vorhanden +1
         for(OrderPosition positon : order.get().getOrderPosition()){
             if(positon.getProduct().getId().equals(productDTO.getId())){
-                positon.setQuantity(positon.getQuantity()+1);
+                positon.setQuantity(positon.getQuantity()+quantity);
                 this.orderRepository.save(order.get());
                 return;
             }
@@ -80,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
         OrderPosition newOrderPosition = new OrderPosition();
         newOrderPosition.setOrder(order.get());
         newOrderPosition.setProduct(this.productMapper.mapDtoToEntity(productDTO));
-        newOrderPosition.setQuantity(1L);
+        newOrderPosition.setQuantity(quantity);
         List<OrderPosition> orderPositionList = order.get().getOrderPosition();
         orderPositionList.add(newOrderPosition);
         order.get().setOrderPosition(orderPositionList);

@@ -26,9 +26,10 @@ public class OrderController {
     @GetMapping("/cart")
     public OrderDTO getCart(){return orderService.getCart();}
 
-    @PostMapping("/addProduct")
-    public void addProductToOrder(@RequestBody ProductDTO productDTO) {
-        this.orderService.addProductToOrder(productDTO);
+    @PostMapping("/addProduct/{quantity}")
+    public OrderDTO addProductToOrder(@RequestBody ProductDTO productDTO, @PathVariable Long quantity) {
+        this.orderService.addProductToOrder(productDTO, quantity);
+        return this.orderService.getCart();
     }
 
     @PostMapping("/update")

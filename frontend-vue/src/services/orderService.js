@@ -15,8 +15,8 @@ export default function orderService() {
         order.value = await response.json();
     }
 
-    const fetchAddToCart = async (productDTO) =>{
-        let response = await fetch('http://localhost:8080/api/order/addProduct', {
+    const fetchAddToCart = async (productDTO, amount) =>{
+        let response = await fetch(`http://localhost:8080/api/order/addProduct/${amount}`, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json', 

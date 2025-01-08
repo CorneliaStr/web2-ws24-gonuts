@@ -13,7 +13,7 @@ public interface OrderService {
 
     public OrderDTO getCart();
 
-    public void addProductToOrder(ProductDTO productDTO);
+    public void addProductToOrder(ProductDTO productDTO, Long quantity);
 
     void updateOrder(OrderDTO orderDTO);
 }
