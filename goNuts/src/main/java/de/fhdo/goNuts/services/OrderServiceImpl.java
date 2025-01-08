@@ -5,35 +5,41 @@ import de.fhdo.goNuts.domain.Order;
 import de.fhdo.goNuts.domain.OrderPosition;
 import de.fhdo.goNuts.dto.OrderDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
+import de.fhdo.goNuts.interfaces.AuthService;
 import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.mapper.OrderMapper;
 import de.fhdo.goNuts.mapper.ProductMapper;
 import de.fhdo.goNuts.repository.CustomerRepository;
 import de.fhdo.goNuts.repository.OrderRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
+
+    private final AuthService authService;
 
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
 
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerRepository customerRepository, ProductMapper productMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerRepository customerRepository, ProductMapper productMapper, AuthService authService) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.orderMapper = orderMapper;
         this.productMapper = productMapper;
+        this.authService = authService;
     }
 
     @Override
@@ -63,9 +69,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void  addProductToOrder(ProductDTO productDTO, Long quantity) {
+    public void  addProductToOrder(ProductDTO productDTO, Long quantity, String token) {
+        Optional<String> email = authService.extractEmail(token);
+        if(email.isEmpty()) {
+            logger.error("Email konnte nicht aus dem Token gelesen werden.");
+            return;
+        }
 
-        Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(this.customerRepository.findById(1L));
+        Optional<Customer> customer = this.customerRepository.findByAccount_Email(email.get());
+        Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(customer);
+
+        // TODO Falls kein Warenkorb, also eine Order ohne Date, vorhanden ist, muss eine neue Ordner angelegt werden
 
         //Falls schon vorhanden +1
         for(OrderPosition positon : order.get().getOrderPosition()){

@@ -1,8 +1,8 @@
 package de.fhdo.goNuts.controllers;
 
 import de.fhdo.goNuts.dto.OrderDTO;
-import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.OrderService;
+import de.fhdo.goNuts.requestObjects.AddProductToOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +26,9 @@ public class OrderController {
     @GetMapping("/cart")
     public OrderDTO getCart(){return orderService.getCart();}
 
-    @PostMapping("/addProduct/{quantity}")
-    public OrderDTO addProductToOrder(@RequestBody ProductDTO productDTO, @PathVariable Long quantity) {
-        this.orderService.addProductToOrder(productDTO, quantity);
+    @PostMapping("/addProduct")
+    public OrderDTO addProductToOrder(@RequestBody AddProductToOrderRequest request) {
+        this.orderService.addProductToOrder(request.getProduct(), request.getQuantity(), request.getToken());
         return this.orderService.getCart();
     }
 
