@@ -4,6 +4,7 @@ import de.fhdo.goNuts.dto.CustomerDTO;
 import de.fhdo.goNuts.interfaces.CustomerService;
 import de.fhdo.goNuts.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -18,7 +19,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public CustomerDTO getCustomer(@RequestHeader("Authorization") String token) {
         if (jwtUtil.validateToken(token)) {
             String email = jwtUtil.extractEmail(token);

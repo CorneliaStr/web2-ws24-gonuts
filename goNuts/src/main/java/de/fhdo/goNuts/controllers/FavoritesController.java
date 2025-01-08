@@ -4,6 +4,7 @@ import de.fhdo.goNuts.dto.FavoritesDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.FavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -17,12 +18,13 @@ public class FavoritesController {
         this.favoritesService = favoritesService;
     }
 
-    @GetMapping("/{customerid}")
+    @GetMapping(path = "/{customerid}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public FavoritesDTO getFavorites(@PathVariable Long customerid) {
         return favoritesService.getFavorites(customerid);
     }
 
-    @PostMapping
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public boolean addProduct(@RequestBody Long customerid, @RequestBody ProductDTO product) {
         return favoritesService.addProductToFavorites(customerid, product);
     }
