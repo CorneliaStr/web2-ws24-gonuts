@@ -1,11 +1,14 @@
 <script setup>
-import { ref, onBeforeMount, computed } from 'vue';
-import orderService from "@/services/orderService.js";
+import { onBeforeMount, computed } from 'vue';
 import Button from 'primevue/button';
 import { useOrderStore } from '@/stores/orderStore.js';
+import { useAuthStore } from '@/stores/authStore.js';
 
 const orderStore = useOrderStore();
+const authStore = useAuthStore();
 const order = computed(() => orderStore.order);
+
+authStore.isAdmin;
 
 order.value = {
     orderPosition: [] // Leeres Array, damit keine Fehler beim Zugriff auftreten
@@ -93,7 +96,7 @@ function placeOrder(){
         </div>
     </div>
     <section class="buttons">
-        <Button label="Bezahlen" v-on:click="placeOrder()"/>
+        <Button as="router-link" to="/" :disabled="!authStore.isAdmin" label="Bezahlen" v-on:click="placeOrder()"/>
         <Button as="router-link" label="Abbrechen" to="/" severity="secondary" />
     </section>
 </template>
