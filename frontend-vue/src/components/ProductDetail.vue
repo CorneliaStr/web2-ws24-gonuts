@@ -8,7 +8,7 @@
       <hr class="seperator">
       <div v-if="product" class="preis">
         <strong>{{ product.price }}€</strong>
-        <input type="number" placeholder="Menge"  v-model="amount" >
+        <input type="number" placeholder="Menge" v-model="quantity">
       </div>
 
       <hr class="seperator">
@@ -21,7 +21,7 @@
           <button class="button-secondary">Zur Merkliste hinzufügen</button>
         </router-link>
         <router-link to="/cart">
-          <button class="button-primary" @click="addToCart(product)">Zum Warenkorb hinzufügen</button>
+          <button class="button-primary"  @click="addToCart(product,quantity)">Zum Warenkorb hinzufügen</button>
         </router-link>
 
       </div>
@@ -38,19 +38,21 @@
 </template>
 
 <script setup>
-import orderService from "@/services/orderService.js";
 import { useProductsStore } from "@/stores/productsStore.js";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ProductCard from "@/components/ProductCard.vue";
+import { useOrderStore } from '@/stores/orderStore.js';
 
 const route = useRoute();
 
-const {fetchAddToCart} = orderService();
 
 const productStore = useProductsStore();
+const orderStore = useOrderStore();
 const products = computed(() => productStore.products);
 const product = ref({});
+
+const quantity = ref(1);
 
 const similarProducts = computed(() => {
   if (!product.value || !product.value.tags) return [];
@@ -59,11 +61,11 @@ const similarProducts = computed(() => {
   );
 });
 
-const amount = 1;
 
-const addToCart = async (product) =>{
-  fetchAddToCart(product);
+const addToCart = async (product, quantity) => {
+    await orderStore.addToCart(product, quantity);
 }
+
 
 onMounted(() => {
   product.value = productStore.getProductById(route.params.id);

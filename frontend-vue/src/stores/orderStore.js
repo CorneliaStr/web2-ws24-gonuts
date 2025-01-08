@@ -20,13 +20,16 @@ export const useOrderStore = defineStore("order", () => {
             });
     }
 
-    function addToCart(productDTO){
-        fetch(`http://localhost:8080/api/order/addProduct`, {
+    function addToCart(productDTO, quantity){
+        fetch(`http://localhost:8080/api/order/addProduct/${quantity}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(productDTO)
+        }).then(res => res.json())
+        .then(data =>{
+            order.value = data;
         })
     }
 
