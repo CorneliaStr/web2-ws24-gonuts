@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,7 +31,7 @@ public class OrderMapper implements Mapper<Order, OrderDTO> {
 
         List<OrderPositionDTO> orderPositionDTOs = new ArrayList<>();
 
-        if(entity.getOrderPosition().size()>0){
+        if(Objects.nonNull(entity.getOrderPosition()) && entity.getOrderPosition().size()>0){
             orderPositionDTOs = entity.getOrderPosition().stream().map(o -> orderPositionMapper.mapEntityToDto(o)).collect(Collectors.toList());
         }
         CustomerDTO customerDTO = customerMapper.mapEntityToDto(entity.getCustomer());
