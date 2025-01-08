@@ -4,6 +4,7 @@ import de.fhdo.goNuts.domain.Customer;
 import de.fhdo.goNuts.domain.Order;
 import de.fhdo.goNuts.domain.OrderPosition;
 import de.fhdo.goNuts.dto.OrderDTO;
+import de.fhdo.goNuts.dto.OrderPositionDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.mapper.OrderMapper;
@@ -95,6 +96,16 @@ public class OrderServiceImpl implements OrderService {
             orderPosition.setOrder(order);
         }
         this.orderRepository.save(order);
+    }
+
+    @Override
+    public OrderDTO deleteOrderPosition(OrderPositionDTO orderPositionDTO, Long orderID) {
+        System.out.println();
+        Order order = orderRepository.findById(orderID).get();
+        order.getOrderPosition().removeIf(op -> op.getId().equals(orderPositionDTO.getId()));
+        orderRepository.save(order);
+        return orderMapper.mapEntityToDto(orderRepository.findById(order.getId()).get());
+
     }
 
 }

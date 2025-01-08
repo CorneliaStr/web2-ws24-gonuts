@@ -1,6 +1,7 @@
 package de.fhdo.goNuts.controllers;
 
 import de.fhdo.goNuts.dto.OrderDTO;
+import de.fhdo.goNuts.dto.OrderPositionDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,13 @@ public class OrderController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public void updateOrder(@RequestBody OrderDTO orderDTO) {
         this.orderService.updateOrder(orderDTO);
+    }
+
+    @DeleteMapping(value = "/deleteOP/{orderId}",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public OrderDTO deleteOrderposition(@RequestBody OrderPositionDTO orderPositionDTO, @PathVariable Long orderId){
+       return this.orderService.deleteOrderPosition(orderPositionDTO, orderId);
     }
 
 }
