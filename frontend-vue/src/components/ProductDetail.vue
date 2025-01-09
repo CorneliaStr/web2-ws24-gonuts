@@ -17,9 +17,7 @@
         {{ product.description }}
       </p>
       <div>
-        <router-link to="/favorites">
-          <button>Zur Merkliste hinzufügen</button>
-        </router-link>
+          <button @click="addToFavorites(product, token)">Zur Merkliste hinzufügen</button>
         <button @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
 
       </div>
@@ -42,12 +40,14 @@ import {computed, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import ProductCard from "@/components/ProductCard.vue";
 import {useOrderStore} from '@/stores/orderStore.js';
+import {useFavoritesStore} from "@/stores/favoritesStore.js";
 
 const route = useRoute();
 const router = useRouter();
 
 const productStore = useProductsStore();
 const orderStore = useOrderStore();
+const favoritesStore = useFavoritesStore();
 const products = computed(() => productStore.products);
 const product = ref({});
 
@@ -74,6 +74,21 @@ const addToCart = async (product, quantity, token) => {
     authStore.setPostLoginAction(async (token) => {
       await orderStore.addToCart(product, quantity, token);
       router.push("/cart");
+    });
+    router.push("/login");
+  }
+}
+
+const addToFavorites = async (product, token) => {
+  if (authStore.isLoggedIn()) {
+    await favoritesStore.addToFavorites(product, token);
+    router.push("/favorites");
+  }
+  // Die postLoginAction wird nach dem erfolgreichen Login ausgeführt.
+  else {
+    authStore.setPostLoginAction(async (token) => {
+      await favoritesStore.addToFavorites(product, token);
+      router.push("/favorites");
     });
     router.push("/login");
   }

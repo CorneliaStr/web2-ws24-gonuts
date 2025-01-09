@@ -12,8 +12,26 @@ export const useFavoritesStore = defineStore("favorites", () => {
                 });
     }
 
+    function addToFavorites(productDTO, token) {
+        fetch(`http://localhost:8080/api/favorites/addProduct`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                product: productDTO,
+                token: token,
+            })
+        }).then(res => res.json())
+            .then(data => {
+                favorites.value = data;
+            })
+
+    }
+
     return {
         favorites,
         getFavorites,
+        addToFavorites,
     }
 })

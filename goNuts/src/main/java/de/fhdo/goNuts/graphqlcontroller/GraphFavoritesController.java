@@ -25,6 +25,6 @@ public class GraphFavoritesController {
 
     @MutationMapping("addProductToFavorites")
     public boolean addProduct(@Argument("customerId") Long customerId, @Argument("product") ProductDTO product) {
-        return favoritesService.addProductToFavorites(customerId, product);
+        return favoritesService.addProductToFavoritesById(customerId, product);
     }
 }

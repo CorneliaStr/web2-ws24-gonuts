@@ -1,8 +1,8 @@
 package de.fhdo.goNuts.controllers;
 
 import de.fhdo.goNuts.dto.FavoritesDTO;
-import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.FavoritesService;
+import de.fhdo.goNuts.requestObjects.AddProductToFavoritesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +23,9 @@ public class FavoritesController {
         return favoritesService.getFavorites(customerid);
     }
 
-    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+    @PostMapping(path = "/{addProduct}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public boolean addProduct(@RequestBody Long customerid, @RequestBody ProductDTO product) {
-        return favoritesService.addProductToFavorites(customerid, product);
+    public FavoritesDTO addProduct(@RequestBody AddProductToFavoritesRequest request) {
+        return favoritesService.addProductToFavorites(request.getToken(), request.getProduct());
     }
 }

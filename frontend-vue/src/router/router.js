@@ -20,7 +20,7 @@ const routes = [
     { path: "/login", component: Login },
     { path: "/shop", component: Shop },
     { path: "/product/:id", component: ProductDetail },
-    { path: "/favorites/:id", component: Favorites },
+    { path: "/favorites", component: Favorites },
     { path: "/cart", component: Cart },
     { path: "/account", component: Account },
     { path: "/shipping", component: Shipping },

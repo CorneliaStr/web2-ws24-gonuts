@@ -16,7 +16,7 @@ const route = useRoute();
 const favorites = computed(() => favoritesStore.favorites);
 
 onBeforeMount(() => {
-  favoritesStore.getFavorites(route.params.id);
+  favoritesStore.getFavorites(1);
 });
 </script>
 
