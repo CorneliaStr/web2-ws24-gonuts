@@ -21,13 +21,6 @@ public class CustomerController {
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public CustomerDTO getCustomer(@RequestHeader("Authorization") String token) {
-        if (jwtUtil.validateToken(token)) {
-            String email = jwtUtil.extractEmail(token);
-
-            return customerService.getCustomer(1);
-        }
-
-        System.out.println("Validierung fehlgeschlagen");
-        return null;
+        return customerService.getCustomerByToken(token);
     }
 }

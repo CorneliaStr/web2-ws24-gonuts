@@ -12,9 +12,16 @@ public interface OrderService {
 
     public OrderDTO getOrder(Long id);
 
+    public OrderDTO getCart(String token);
+
+    /**
+     * GetCart für GraphQL ohne den Token.
+     */
     public OrderDTO getCart();
 
-    public void addProductToOrder(ProductDTO productDTO, Long quantity);
+    public OrderDTO addProductToOrder(ProductDTO productDTO, Long quantity, String token);
+
+    public OrderDTO addProductToOrderWithoutToken(ProductDTO productDTO, Long quantity);
 
     public void updateOrder(OrderDTO orderDTO);
 

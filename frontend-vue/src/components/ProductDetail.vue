@@ -21,7 +21,7 @@
           <button class="button-secondary">Zur Merkliste hinzufügen</button>
         </router-link>
         <router-link to="/cart">
-          <button class="button-primary"  @click="addToCart(product,quantity)">Zum Warenkorb hinzufügen</button>
+          <button class="button-primary"  @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
         </router-link>
 
       </div>
@@ -39,6 +39,7 @@
 
 <script setup>
 import { useProductsStore } from "@/stores/productsStore.js";
+import { useAuthStore } from "@/stores/authStore.js";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ProductCard from "@/components/ProductCard.vue";
@@ -54,6 +55,9 @@ const product = ref({});
 
 const quantity = ref(1);
 
+const authStore = useAuthStore();
+const token = computed(() => authStore.token);
+
 const similarProducts = computed(() => {
   if (!product.value || !product.value.tags) return [];
   return products.value.filter(p =>
@@ -62,10 +66,9 @@ const similarProducts = computed(() => {
 });
 
 
-const addToCart = async (product, quantity) => {
-    await orderStore.addToCart(product, quantity);
+const addToCart = async (product, quantity, token) => {
+    await orderStore.addToCart(product, quantity, token);
 }
-
 
 onMounted(() => {
   product.value = productStore.getProductById(route.params.id);

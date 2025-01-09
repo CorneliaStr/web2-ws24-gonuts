@@ -2,6 +2,7 @@ package de.fhdo.goNuts.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ public class Favorites {
     @JoinTable(name="Favorites_Product",
             joinColumns={@JoinColumn(name="favoritesId")},
             inverseJoinColumns={@JoinColumn(name="productId")})
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Favorites() {}
 

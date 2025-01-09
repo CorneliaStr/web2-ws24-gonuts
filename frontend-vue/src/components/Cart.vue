@@ -1,7 +1,8 @@
 <script setup>
-import { ref, onBeforeMount, computed } from 'vue';
+import { onBeforeMount, computed } from 'vue';
 import Button from 'primevue/button';
 import { useOrderStore } from '@/stores/orderStore.js';
+import { useAuthStore} from "@/stores/authStore.js";
 
 
 const orderStore = useOrderStore();
@@ -11,8 +12,11 @@ order.value = {
     orderPosition: [] 
 };
 
+const authStore = useAuthStore();
+const token = computed(() => authStore.token);
+
 onBeforeMount(async () => {
-    orderStore.getCart();
+    orderStore.getCart(token.value);
 
 });
 
@@ -26,7 +30,7 @@ const totalPrice = computed(() => {
 function updateQuantity(orderId, newQuantity) {
       console.log(`OrderPosition mit ID ${orderId} wurde auf ${newQuantity} aktualisiert.`);
       orderStore.updateOrder(order.value);
-    };
+    }
 
 function deleteProduct( orderPosition, orderID ){
     console.log(orderID)

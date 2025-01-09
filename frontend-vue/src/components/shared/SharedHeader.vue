@@ -12,7 +12,6 @@
       <router-link to="/">Home</router-link>
       <router-link to="../shop">Produkte</router-link>
       <router-link to="../cart">Warenkorb</router-link>
-      <!-- TODO: Wenn Nutzer Admin ist, dann admin site anzeigen -->
       <router-link v-if="checkIsAdmin()" to="/admin">Admin</router-link>
     </nav>
 

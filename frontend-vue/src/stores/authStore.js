@@ -19,7 +19,7 @@ export const useAuthStore = defineStore("auth", () => {
             });
 
             if (!response.ok) {
-                console.log(`Fehler: ${response.status}`);
+                console.error(`Fehler: ${response.status}`);
                 return false;
             }
 
