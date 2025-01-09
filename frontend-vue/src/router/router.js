@@ -14,7 +14,6 @@ import ProductTable from "@/components/Admin/ProductTable.vue";
 import AdminView from "@/components/Admin/AdminView.vue";
 import Login from "@/components/Login.vue";
 import {useAuthStore} from '@/stores/authStore';
-import {computed} from "vue";
 
 const routes = [
     { path: "/", component: Home },
@@ -41,9 +40,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     let authStore = useAuthStore();
-    let isAdmin = computed(() => authStore.isAdmin);
 
-    if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin.value) {
+    if (to.matched.some(record => record.meta.requiresAdmin) && !authStore.isAdmin()) {
         next("/");
     } else {
         next();

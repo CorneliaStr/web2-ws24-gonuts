@@ -18,10 +18,10 @@
       </p>
       <div>
         <router-link to="/favorites">
-          <button class="button-secondary">Zur Merkliste hinzufügen</button>
+          <button>Zur Merkliste hinzufügen</button>
         </router-link>
         <router-link to="/cart">
-          <button class="button-primary"  @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
+          <button @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
         </router-link>
 
       </div>
@@ -87,36 +87,8 @@ onMounted(() => {
   border-radius: 4px 4px 4px 4px;
 }
 
-.button-secondary {
-  width: 194px;
-  height: 55px;
-  padding: 0px 10px 0px 10px;
-  background: #FFFFFF;
-  color: #000000;
-  border-color: #444444;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px 3px 3px 3px;
-  font-family: "Source Sans 3";
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
-}
-
-.button-primary {
-  width: 194px;
-  height: 55px;
-  padding: 0px 10px 0px 10px;
-  background: #444444;
-  color: #FFFFFF;
-  border-color: #444444;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px 3px 3px 3px;
-  font-family: "Source Sans 3";
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
+button {
+  margin: 10px;
 }
 
 .product-shop {
@@ -124,9 +96,7 @@ onMounted(() => {
   flex-wrap: wrap;
   flex-direction: row;
   gap: 30px;
-
 }
-
 
 .product-infos-container {
   display: flex;
