@@ -27,8 +27,8 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
-import { useRouter } from 'vue-router';
+import {ref, onBeforeUnmount} from 'vue';
+import {useRouter} from 'vue-router';
 import {useAuthStore} from '@/stores/authStore';
 
 const authStore = useAuthStore();
@@ -43,12 +43,21 @@ const handleLogin = async () => {
 
   if (success) {
     errorMessage.value = '';
-    router.push("/")
+
+    if (authStore.getPostLoginAction()) {
+      authStore.executePostLoginAction();
+    } else {
+      router.push("/")
+    }
   } else {
     errorMessage.value =
         'Login fehlgeschlagen. Bitte überprüfen Sie Ihre Zugangsdaten.';
   }
 };
+
+onBeforeUnmount(() => {
+  authStore.setPostLoginAction(null);
+})
 
 </script>
 

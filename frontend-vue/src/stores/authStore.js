@@ -3,7 +3,8 @@ import {ref} from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
     const token = ref(null);
-    const isAdmin = ref(false);
+    const admin = ref(false);
+    const postLoginAction = ref(null);
 
     async function login(email, password) {
         try {
@@ -33,9 +34,31 @@ export const useAuthStore = defineStore("auth", () => {
         }
     }
 
+    function executePostLoginAction() {
+        if(postLoginAction.value && typeof postLoginAction.value === "function") {
+            postLoginAction.value(token.value);
+            postLoginAction.value = null;
+        }
+    }
+
+    function setPostLoginAction(action) {
+        postLoginAction.value = action;
+    }
+
+    function getPostLoginAction() {
+        return postLoginAction.value;
+    }
+
     function logout() {
         token.value = null;
-        isAdmin.value = false;
+        admin.value = false;
+    }
+
+    function isLoggedIn() {
+        if(token.value) {
+            return true;
+        }
+        return false;
     }
 
     async function checkIsAdmin() {
@@ -54,17 +77,25 @@ export const useAuthStore = defineStore("auth", () => {
 
             const result = await response.json();
             if (typeof result === 'boolean') {
-                isAdmin.value = result;
+                admin.value = result;
             }
         } catch (error) {
             console.error("Fehler bei der Anfrage:", error);
         }
     }
 
+    function isAdmin() {
+        return admin.value;
+    }
+
     return {
         token,
-        isAdmin,
         login,
         logout,
+        isLoggedIn,
+        isAdmin,
+        setPostLoginAction,
+        getPostLoginAction,
+        executePostLoginAction,
     }
 })

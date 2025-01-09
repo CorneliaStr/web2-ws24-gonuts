@@ -17,12 +17,8 @@
         {{ product.description }}
       </p>
       <div>
-        <router-link to="/favorites">
-          <button class="button-secondary">Zur Merkliste hinzufügen</button>
-        </router-link>
-        <router-link to="/cart">
-          <button class="button-primary"  @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
-        </router-link>
+          <button @click="addToFavorites(product, token)">Zur Merkliste hinzufügen</button>
+        <button @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
 
       </div>
     </div>
@@ -38,18 +34,20 @@
 </template>
 
 <script setup>
-import { useProductsStore } from "@/stores/productsStore.js";
-import { useAuthStore } from "@/stores/authStore.js";
-import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import {useProductsStore} from "@/stores/productsStore.js";
+import {useAuthStore} from "@/stores/authStore.js";
+import {computed, onMounted, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 import ProductCard from "@/components/ProductCard.vue";
-import { useOrderStore } from '@/stores/orderStore.js';
+import {useOrderStore} from '@/stores/orderStore.js';
+import {useFavoritesStore} from "@/stores/favoritesStore.js";
 
 const route = useRoute();
-
+const router = useRouter();
 
 const productStore = useProductsStore();
 const orderStore = useOrderStore();
+const favoritesStore = useFavoritesStore();
 const products = computed(() => productStore.products);
 const product = ref({});
 
@@ -67,7 +65,33 @@ const similarProducts = computed(() => {
 
 
 const addToCart = async (product, quantity, token) => {
+  if (authStore.isLoggedIn()) {
     await orderStore.addToCart(product, quantity, token);
+    router.push("/cart");
+  }
+  // Die postLoginAction wird nach dem erfolgreichen Login ausgeführt.
+  else {
+    authStore.setPostLoginAction(async (token) => {
+      await orderStore.addToCart(product, quantity, token);
+      router.push("/cart");
+    });
+    router.push("/login");
+  }
+}
+
+const addToFavorites = async (product, token) => {
+  if (authStore.isLoggedIn()) {
+    await favoritesStore.addToFavorites(product, token);
+    router.push("/favorites");
+  }
+  // Die postLoginAction wird nach dem erfolgreichen Login ausgeführt.
+  else {
+    authStore.setPostLoginAction(async (token) => {
+      await favoritesStore.addToFavorites(product, token);
+      router.push("/favorites");
+    });
+    router.push("/login");
+  }
 }
 
 onMounted(() => {
@@ -87,36 +111,8 @@ onMounted(() => {
   border-radius: 4px 4px 4px 4px;
 }
 
-.button-secondary {
-  width: 194px;
-  height: 55px;
-  padding: 0px 10px 0px 10px;
-  background: #FFFFFF;
-  color: #000000;
-  border-color: #444444;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px 3px 3px 3px;
-  font-family: "Source Sans 3";
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
-}
-
-.button-primary {
-  width: 194px;
-  height: 55px;
-  padding: 0px 10px 0px 10px;
-  background: #444444;
-  color: #FFFFFF;
-  border-color: #444444;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px 3px 3px 3px;
-  font-family: "Source Sans 3";
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
+button {
+  margin: 10px;
 }
 
 .product-shop {
@@ -124,9 +120,7 @@ onMounted(() => {
   flex-wrap: wrap;
   flex-direction: row;
   gap: 30px;
-
 }
-
 
 .product-infos-container {
   display: flex;

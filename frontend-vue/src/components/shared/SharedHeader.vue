@@ -12,11 +12,11 @@
       <router-link to="/">Home</router-link>
       <router-link to="../shop">Produkte</router-link>
       <router-link to="../cart">Warenkorb</router-link>
-      <router-link v-if="checkIsAdmin()" to="/admin">Admin</router-link>
+      <router-link v-if="authStore.isAdmin()" to="/admin">Admin</router-link>
     </nav>
 
     <div class="account-container" ref="accountContainer">
-      <router-link v-if="!token" to="../login">Anmelden</router-link>
+      <router-link v-if="!authStore.isLoggedIn()" to="../login">Anmelden</router-link>
 
       <div v-else class="profile-icon" @click="toggleAccountMenu">
         <img src="@/assets/images/profile.png" alt="Profil">
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, onUnmounted, computed} from 'vue';
+import {ref, onMounted, onUnmounted,} from 'vue';
 import SearchBar from "@/components/SearchBar.vue";
 import AccountMenu from '../AccountMenu.vue';
 import {useAuthStore} from '@/stores/authStore';
@@ -37,18 +37,12 @@ const authStore = useAuthStore();
 
 const accountMenu = ref(null);
 const accountContainer = ref(null);
-const token = computed(() => authStore.token);
-const isAdmin = computed(() => authStore.isAdmin);
 
 const toggleAccountMenu = () => {
   if (accountMenu.value) {
     accountMenu.value.toggleMenu();
   }
 };
-
-const checkIsAdmin = () => {
-  return isAdmin.value;
-}
 
 /**
  * Ruft handleClickOutsideOfMenu auf. Als Referenz wird der AccountContainer übergeben, damit das Account-Icon ebenfalls als "innerhalb" des Menüs wahrgenommen wird.

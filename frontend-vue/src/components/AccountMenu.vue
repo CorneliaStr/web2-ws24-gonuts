@@ -28,7 +28,7 @@ const closeMenu = () => {
 
 const navigateToFavorites = () =>  {
   closeMenu();
-  router.push('/favorites/1')
+  router.push('/favorites')
 };
 
 const logout = () => {
