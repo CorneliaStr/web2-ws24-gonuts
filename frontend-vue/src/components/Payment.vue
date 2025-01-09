@@ -96,7 +96,8 @@ function placeOrder(){
         </div>
     </div>
     <section class="buttons">
-        <Button as="router-link" to="/" :disabled="!authStore.isAdmin" label="Bezahlen" v-on:click="placeOrder()"/>
+    
+        <Button v-bind:disabled="!authStore.token" v-on:click="placeOrder()" severity="success">Bezahlen</Button>
         <Button as="router-link" label="Abbrechen" to="/" severity="secondary" />
     </section>
 </template>
@@ -132,6 +133,7 @@ function placeOrder(){
     }
     .uebersicht {
         flex: 3;
+        margin-left: 2%;
     }
     .uebersicht h3 {
         display: flex;

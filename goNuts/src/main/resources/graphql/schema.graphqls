@@ -12,6 +12,10 @@ type Mutation {
     createProduct(product: ProductInput!): Product!
     createTag(tag: TagInput!): Tag!
     addProductToFavorites(customerId: ID!, product: ProductInputWithId): Boolean
+    addProductToOrder(product : ProductInput,quantity : Float): OrderDTO
+    updateOrder(orderDTO : OrderDTOInput): Boolean
+    deleteOrderposition(orderPosition : OrderPositionDTOInput, orderID : Float): OrderDTO
+
 }
 
 input ProductInput {
@@ -61,6 +65,7 @@ type OrderDTO{
     customer : CustomerDTO
 }
 
+
 type OrderPositionDTO{
     id : ID!
     order : OrderDTO
@@ -69,7 +74,31 @@ type OrderPositionDTO{
 
 }
 
+input OrderDTOInput{
+    id : ID!
+    date : String
+    orderPosition : [OrderPositionDTOInput!]!
+    customer : CustomerDTOInput
+}
+
+input OrderPositionDTOInput{
+    id : ID!
+    order : OrderDTOInput
+    product : ProductInput
+    quantity : Float
+
+}
+
+
 type CustomerDTO{
+    id : ID!
+    surname : String
+    name : String
+    birthday : String
+    adress : String
+}
+
+input CustomerDTOInput{
     id : ID!
     surname : String
     name : String

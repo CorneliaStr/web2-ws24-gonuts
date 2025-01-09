@@ -28,6 +28,11 @@ function updateQuantity(orderId, newQuantity) {
       orderStore.updateOrder(order.value);
     };
 
+function deleteProduct( orderPosition, orderID ){
+    console.log(orderID)
+    orderStore.deleteOrderPosition(orderPosition, orderID);
+}
+
 </script>
 
 
@@ -58,6 +63,7 @@ function updateQuantity(orderId, newQuantity) {
                             <!-- Optionen von 1 bis 100 -->
                             <option v-for="i in 100" :key="i" :value="i">{{ i }}</option>
                         </select>
+                        <Button id="deleteBTN" size="small" label="Entfernen" v-on:click="deleteProduct(orderPosition, order.id)"  severity="danger" />
                     </div>
                 </div>
                 <div v-else>
@@ -176,10 +182,17 @@ function updateQuantity(orderId, newQuantity) {
     }
 
     select{
-        flex: 0.5;
+        flex: 1;
         margin-right: 10px;
         height: 50px;
-        width: 20px;
+        width: 100px;
+    }
+
+    #deleteBTN{
+        flex: 1;
+        margin-right: 10px;
+        height: 50px;
+        width: 200px;
     }
 
 
