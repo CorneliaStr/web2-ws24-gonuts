@@ -20,9 +20,7 @@
         <router-link to="/favorites">
           <button>Zur Merkliste hinzufügen</button>
         </router-link>
-        <router-link to="/cart">
-          <button @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
-        </router-link>
+        <button @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
 
       </div>
     </div>
@@ -38,15 +36,15 @@
 </template>
 
 <script setup>
-import { useProductsStore } from "@/stores/productsStore.js";
-import { useAuthStore } from "@/stores/authStore.js";
-import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import {useProductsStore} from "@/stores/productsStore.js";
+import {useAuthStore} from "@/stores/authStore.js";
+import {computed, onMounted, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 import ProductCard from "@/components/ProductCard.vue";
-import { useOrderStore } from '@/stores/orderStore.js';
+import {useOrderStore} from '@/stores/orderStore.js';
 
 const route = useRoute();
-
+const router = useRouter();
 
 const productStore = useProductsStore();
 const orderStore = useOrderStore();
@@ -67,7 +65,18 @@ const similarProducts = computed(() => {
 
 
 const addToCart = async (product, quantity, token) => {
+  if (authStore.isLoggedIn()) {
     await orderStore.addToCart(product, quantity, token);
+    router.push("/cart");
+  }
+  // Die postLoginAction wird nach dem erfolgreichen Login ausgeführt.
+  else {
+    authStore.setPostLoginAction(async (token) => {
+      await orderStore.addToCart(product, quantity, token);
+      router.push("/cart");
+    });
+    router.push("/login");
+  }
 }
 
 onMounted(() => {
