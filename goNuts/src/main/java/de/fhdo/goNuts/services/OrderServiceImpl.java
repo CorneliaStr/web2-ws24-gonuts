@@ -49,66 +49,87 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO getOrder(Long id) {
-        Optional<Order> order = this.orderRepository.findById(id);
+        Optional<Order> order = orderRepository.findById(id);
         return order.map(o -> orderMapper.mapEntityToDto(o)).orElse(null);
     }
 
     @Override
-    public OrderDTO getCart(){
-        Optional<Customer> customer = this.customerRepository.findById(1L);
-        //Optional<Order> order = this.orderRepository.findById(1L);
-        Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(customer);
-
-        if(order.isEmpty()){
-            Order newCart = new Order();
-            newCart.setCustomer(customer.get());
-            this.orderRepository.save(newCart);
-            order = this.orderRepository.findByCustomerAndDateIsNull(customer);
-        }
-        return order.map(o -> orderMapper.mapEntityToDto(o)).orElse(null);
-    }
-
-    @Override
-    public void  addProductToOrder(ProductDTO productDTO, Long quantity, String token) {
-        Optional<String> email = authService.extractEmail(token);
-        if(email.isEmpty()) {
+    public OrderDTO getCart() {
+        Optional<Customer> customer = customerRepository.findById(1L);
+        if (customer.isEmpty()) {
             logger.error("Email konnte nicht aus dem Token gelesen werden.");
-            return;
+            return null;
         }
 
-        Optional<Customer> customer = this.customerRepository.findByAccount_Email(email.get());
-        Optional<Order> order = this.orderRepository.findByCustomerAndDateIsNull(customer);
+        Order cart = getCart(customer.get());
+        return orderMapper.mapEntityToDto(cart);
+    }
 
-        // TODO Falls kein Warenkorb, also eine Order ohne Date, vorhanden ist, muss eine neue Ordner angelegt werden
+    private Order getCart(Customer customer) {
+        Optional<Order> orderOptional = orderRepository.findByCustomerAndDateIsNull(customer);
 
-        //Falls schon vorhanden +1
-        for(OrderPosition positon : order.get().getOrderPosition()){
-            if(positon.getProduct().getId().equals(productDTO.getId())){
-                positon.setQuantity(positon.getQuantity()+quantity);
-                this.orderRepository.save(order.get());
-                return;
+        if (orderOptional.isPresent()) {
+            return orderOptional.get();
+        }
+        Order newCart = new Order();
+        newCart.setCustomer(customer);
+        return orderRepository.save(newCart);
+    }
+
+    @Override
+    public OrderDTO addProductToOrder(ProductDTO productDTO, Long quantity, String token) {
+        Optional<String> email = authService.extractEmail(token);
+        if (email.isEmpty()) {
+            logger.error("Email konnte nicht aus dem Token gelesen werden.");
+            return null;
+        }
+
+        Optional<Customer> customer = customerRepository.findByAccount_Email(email.get());
+        if (customer.isEmpty()) {
+            logger.error("Es wurde kein passender Kunde zum Account " + email.get() + " gefunden.");
+            return null;
+        }
+
+        // Wenn kein Warenkrob (Order ohne Datum) existiert, wird ein neuer angelegt
+        Optional<Order> orderOptional = orderRepository.findByCustomerAndDateIsNull(customer.get());
+        Order order;
+        if (orderOptional.isPresent()) {
+            order = orderOptional.get();
+        } else {
+            Order newOrder = new Order();
+            newOrder.setCustomer(customer.get());
+            order = orderRepository.save(newOrder);
+        }
+
+        //Falls schon vorhanden +quantity
+        for (OrderPosition positon : order.getOrderPosition()) {
+            if (positon.getProduct().getId().equals(productDTO.getId())) {
+                positon.setQuantity(positon.getQuantity() + quantity);
+                order = orderRepository.save(order);
+                return orderMapper.mapEntityToDto(order);
             }
         }
 
         //Ansonsten neue Position anlegen
         OrderPosition newOrderPosition = new OrderPosition();
-        newOrderPosition.setOrder(order.get());
-        newOrderPosition.setProduct(this.productMapper.mapDtoToEntity(productDTO));
+        newOrderPosition.setOrder(order);
+        newOrderPosition.setProduct(productMapper.mapDtoToEntity(productDTO));
         newOrderPosition.setQuantity(quantity);
-        List<OrderPosition> orderPositionList = order.get().getOrderPosition();
+        List<OrderPosition> orderPositionList = order.getOrderPosition();
         orderPositionList.add(newOrderPosition);
-        order.get().setOrderPosition(orderPositionList);
-        this.orderRepository.save(order.get());
+        order.setOrderPosition(orderPositionList);
+        order = orderRepository.save(order);
+        return orderMapper.mapEntityToDto(order);
 
     }
 
     @Override
     public void updateOrder(OrderDTO orderDTO) {
         Order order = orderMapper.mapDtoToEntity(orderDTO);
-        for(OrderPosition orderPosition : order.getOrderPosition()){
+        for (OrderPosition orderPosition : order.getOrderPosition()) {
             orderPosition.setOrder(order);
         }
-        this.orderRepository.save(order);
+        orderRepository.save(order);
     }
 
 }

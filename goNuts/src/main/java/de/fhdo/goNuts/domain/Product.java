@@ -2,6 +2,7 @@ package de.fhdo.goNuts.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class Product {
     private String image;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Tag> tags;
+    private List<Tag> tags = new ArrayList<>();
 
     public Product() {}
 

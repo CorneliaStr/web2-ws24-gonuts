@@ -28,8 +28,7 @@ public class OrderController {
 
     @PostMapping("/addProduct")
     public OrderDTO addProductToOrder(@RequestBody AddProductToOrderRequest request) {
-        this.orderService.addProductToOrder(request.getProduct(), request.getQuantity(), request.getToken());
-        return this.orderService.getCart();
+        return orderService.addProductToOrder(request.getProduct(), request.getQuantity(), request.getToken());
     }
 
     @PostMapping("/update")

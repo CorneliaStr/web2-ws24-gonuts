@@ -2,6 +2,7 @@ package de.fhdo.goNuts.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Order {
     private boolean isPaid;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderPosition> orderPosition;
+    private List<OrderPosition> orderPosition = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
