@@ -24,7 +24,7 @@ public class OrderController {
     }
 
     @GetMapping("/cart")
-    public OrderDTO getCart(){return orderService.getCart();}
+    public OrderDTO getCart(@RequestHeader("Authorization") String token){return orderService.getCart(token);}
 
     @PostMapping("/addProduct")
     public OrderDTO addProductToOrder(@RequestBody AddProductToOrderRequest request) {

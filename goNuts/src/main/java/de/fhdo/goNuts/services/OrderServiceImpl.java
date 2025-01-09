@@ -6,10 +6,10 @@ import de.fhdo.goNuts.domain.OrderPosition;
 import de.fhdo.goNuts.dto.OrderDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.AuthService;
+import de.fhdo.goNuts.interfaces.CustomerService;
 import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.mapper.OrderMapper;
 import de.fhdo.goNuts.mapper.ProductMapper;
-import de.fhdo.goNuts.repository.CustomerRepository;
 import de.fhdo.goNuts.repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,21 +25,17 @@ public class OrderServiceImpl implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
     private final OrderRepository orderRepository;
-    private final CustomerRepository customerRepository;
-
-    private final AuthService authService;
+    private final CustomerService customerService;
 
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
 
-
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerRepository customerRepository, ProductMapper productMapper, AuthService authService) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, CustomerService customerService, ProductMapper productMapper) {
         this.orderRepository = orderRepository;
-        this.customerRepository = customerRepository;
+        this.customerService = customerService;
         this.orderMapper = orderMapper;
         this.productMapper = productMapper;
-        this.authService = authService;
     }
 
     @Override
@@ -54,14 +50,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO getCart() {
-        Optional<Customer> customer = customerRepository.findById(1L);
-        if (customer.isEmpty()) {
-            logger.error("Email konnte nicht aus dem Token gelesen werden.");
+    public OrderDTO getCart(String token) {
+        Customer customer = customerService.getCustomerEntityByToken(token);
+        if (customer == null) {
             return null;
         }
 
-        Order cart = getCart(customer.get());
+        Order cart = getCart(customer);
+        return orderMapper.mapEntityToDto(cart);
+    }
+
+    public OrderDTO getCart() {
+        Customer customer = customerService.getCustomerEntityById(1);
+        if (customer == null) {
+            logger.error("Es konnte kein Kunde zur ID 1 gefunden werden.");
+            return null;
+        }
+
+        Order cart = getCart(customer);
         return orderMapper.mapEntityToDto(cart);
     }
 
@@ -78,26 +84,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO addProductToOrder(ProductDTO productDTO, Long quantity, String token) {
-        Optional<String> email = authService.extractEmail(token);
-        if (email.isEmpty()) {
-            logger.error("Email konnte nicht aus dem Token gelesen werden.");
-            return null;
-        }
-
-        Optional<Customer> customer = customerRepository.findByAccount_Email(email.get());
-        if (customer.isEmpty()) {
-            logger.error("Es wurde kein passender Kunde zum Account " + email.get() + " gefunden.");
+        Customer customer = customerService.getCustomerEntityByToken(token);
+        if (customer == null) {
             return null;
         }
 
         // Wenn kein Warenkrob (Order ohne Datum) existiert, wird ein neuer angelegt
-        Optional<Order> orderOptional = orderRepository.findByCustomerAndDateIsNull(customer.get());
+        Optional<Order> orderOptional = orderRepository.findByCustomerAndDateIsNull(customer);
         Order order;
         if (orderOptional.isPresent()) {
             order = orderOptional.get();
         } else {
             Order newOrder = new Order();
-            newOrder.setCustomer(customer.get());
+            newOrder.setCustomer(customer);
             order = orderRepository.save(newOrder);
         }
 

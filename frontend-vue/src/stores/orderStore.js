@@ -4,9 +4,14 @@ import {ref} from "vue";
 export const useOrderStore = defineStore("order", () => {
     const order = ref([]);
 
-    function getCart() {
-        fetch(`http://localhost:8080/api/order/cart`)
-            .then(res => res.json())
+    function getCart(token) {
+        fetch(`http://localhost:8080/api/order/cart`, {
+            method: 'GET',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
             .then(data => {
                 order.value = data;
             });
