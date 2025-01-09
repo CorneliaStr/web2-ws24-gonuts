@@ -23,6 +23,11 @@ public class FavoritesController {
         return favoritesService.getFavorites(customerid);
     }
 
+    @GetMapping(path = "/", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public FavoritesDTO getFavorites(@RequestHeader("Authorization") String token) {
+        return favoritesService.getFavorites(token);
+    }
+
     @PostMapping(path = "/{addProduct}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public FavoritesDTO addProduct(@RequestBody AddProductToFavoritesRequest request) {

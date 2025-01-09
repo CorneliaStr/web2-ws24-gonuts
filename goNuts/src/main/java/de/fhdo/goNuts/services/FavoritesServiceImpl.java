@@ -37,6 +37,16 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
 
     @Override
+    public FavoritesDTO getFavorites(String token) {
+        Customer customer = customerService.getCustomerEntityByToken(token);
+        if (customer == null) {
+            return null;
+        }
+
+        return getFavorites(customer.getId());
+    }
+
+    @Override
     public FavoritesDTO addProductToFavorites(String token, ProductDTO productDTO) {
         Customer customer = customerService.getCustomerEntityByToken(token);
         if (customer == null) {

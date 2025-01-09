@@ -1,15 +1,20 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import {defineStore} from "pinia";
+import {ref} from "vue";
 
 export const useFavoritesStore = defineStore("favorites", () => {
     const favorites = ref([]);
 
-     function getFavorites(id) {
-            fetch(`http://localhost:8080/api/favorites/${id}`)
-                .then(res => res.json())
-                .then(data => {
-                    favorites.value = data;
-                });
+    function getFavorites(token) {
+        fetch(`http://localhost:8080/api/favorites/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(data => {
+                favorites.value = data;
+            });
     }
 
     function addToFavorites(productDTO, token) {
