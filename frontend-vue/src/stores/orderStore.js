@@ -53,6 +53,19 @@ export const useOrderStore = defineStore("order", () => {
         })
     }
 
+    function deleteOrderPosition(orderPositionDTO, orderID){
+        fetch(`http://localhost:8080/api/order/deleteOP/${orderID}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderPositionDTO)
+        }).then(res => res.json())
+        .then(data =>{
+            order.value = data;
+        })
+    }
+
     const getOrder = () => order.value;
 
     return {
@@ -61,6 +74,7 @@ export const useOrderStore = defineStore("order", () => {
         addToCart,
         getOrderById,
         updateOrder,
-        getOrder
+        getOrder,
+        deleteOrderPosition
     }
 })
