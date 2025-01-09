@@ -24,7 +24,7 @@ Der Code ist in 4 Ordner unterteilt.
   * GraphQL-API Controller
 
 
-# User 
+# Anmeldedaten für die Vue-Anwendung
 | E-Mail          | Passwort | Rolle |
 |-----------------|----------|-------|
 | user@gmail.com  | user     | Kunde |
