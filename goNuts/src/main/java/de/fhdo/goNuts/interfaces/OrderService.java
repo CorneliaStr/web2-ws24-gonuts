@@ -21,6 +21,8 @@ public interface OrderService {
 
     public OrderDTO addProductToOrder(ProductDTO productDTO, Long quantity, String token);
 
+    public OrderDTO addProductToOrderWithoutToken(ProductDTO productDTO, Long quantity);
+
     public void updateOrder(OrderDTO orderDTO);
 
     public OrderDTO deleteOrderPosition(OrderPositionDTO orderPositionDTO, Long orderID);

@@ -2,7 +2,6 @@ package de.fhdo.goNuts.controllers;
 
 import de.fhdo.goNuts.dto.OrderDTO;
 import de.fhdo.goNuts.dto.OrderPositionDTO;
-import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.requestObjects.AddProductToOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +27,11 @@ public class OrderController {
 
     @GetMapping(value = "/cart",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public OrderDTO getCart(@RequestHeader("Authorization") String token){return orderService.getCart(token);}
+    public OrderDTO getCart(@RequestHeader("Authorization") String token) {
+        return orderService.getCart(token);
     }
 
-    @PostMapping(value = "/addProduct/",
+    @PostMapping(value = "/addProduct",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public OrderDTO addProductToOrder(@RequestBody AddProductToOrderRequest request) {
@@ -48,8 +48,8 @@ public class OrderController {
     @DeleteMapping(value = "/deleteOP/{orderId}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public OrderDTO deleteOrderposition(@RequestBody OrderPositionDTO orderPositionDTO, @PathVariable Long orderId){
-       return this.orderService.deleteOrderPosition(orderPositionDTO, orderId);
+    public OrderDTO deleteOrderposition(@RequestBody OrderPositionDTO orderPositionDTO, @PathVariable Long orderId) {
+        return this.orderService.deleteOrderPosition(orderPositionDTO, orderId);
     }
 
 }

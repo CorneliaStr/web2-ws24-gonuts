@@ -6,7 +6,6 @@ import de.fhdo.goNuts.domain.OrderPosition;
 import de.fhdo.goNuts.dto.OrderDTO;
 import de.fhdo.goNuts.dto.OrderPositionDTO;
 import de.fhdo.goNuts.dto.ProductDTO;
-import de.fhdo.goNuts.interfaces.AuthService;
 import de.fhdo.goNuts.interfaces.CustomerService;
 import de.fhdo.goNuts.interfaces.OrderService;
 import de.fhdo.goNuts.mapper.OrderMapper;
@@ -90,6 +89,20 @@ public class OrderServiceImpl implements OrderService {
             return null;
         }
 
+        return addProductToOrder(productDTO, quantity, customer);
+    }
+
+    @Override
+    public OrderDTO addProductToOrderWithoutToken(ProductDTO productDTO, Long quantity) {
+        Customer customer = customerService.getCustomerEntityById(1);
+        if (customer == null) {
+            return null;
+        }
+
+        return addProductToOrder(productDTO, quantity, customer);
+    }
+
+    private OrderDTO addProductToOrder(ProductDTO productDTO, Long quantity, Customer customer) {
         // Wenn kein Warenkrob (Order ohne Datum) existiert, wird ein neuer angelegt
         Optional<Order> orderOptional = orderRepository.findByCustomerAndDateIsNull(customer);
         Order order;
@@ -120,7 +133,6 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderPosition(orderPositionList);
         order = orderRepository.save(order);
         return orderMapper.mapEntityToDto(order);
-
     }
 
     @Override
