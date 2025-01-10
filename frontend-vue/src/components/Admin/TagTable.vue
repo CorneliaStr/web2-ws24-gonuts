@@ -29,22 +29,31 @@
       </td>
     </tr>
     </tbody>
-
   </table>
+
+  <section class="section-error-message" v-if="errorMessage.length > 0">
+    <div class="error-message">{{ errorMessage }}</div>
+  </section>
 </template>
 
 <script setup>
-import { useProductsStore } from "@/stores/productsStore.js";
-import { computed, onMounted } from "vue";
+import {useProductsStore} from "@/stores/productsStore.js";
+import {computed, onMounted} from "vue";
+import Login from "@/components/Login.vue";
+import {storeToRefs} from "pinia";
+
+
 
 const productStore = useProductsStore();
 const tags = computed(() => productStore.tags);
+const errorMessage = computed(() => productStore.errorMessage);
 
 onMounted(() => productStore.getTags())
 
 const deleteTagById = (tag) => {
   productStore.deleteTag(tag);
 }
+
 </script>
 
 
@@ -79,5 +88,19 @@ const deleteTagById = (tag) => {
 .delete-button {
   background: darkred;
   margin-left: 5px;
+}
+
+.section-error-message{
+  display: flex;
+  justify-content: center;
+}
+.error-message {
+  padding: 20px;
+  background-color: red;
+  color: white;
+  margin-bottom: 15px;
+  color: white;
+  border-radius: 10px;
+  width: auto;
 }
 </style>

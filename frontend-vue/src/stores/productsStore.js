@@ -1,5 +1,5 @@
-import { defineStore } from "pinia";
-import { ref, watch } from "vue";
+import {defineStore} from "pinia";
+import {ref, watch} from "vue";
 
 export const useProductsStore = defineStore("products", () => {
     const products = ref([]);
@@ -7,10 +7,11 @@ export const useProductsStore = defineStore("products", () => {
     const tags = ref([]);
     let filteredProducts = ref([]);
     let selectedTag = ref(null);
+    let errorMessage = ref("");
 
     // Search Query
     watch([searchQuery, selectedTag], ([query, newTag]) => {
-        if(query === null && newTag === null){
+        if (query === null && newTag === null) {
             filteredProducts.value = products.value;
         }
         filteredProducts.value = products.value.filter((product) => {
@@ -49,6 +50,7 @@ export const useProductsStore = defineStore("products", () => {
     }
 
     function createTag(tag) {
+        errorMessage.value ="";
         console.log(tag)
         fetch(`http://localhost:8080/api/tag`, {
             method: "POST",
@@ -65,6 +67,7 @@ export const useProductsStore = defineStore("products", () => {
     }
 
     function updateTag(tag) {
+        errorMessage.value ="";
         console.log(tag)
         fetch(`http://localhost:8080/api/tag`, {
             method: "PUT",
@@ -83,7 +86,9 @@ export const useProductsStore = defineStore("products", () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then(() => getTags());
+        }).then(res => res.json())
+            .then(data => data ? errorMessage.value = "" : errorMessage.value = "Das Löschen des Elements ist nicht möglich, da es möglicherweise noch verwendet wird.")
+            .then(() => getTags());
 
     }
 
@@ -92,6 +97,7 @@ export const useProductsStore = defineStore("products", () => {
     }
 
     function updateProduct(product) {
+        errorMessage.value = "";
         console.log(product)
         fetch(`http://localhost:8080/api/product`, {
             method: "PUT",
@@ -104,13 +110,16 @@ export const useProductsStore = defineStore("products", () => {
     }
 
     function deleteProductById(productId) {
+        errorMessage.value = "";
         console.log(productId)
-        fetch(`http://localhost:8080/api/tag/${productId}`, {
+        fetch(`http://localhost:8080/api/product/${productId}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then(() => getProducts());
+        }).then(res => res.json())
+            .then(data => data ? errorMessage.value = "" : errorMessage.value = "Das Löschen des Elements ist nicht möglich, da es möglicherweise noch verwendet wird.")
+            .then(() => getProducts());
     }
 
     return {
@@ -119,6 +128,7 @@ export const useProductsStore = defineStore("products", () => {
         filteredProducts,
         selectedTag,
         tags,
+        errorMessage,
         getProducts,
         getTags,
         createProduct,
