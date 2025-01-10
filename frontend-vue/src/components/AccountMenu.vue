@@ -1,7 +1,7 @@
 <template>
   <div v-if="menuVisible" class="menu">
     <ul>
-      <li @click="closeMenu">Profil</li>
+      <li @click="navigateToAccount">Profil</li>
       <li @click="navigateToOrderHistory">Bestellungen</li>
       <li @click="navigateToFavorites">Favoriten</li>
       <li @click="logout">Abmelden</li>
@@ -26,14 +26,19 @@ const closeMenu = () => {
   menuVisible.value = false;
 };
 
-const navigateToFavorites = () =>  {
+const navigateToAccount = () =>  {
   closeMenu();
-  router.push('/favorites')
+  router.push('/account')
 };
 
 const navigateToOrderHistory = () =>  {
   closeMenu();
   router.push('/orderHistory')
+};
+
+const navigateToFavorites = () =>  {
+  closeMenu();
+  router.push('/favorites')
 };
 
 const logout = () => {
