@@ -16,6 +16,10 @@ type Mutation {
     updateOrder(orderDTO : OrderDTOInput): Boolean
     deleteOrderposition(orderPosition : OrderPositionDTOInput, orderID : Float): OrderDTO
 
+    updateProduct(product: ProductInputWithIdUpdate!): Product
+    deleteProduct(productID: ID!): Boolean
+    updateTag(tag: TagInputWithId!): Tag!
+    deleteTag(tagID: ID!): Boolean
 }
 
 input ProductInput {
@@ -35,7 +39,20 @@ input ProductInputWithId {
     tags: [TagInput!]!
 }
 
+input ProductInputWithIdUpdate {
+    id: ID!
+    name: String
+    description: String
+    price: Float
+    image: String
+    tags: [TagInputWithId]
+}
+
 input TagInput {
+    name: String!
+}
+input TagInputWithId {
+    id: ID!
     name: String!
 }
 

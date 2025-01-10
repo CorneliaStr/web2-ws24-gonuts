@@ -34,33 +34,83 @@ export const useProductsStore = defineStore("products", () => {
     function getTags() {
         fetch("http://localhost:8080/api/tag")
             .then(res => res.json())
-            .then(data => this.tags = data);
+            .then(data => tags.value = data);
     }
 
     function createProduct(product) {
+        console.log(product)
         fetch(`http://localhost:8080/api/product`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(product.value),
-        });
-        getProducts();
+            body: JSON.stringify(product),
+        }).then(() => getProducts());
     }
 
     function createTag(tag) {
+        console.log(tag)
         fetch(`http://localhost:8080/api/tag`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(tag.value),
+            body: JSON.stringify(tag),
         }).then(res => console.log(res.json()));
         getTags();
     }
 
     function getProductById(productId) {
         return products.value.find((product) => product.id == productId);
+    }
+
+    function updateTag(tag) {
+        console.log(tag)
+        fetch(`http://localhost:8080/api/tag`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(tag),
+        }).then(() => getTags());
+
+    }
+
+    function deleteTag(tagID) {
+        console.log(tagID)
+        fetch(`http://localhost:8080/api/tag/${tagID}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(() => getTags());
+
+    }
+
+    function getTagById(tagId) {
+        return tags.value.find((tag) => tag.id == tagId);
+    }
+
+    function updateProduct(product) {
+        console.log(product)
+        fetch(`http://localhost:8080/api/product`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product),
+        }).then(() => getProducts());
+
+    }
+
+    function deleteProductById(productId) {
+        console.log(productId)
+        fetch(`http://localhost:8080/api/tag/${productId}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(() => getProducts());
     }
 
     return {
@@ -74,6 +124,11 @@ export const useProductsStore = defineStore("products", () => {
         createProduct,
         createTag,
         getProductById,
+        deleteTag,
+        updateTag,
+        getTagById,
+        deleteProductById,
+        updateProduct,
     };
 
 })

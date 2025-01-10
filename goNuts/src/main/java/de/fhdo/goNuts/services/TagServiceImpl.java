@@ -32,4 +32,20 @@ public class TagServiceImpl implements TagService {
         Tag tag = tagMapper.mapDtoToEntity(tagDTO);
         return tagMapper.mapEntityToDto(tagRepository.save(tag));
     }
+
+    @Override
+    public TagDTO updateTag(TagDTO tagDTO) {
+        Tag tag = tagMapper.mapDtoToEntity(tagDTO);
+        return tagMapper.mapEntityToDto(tagRepository.save(tag));
+    }
+
+    @Override
+    public boolean deleteTag(Long tagID) {
+        try {
+            tagRepository.deleteById(tagID);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

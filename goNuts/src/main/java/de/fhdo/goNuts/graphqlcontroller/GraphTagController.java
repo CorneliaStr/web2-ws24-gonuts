@@ -29,4 +29,15 @@ public class GraphTagController {
         return this.tagService.createTag(tagDTO);
     }
 
+    @MutationMapping
+    public TagDTO updateTag(@Argument("tag") TagDTO tagDTO) {
+        return tagService.updateTag(tagDTO);
+    }
+
+    @MutationMapping
+    public boolean deleteTag(@Argument("tagID") Long tagID) {
+        return tagService.deleteTag(tagID);
+    }
+
+
 }

@@ -47,4 +47,20 @@ public class ProductServiceImpl implements ProductService {
         Product product = productMapper.mapDtoToEntity(productDTO);
         return productMapper.mapEntityToDto(productRepository.save(product));
     }
+
+    @Override
+    public ProductDTO updateProduct(ProductDTO productDTO) {
+        Product product = productMapper.mapDtoToEntity(productDTO);
+        return productMapper.mapEntityToDto(productRepository.save(product));
+    }
+
+    @Override
+    public boolean deleteProduct(Long productID) {
+        try {
+            productRepository.deleteById(productID);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

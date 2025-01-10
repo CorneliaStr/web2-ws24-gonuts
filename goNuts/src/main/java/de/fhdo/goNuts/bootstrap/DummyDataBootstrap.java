@@ -1,3 +1,4 @@
+
 package de.fhdo.goNuts.bootstrap;
 
 import de.fhdo.goNuts.domain.*;

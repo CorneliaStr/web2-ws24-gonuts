@@ -29,9 +29,21 @@ public class ProductController {
         return this.productService.getProduct(id);
     }
 
-    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+            ,consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
         return this.productService.createProduct(productDTO);
+    }
+
+    @PutMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ProductDTO updateProduct(@RequestBody ProductDTO productDTO) {
+        return this.productService.updateProduct(productDTO);
+    }
+
+    @DeleteMapping(path = "/{productId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public boolean deleteProduct(@PathVariable Long productId) {
+        return productService.deleteProduct(productId);
     }
 
 }
