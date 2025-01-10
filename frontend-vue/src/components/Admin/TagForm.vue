@@ -1,11 +1,14 @@
 <template>
-  <form @submit.prevent="addTags" class="tag-form">
-    <h2>Tag erstellen</h2>
+  <form @submit.prevent="handleSubmit" class="tag-form">
+    <h2>{{ isEditMode ? "Tag bearbeiten" : "Neuen Tag erstellen" }}</h2>
     <div>
       <label for="name">Name:</label>
-      <input type="text" id="name" v-model="newTag.name" required/>
+      <input id="name" v-model="tag.name" type="text" placeholder="Tag-Name eingeben" required
+      />
     </div>
-    <button type="submit">Add Tag</button>
+    <button type="submit">
+      {{ isEditMode ? "Speichern" : "Erstellen" }}
+    </button>
   </form>
 </template>
 
@@ -17,18 +20,19 @@ import { useProductsStore } from "@/stores/productsStore.js";
 const router = useRouter()
 const productStore = useProductsStore();
 
-const newTag = ref({
-  name: '',
-});
+const isEditMode = router.currentRoute.value.name === "editTag";
 
-const addTags = () => {
-  productStore.createTag(newTag);
+const tag = isEditMode ? productStore.getTagById(router.currentRoute.value.params.id) : { name: "" };
 
-  // Reset the form
-  newTag.value = {
-    name: '',
-  };
-
+const handleSubmit = () => {
+  if (isEditMode) {
+    console.log(tag.value);
+    productStore.updateTag(tag);
+    console.log("Tag aktualisiert:", tag.value);
+  } else {
+    productStore.createTag(tag);
+    console.log("Neuer Tag erstellt:", tag.value);
+  }
   router.push("/tagTable");
 };
 

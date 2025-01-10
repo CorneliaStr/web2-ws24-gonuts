@@ -28,8 +28,10 @@ const routes = [
     { path: "/admin", component: AdminView, meta: { requiresAdmin: true }},
     { path: "/productTable", component: ProductTable, meta: { requiresAdmin: true } },
     { path: "/addProduct", component: ProductForm, meta: { requiresAdmin: true } },
-    { path: "/addTag", component: TagForm, meta: { requiresAdmin: true } },
+    { path: "/editProduct/:id", name: "editProduct", component: ProductForm, meta: { requiresAdmin: true } },
     { path: "/tagTable", component: TagTable, meta: { requiresAdmin: true } },
+    { path: "/addTag", component: TagForm, meta: { requiresAdmin: true } },
+    { path: '/editTag/:id', name: "editTag", component: TagForm, meta: { requiresAdmin: true } },
 
 ];
 

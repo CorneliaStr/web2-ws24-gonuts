@@ -4,6 +4,7 @@
     <router-link :to="'/addTag'">
       <button>Neuer Tag</button>
     </router-link>
+
   </section>
 
   <table class="tag-table">
@@ -11,12 +12,21 @@
     <tr>
       <th>Id</th>
       <th>Name</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
     <tr v-for="(tag, index) in tags" :key="index">
       <td>{{ tag.id }}</td>
       <td>{{ tag.name }}</td>
+      <td class="text-right">
+        <router-link :to="`/editTag/${tag.id}`">
+          <button><i class="pi pi-pencil"></i></button>
+        </router-link>
+        <button id="deleteButton" class="delete-button" v-on:click="deleteTagById(tag.id)">
+          <i class="pi pi-trash"></i>
+        </button>
+      </td>
     </tr>
     </tbody>
 
@@ -31,15 +41,19 @@ const productStore = useProductsStore();
 const tags = computed(() => productStore.tags);
 
 onMounted(() => productStore.getTags())
+
+const deleteTagById = (tag) => {
+  productStore.deleteTag(tag);
+}
 </script>
 
 
-
 <style scoped>
-.admin-section{
+.admin-section {
   display: flex;
   justify-content: space-between;
 }
+
 .tag-table {
   margin: 20px;
   border-collapse: collapse;
@@ -55,5 +69,15 @@ onMounted(() => productStore.getTags())
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+}
+
+.text-right {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-button {
+  background: darkred;
+  margin-left: 5px;
 }
 </style>

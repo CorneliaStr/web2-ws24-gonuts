@@ -5,6 +5,10 @@ import { computed } from "vue";
 
 const productStore = useProductsStore();
 const products = computed(() => productStore.products);
+
+const deleteProductById = (productId) => {
+  productStore.deleteProductById(productId);
+}
 </script>
 
 <template>
@@ -25,6 +29,7 @@ const products = computed(() => productStore.products);
       <th>Preis</th>
       <th>Image</th>
       <th>Tags</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -40,6 +45,14 @@ const products = computed(() => productStore.products);
             <span v-for="(tag, tagIndex) in product.tags" :key="tagIndex" class="tag">
               {{ tag.name }}
             </span>
+      </td>
+      <td>
+        <router-link :to="`/editProduct/${product.id}`">
+          <button><i class="pi pi-pencil"></i></button>
+        </router-link>
+<!--        <button id="deleteButton" class="delete-button" v-on:click="deleteProductById(product.id)">-->
+<!--          <i class="pi pi-trash"></i>-->
+<!--        </button>-->
       </td>
     </tr>
     </tbody>
@@ -82,5 +95,10 @@ const products = computed(() => productStore.products);
   margin: 2px;
   border-radius: 4px;
   display: inline-block;
+}
+
+.delete-button {
+  background: darkred;
+  margin: 1px;
 }
 </style>
