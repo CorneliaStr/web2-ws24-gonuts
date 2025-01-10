@@ -2,6 +2,7 @@ package de.fhdo.goNuts.graphqlcontroller;
 
 import de.fhdo.goNuts.domain.Product;
 import de.fhdo.goNuts.dto.ProductDTO;
+import de.fhdo.goNuts.dto.TagDTO;
 import de.fhdo.goNuts.interfaces.ProductService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -29,5 +30,15 @@ public class GraphProductController {
     @MutationMapping
     public ProductDTO createProduct(@Argument("product") ProductDTO product) {
         return this.productService.createProduct(product);
+    }
+
+    @MutationMapping
+    public ProductDTO updateProduct(@Argument("product") ProductDTO product) {
+        return productService.updateProduct(product);
+    }
+
+    @MutationMapping
+    public boolean deleteProduct(@Argument("productID") Long product) {
+        return productService.deleteProduct(product);
     }
 }

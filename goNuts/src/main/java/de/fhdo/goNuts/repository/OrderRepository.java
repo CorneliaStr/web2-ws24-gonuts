@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    Optional<Order> findByCustomerAndDateIsNull(Optional<Customer> customer);
+    Optional<Order> findByCustomerAndDateIsNull(Customer customer);
 }

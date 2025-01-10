@@ -2,8 +2,8 @@ package de.fhdo.goNuts.controllers;
 
 import de.fhdo.goNuts.dto.OrderDTO;
 import de.fhdo.goNuts.dto.OrderPositionDTO;
-import de.fhdo.goNuts.dto.ProductDTO;
 import de.fhdo.goNuts.interfaces.OrderService;
+import de.fhdo.goNuts.requestObjects.AddProductToOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -27,16 +27,15 @@ public class OrderController {
 
     @GetMapping(value = "/cart",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public OrderDTO getCart() {
-        return orderService.getCart();
+    public OrderDTO getCart(@RequestHeader("Authorization") String token) {
+        return orderService.getCart(token);
     }
 
-    @PostMapping(value = "/addProduct/{quantity}",
+    @PostMapping(value = "/addProduct",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public OrderDTO addProductToOrder(@RequestBody ProductDTO productDTO, @PathVariable Long quantity) {
-        this.orderService.addProductToOrder(productDTO, quantity);
-        return this.orderService.getCart();
+    public OrderDTO addProductToOrder(@RequestBody AddProductToOrderRequest request) {
+        return orderService.addProductToOrder(request.getProduct(), request.getQuantity(), request.getToken());
     }
 
     @PostMapping(value = "/update",
@@ -49,8 +48,8 @@ public class OrderController {
     @DeleteMapping(value = "/deleteOP/{orderId}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public OrderDTO deleteOrderposition(@RequestBody OrderPositionDTO orderPositionDTO, @PathVariable Long orderId){
-       return this.orderService.deleteOrderPosition(orderPositionDTO, orderId);
+    public OrderDTO deleteOrderposition(@RequestBody OrderPositionDTO orderPositionDTO, @PathVariable Long orderId) {
+        return this.orderService.deleteOrderPosition(orderPositionDTO, orderId);
     }
 
 }

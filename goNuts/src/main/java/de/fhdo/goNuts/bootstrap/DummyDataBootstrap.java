@@ -1,3 +1,4 @@
+
 package de.fhdo.goNuts.bootstrap;
 
 import de.fhdo.goNuts.domain.*;
@@ -91,9 +92,12 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
 
         Favorites favorites1 = new Favorites();
         favorites1.setProducts(Arrays.asList(product1, product2, product4, product7));
+        Favorites favorites2 = new Favorites();
 
-        Customer customer1 = new Customer("Bernd", "Bunt", LocalDate.of(1990, 2, 12), "Dortmund", account2, favorites1);
+        Customer customer1 = new Customer("Bernd", "Bunt", LocalDate.of(1990, 2, 12), "Dortmund", account1, favorites1);
         customerRepository.save(customer1);
+        Customer customer2 = new Customer("Anna", "Adler", LocalDate.of(1980, 5, 17), "Bochum", account2, favorites2);
+        customerRepository.save(customer2);
 
         // Bestellung erstellen
         Order order1 = new Order();

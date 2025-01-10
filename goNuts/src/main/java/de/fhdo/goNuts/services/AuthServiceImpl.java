@@ -36,16 +36,32 @@ public class AuthServiceImpl implements AuthService {
         return null;
     }
 
-    @Override
-    public boolean isAdmin(String token) {
+    public AccountDTO getAccountByToken(String token) {
         if (jwtUtil.validateToken(token)) {
             String email = jwtUtil.extractEmail(token);
-            Optional<Account> account = accountRepository.findById(email);
+            return accountRepository
+                    .findById(email)
+                    .stream()
+                    .map(accountMapper::mapEntityToDto)
+                    .findAny().orElse(null);
+        }
+        return null;
+    }
 
-            if (account.isPresent()) {
-                return account.get().isAdmin();
-            }
+    @Override
+    public boolean isAdmin(String token) {
+        AccountDTO account = getAccountByToken(token);
+        if (account != null) {
+            return account.isAdmin();
         }
         return false;
+    }
+
+    @Override
+    public Optional<String> extractEmail(String token) {
+        if (jwtUtil.validateToken(token)) {
+            return Optional.ofNullable(jwtUtil.extractEmail(token));
+        }
+        return Optional.empty();
     }
 }

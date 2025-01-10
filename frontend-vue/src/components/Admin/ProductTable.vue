@@ -5,6 +5,12 @@ import { computed } from "vue";
 
 const productStore = useProductsStore();
 const products = computed(() => productStore.products);
+
+const errorMessage = computed(() => productStore.errorMessage);
+
+const deleteProductById = (productId) => {
+  productStore.deleteProductById(productId);
+}
 </script>
 
 <template>
@@ -25,6 +31,7 @@ const products = computed(() => productStore.products);
       <th>Preis</th>
       <th>Image</th>
       <th>Tags</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -41,10 +48,21 @@ const products = computed(() => productStore.products);
               {{ tag.name }}
             </span>
       </td>
+      <td>
+        <router-link :to="`/editProduct/${product.id}`">
+          <button><i class="pi pi-pencil"></i></button>
+        </router-link>
+        <button id="deleteButton" class="delete-button" v-on:click="deleteProductById(product.id)">
+          <i class="pi pi-trash"></i>
+        </button>
+      </td>
     </tr>
     </tbody>
-
   </table>
+
+  <section class="section-error-message" v-if="errorMessage.length > 0">
+    <div class="error-message">{{ errorMessage }}</div>
+  </section>
 </template>
 
 <style scoped>
@@ -82,5 +100,23 @@ const products = computed(() => productStore.products);
   margin: 2px;
   border-radius: 4px;
   display: inline-block;
+}
+
+.delete-button {
+  background: darkred;
+  margin: 1px;
+}
+.section-error-message{
+  display: flex;
+  justify-content: center;
+}
+.error-message {
+  padding: 20px;
+  background-color: red;
+  color: white;
+  margin-bottom: 15px;
+  color: white;
+  border-radius: 10px;
+  width: auto;
 }
 </style>

@@ -14,14 +14,13 @@ import ProductTable from "@/components/Admin/ProductTable.vue";
 import AdminView from "@/components/Admin/AdminView.vue";
 import Login from "@/components/Login.vue";
 import {useAuthStore} from '@/stores/authStore';
-import {computed} from "vue";
 
 const routes = [
     { path: "/", component: Home },
     { path: "/login", component: Login },
     { path: "/shop", component: Shop },
     { path: "/product/:id", component: ProductDetail },
-    { path: "/favorites/:id", component: Favorites },
+    { path: "/favorites", component: Favorites },
     { path: "/cart", component: Cart },
     { path: "/account", component: Account },
     { path: "/shipping", component: Shipping },
@@ -29,8 +28,10 @@ const routes = [
     { path: "/admin", component: AdminView, meta: { requiresAdmin: true }},
     { path: "/productTable", component: ProductTable, meta: { requiresAdmin: true } },
     { path: "/addProduct", component: ProductForm, meta: { requiresAdmin: true } },
-    { path: "/addTag", component: TagForm, meta: { requiresAdmin: true } },
+    { path: "/editProduct/:id", name: "editProduct", component: ProductForm, meta: { requiresAdmin: true } },
     { path: "/tagTable", component: TagTable, meta: { requiresAdmin: true } },
+    { path: "/addTag", component: TagForm, meta: { requiresAdmin: true } },
+    { path: '/editTag/:id', name: "editTag", component: TagForm, meta: { requiresAdmin: true } },
 
 ];
 
@@ -41,9 +42,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     let authStore = useAuthStore();
-    let isAdmin = computed(() => authStore.isAdmin);
 
-    if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin.value) {
+    if (to.matched.some(record => record.meta.requiresAdmin) && !authStore.isAdmin()) {
         next("/");
     } else {
         next();
