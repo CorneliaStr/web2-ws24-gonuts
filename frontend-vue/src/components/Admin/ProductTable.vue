@@ -6,6 +6,8 @@ import { computed } from "vue";
 const productStore = useProductsStore();
 const products = computed(() => productStore.products);
 
+const errorMessage = computed(() => productStore.errorMessage);
+
 const deleteProductById = (productId) => {
   productStore.deleteProductById(productId);
 }
@@ -50,14 +52,17 @@ const deleteProductById = (productId) => {
         <router-link :to="`/editProduct/${product.id}`">
           <button><i class="pi pi-pencil"></i></button>
         </router-link>
-<!--        <button id="deleteButton" class="delete-button" v-on:click="deleteProductById(product.id)">-->
-<!--          <i class="pi pi-trash"></i>-->
-<!--        </button>-->
+        <button id="deleteButton" class="delete-button" v-on:click="deleteProductById(product.id)">
+          <i class="pi pi-trash"></i>
+        </button>
       </td>
     </tr>
     </tbody>
-
   </table>
+
+  <section class="section-error-message" v-if="errorMessage.length > 0">
+    <div class="error-message">{{ errorMessage }}</div>
+  </section>
 </template>
 
 <style scoped>
@@ -100,5 +105,18 @@ const deleteProductById = (productId) => {
 .delete-button {
   background: darkred;
   margin: 1px;
+}
+.section-error-message{
+  display: flex;
+  justify-content: center;
+}
+.error-message {
+  padding: 20px;
+  background-color: red;
+  color: white;
+  margin-bottom: 15px;
+  color: white;
+  border-radius: 10px;
+  width: auto;
 }
 </style>
