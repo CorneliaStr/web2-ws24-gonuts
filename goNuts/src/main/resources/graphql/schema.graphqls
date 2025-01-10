@@ -1,9 +1,10 @@
 type Query {
     tags: [Tag!]!
     products: [Product!]!
-    cart : OrderDTO!
-    customer : [CustomerDTO!]!
+    cart(id: ID!) : OrderDTO!
+    customer(id: ID!) : CustomerDTO
     orders : [OrderDTO]!
+    order(id: ID!): OrderDTO
 
     product(id: ID!): Product
     favorites(customerid: ID!): Favorites!
@@ -12,10 +13,10 @@ type Mutation {
     createProduct(product: ProductInput!): Product!
     createTag(tag: TagInput!): Tag!
     addProductToFavorites(customerId: ID!, product: ProductInputWithId): Boolean
-    addProductToOrder(product : ProductInput,quantity : Float): OrderDTO
+    addProductToOrder(product : ProductInput,quantity : Int): OrderDTO
     updateOrder(orderDTO : OrderDTOInput): Boolean
-    deleteOrderposition(orderPosition : OrderPositionDTOInput, orderID : Float): OrderDTO
-
+    deleteOrderposition(orderPositionDTO : OrderPositionDTOInput, orderID : ID): OrderDTO
+    updateCustomer(customerDTO: CustomerDTOInput): CustomerDTO
     updateProduct(product: ProductInputWithIdUpdate!): Product
     deleteProduct(productID: ID!): Boolean
     updateTag(tag: TagInputWithId!): Tag!
