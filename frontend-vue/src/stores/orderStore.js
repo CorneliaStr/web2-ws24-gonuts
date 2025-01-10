@@ -3,6 +3,7 @@ import {ref} from "vue";
 
 export const useOrderStore = defineStore("order", () => {
     const order = ref([]);
+    const orders = ref([])
 
     function getCart(token) {
         fetch(`http://localhost:8080/api/order/cart`, {
@@ -66,11 +67,26 @@ export const useOrderStore = defineStore("order", () => {
         })
     }
 
+    function getOrders(token){
+        fetch(`http://localhost:8080/api/order/orderHistory`, {
+            method: 'GET',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+           .then(data => {
+                orders.value = data;
+            });
+    }
+
     const getOrder = () => order.value;
 
     return {
         order,
+        orders,
         getCart,
+        getOrders,
         addToCart,
         getOrderById,
         updateOrder,

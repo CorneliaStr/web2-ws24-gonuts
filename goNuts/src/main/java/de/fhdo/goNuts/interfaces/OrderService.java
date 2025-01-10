@@ -19,6 +19,8 @@ public interface OrderService {
      */
     public OrderDTO getCart();
 
+    public List<OrderDTO> getOrders(String token);
+
     public OrderDTO addProductToOrder(ProductDTO productDTO, Long quantity, String token);
 
     public OrderDTO addProductToOrderWithoutToken(ProductDTO productDTO, Long quantity);
