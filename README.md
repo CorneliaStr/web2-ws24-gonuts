@@ -10,7 +10,7 @@
 # Getting Started 
 
 Der Code für die Abnahme befindet sich alles im Branch main.
-Der Code ist in 4 Ordner unterteilt.   
+Der Code ist in 5 Ordner unterteilt.   
 * **clickable-prototype**
   * Klick-Prototyp zum Oberflächenkonzept 
 * **frontend-csr**
@@ -22,6 +22,9 @@ Der Code ist in 4 Ordner unterteilt.
   * Serverseitig erzeugte Views (Thymeleaf)
   * REST-API Controller, die JSON und XML unterstützen
   * GraphQL-API Controller
+* **Mockups**
+  * PDF-Datei mit allen Mockups
+
 
 
 # Anmeldedaten für die Vue-Anwendung
