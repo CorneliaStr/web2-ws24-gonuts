@@ -17,12 +17,6 @@ public class Order {
 
     private Date date;
 
-    private boolean freeShipping;
-
-    private Date orderFinishedDate;
-
-    private boolean isPaid;
-
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderPosition> orderPosition = new ArrayList<>();
 
@@ -72,21 +66,5 @@ public class Order {
                 ", orderPosition=" + orderPosition +
                 ", customer=" + customer +
                 '}';
-    }
-
-    public boolean isFreeShipping() {
-        return freeShipping;
-    }
-
-    public void setFreeShipping(boolean freeShipping) {
-        this.freeShipping = freeShipping;
-    }
-
-    public Date getOrderFinishedDate() {
-        return orderFinishedDate;
-    }
-
-    public void setOrderFinishedDate(Date orderFinishedDate) {
-        this.orderFinishedDate = orderFinishedDate;
     }
 }
