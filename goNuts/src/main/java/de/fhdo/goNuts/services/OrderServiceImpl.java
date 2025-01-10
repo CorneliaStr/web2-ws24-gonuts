@@ -61,10 +61,10 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.mapEntityToDto(cart);
     }
 
-    public OrderDTO getCart() {
-        Customer customer = customerService.getCustomerEntityById(1);
+    public OrderDTO getCart(Long id) {
+        Customer customer = customerService.getCustomerEntityById(id);
         if (customer == null) {
-            logger.error("Es konnte kein Kunde zur ID 1 gefunden werden.");
+            logger.error("Es konnte kein Kunde zur ID gefunden werden.");
             return null;
         }
 

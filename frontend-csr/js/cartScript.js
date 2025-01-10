@@ -1,5 +1,5 @@
 let fetchCart = function(){
-    fetch("http://localhost:8080/api/order/cart")
+    fetch("http://localhost:8080/api/order/cart/1")
          .then(response => response.json())
          .then(json => buildCartProducts(json))
 }

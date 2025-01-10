@@ -18,7 +18,6 @@ public class GraphOrderController {
 
     private final OrderService orderService;
 
-
     public GraphOrderController(OrderService orderService){ this.orderService = orderService;}
 
     @QueryMapping("orders")
@@ -29,21 +28,21 @@ public class GraphOrderController {
     public OrderDTO getOrder(@Argument Long id){return orderService.getOrder(id);}
 
     @QueryMapping("cart")
-    public OrderDTO getCart() {
-        return orderService.getCart();
+    public OrderDTO getCart(@Argument Long id) {
+        return orderService.getCart(id);
     }
 
-    @MutationMapping("addProduct")
+    @MutationMapping("addProductToOrder")
     public OrderDTO addProductToOrder(@Argument("product") ProductDTO product, @Argument("quantity") Long quantity){
       return orderService.addProductToOrderWithoutToken(product, quantity);
     }
 
-    @MutationMapping("update")
+    @MutationMapping("updateOrder")
     public void updateOrder(@Argument("orderDTO") OrderDTO orderDTO){
         orderService.updateOrder(orderDTO);
     }
 
-    @MutationMapping("deleteOP")
+    @MutationMapping("deleteOrderposition")
     public OrderDTO deleteOrderposition(@Argument("orderPositionDTO") OrderPositionDTO orderPositionDTO, @Argument("orderID") Long orderID){
        return orderService.deleteOrderPosition(orderPositionDTO, orderID);
     }
