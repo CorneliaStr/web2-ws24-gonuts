@@ -25,8 +25,23 @@ export const useCustomerStore = defineStore("customer", () => {
             });
     }
 
+    function updateCustomer(customer) {
+        fetch(`http://localhost:8080/api/customer`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(customer),
+        }).then(res => res.json())
+            .then(data => {
+                customer.value = data;
+            });
+
+    }
+
     return {
         customer,
         getCustomer,
+        updateCustomer,
     }
 })

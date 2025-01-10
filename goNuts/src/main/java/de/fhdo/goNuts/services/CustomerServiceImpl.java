@@ -60,4 +60,10 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return customerRepository.findByAccount_Email(email.get()).orElse(null);
     }
+
+    @Override
+    public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
+        Customer customer = customerMapper.mapDtoToEntity(customerDTO);
+        return customerMapper.mapEntityToDto(customerRepository.save(customer));
+    }
 }

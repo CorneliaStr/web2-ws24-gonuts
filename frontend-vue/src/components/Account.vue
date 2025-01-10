@@ -70,7 +70,7 @@ const customerStore = useCustomerStore();
 const customer = computed(() => customerStore.customer);
 
 const handleSubmit = () => {
-  console.log("Submit")
+  customerStore.updateCustomer(customer.value);
 };
 
 onBeforeMount(() => {
