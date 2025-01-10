@@ -9,14 +9,42 @@
     </router-link>
 
     <div class="element-group">
-      <input class="number-step" value="1" max="50" min="1" name="points" step="1" type="number">
-      <button class="cart-button">Zum Warenkorb hinzufügen</button>
+      <input class="number-step" value="1" max="50" min="1" name="points" step="1" type="number" v-model="quantity">
+      <button class="cart-button" @click="addToCart(product,quantity, token)">Zum Warenkorb hinzufügen</button>
     </div>
   </section>
 </template>
 
 <script setup>
+import {useOrderStore} from "@/stores/orderStore.js";
+import {computed, ref} from "vue";
+import {useAuthStore} from "@/stores/authStore.js";
+import {useRouter} from "vue-router";
+
+const orderStore = useOrderStore();
+const quantity = ref(1);
+
+const authStore = useAuthStore();
+const token = computed(() => authStore.token);
+
+const router = useRouter();
+
 const props = defineProps(["product"]);
+
+const addToCart = async (product, quantity, token) => {
+  if (authStore.isLoggedIn()) {
+    await orderStore.addToCart(product, quantity, token);
+    router.push("/cart");
+  }
+  // Die postLoginAction wird nach dem erfolgreichen Login ausgeführt.
+  else {
+    authStore.setPostLoginAction(async (token) => {
+      await orderStore.addToCart(product, quantity, token);
+      router.push("/cart");
+    });
+    router.push("/login");
+  }
+}
 </script>
 
 <style scoped>
