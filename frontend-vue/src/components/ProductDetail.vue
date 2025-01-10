@@ -1,5 +1,5 @@
 <template>
-  <section class="product-shop">
+  <section class="product-shop" v-if="product">
     <img v-if="product" :src="'/src/assets' + product.image" class="product-image" alt="product.name">
     <div class="product-infos-container">
       <h2>
@@ -7,7 +7,7 @@
       </h2>
       <hr class="seperator">
       <div v-if="product" class="preis">
-        <strong>{{ product.price }}€</strong>
+        <strong>{{ product.price.toFixed(2) }} €</strong>
         <input type="number" placeholder="Menge" v-model="quantity">
       </div>
 
@@ -36,7 +36,7 @@
 <script setup>
 import {useProductsStore} from "@/stores/productsStore.js";
 import {useAuthStore} from "@/stores/authStore.js";
-import {computed, onMounted, ref} from "vue";
+import {computed, onBeforeMount, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import ProductCard from "@/components/ProductCard.vue";
 import {useOrderStore} from '@/stores/orderStore.js';
@@ -94,7 +94,11 @@ const addToFavorites = async (product, token) => {
   }
 }
 
-onMounted(() => {
+watch([router.currentRoute], () => {
+  product.value = productStore.getProductById(route.params.id);
+})
+
+onBeforeMount(() => {
   product.value = productStore.getProductById(route.params.id);
 });
 </script>
