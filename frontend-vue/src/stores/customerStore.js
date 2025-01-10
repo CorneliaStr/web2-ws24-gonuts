@@ -39,9 +39,14 @@ export const useCustomerStore = defineStore("customer", () => {
 
     }
 
+    function clearCustomer() {
+        customer.value = null;
+    }
+
     return {
         customer,
         getCustomer,
         updateCustomer,
+        clearCustomer,
     }
 })

@@ -13,8 +13,12 @@
 import {ref, defineExpose} from 'vue';
 import router from "@/router/router.js";
 import {useAuthStore} from '@/stores/authStore';
+import {useCustomerStore} from "@/stores/customerStore.js";
+import {useOrderStore} from "@/stores/orderStore.js";
 
 const authStore = useAuthStore();
+const customerStore = useCustomerStore();
+const orderStore = useOrderStore();
 
 const menuVisible = ref(false);
 
@@ -43,6 +47,8 @@ const navigateToFavorites = () =>  {
 
 const logout = () => {
   authStore.logout();
+  customerStore.clearCustomer()
+  orderStore.clearOrder();
   closeMenu();
 };
 
