@@ -54,7 +54,7 @@ function deleteProduct( orderPosition, orderID ){
                     <div class="productList" v-for="orderPosition in order.orderPosition" :key="orderPosition.id">
                         <div class="product">
                             <img 
-                                :src="'/src/assets' + (orderPosition.product?.image || 'default.jpg')" 
+                                :src="'/src/assets' + (orderPosition.product?.image || './assets/placeholder.jpg')"
                                 class="image-product" 
                                 alt="...">
                             <div class="beschreibung">
@@ -64,14 +64,13 @@ function deleteProduct( orderPosition, orderID ){
                             </div>
                         </div>
                         <select v-model="orderPosition.quantity" @change="updateQuantity(orderPosition.id, orderPosition.quantity)">
-                            <!-- Optionen von 1 bis 100 -->
                             <option v-for="i in 100" :key="i" :value="i">{{ i }}</option>
                         </select>
                         <Button id="deleteBTN" size="small" label="Entfernen" v-on:click="deleteProduct(orderPosition, order.id)"  severity="danger" />
                     </div>
                 </div>
                 <div v-else>
-                    <p>Loading...</p>
+                    <p>Der Warenkorb ist leer.</p>
                 </div>
             </section>
             <br>
