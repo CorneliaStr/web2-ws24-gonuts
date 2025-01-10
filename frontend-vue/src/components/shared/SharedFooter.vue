@@ -17,7 +17,6 @@
                 <ul class="footer-menu">
                     <li><router-link to="/">Home</router-link></li>
                     <li><router-link to="../shop">Produkte</router-link></li>
-                    <li><router-link to="../favorites/1">Merkliste</router-link></li>
                 </ul>
             </div>
 

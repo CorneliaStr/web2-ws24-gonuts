@@ -11,4 +11,6 @@ public interface CustomerService {
     public Customer getCustomerEntityById(long id);
 
     public Customer getCustomerEntityByToken(String token);
+
+    CustomerDTO updateCustomer(CustomerDTO customerDTO);
 }

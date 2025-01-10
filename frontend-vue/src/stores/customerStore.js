@@ -2,34 +2,51 @@ import {defineStore} from "pinia";
 import {ref} from "vue"
 
 export const useCustomerStore = defineStore("customer", () => {
-    const customer = ref(null);
+    const customer = ref({
+        name: "",
+        surname: "",
+        adress: "",
+        account: {
+            email: "",
+        },
+        birthday: "",
+    });
 
-    async function getCustomer(token) {
-        try {
-            const response = await fetch('http://localhost:8080/api/customer', {
-                method: 'GET',
-                headers: {
-                    'Authorization': token,
-                    'Content-Type': 'application/json'
-                }
+    function getCustomer(token) {
+        fetch(`http://localhost:8080/api/customer`, {
+            method: 'GET',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(data => {
+                customer.value = data;
+            });
+    }
+
+    function updateCustomer(customer) {
+        fetch(`http://localhost:8080/api/customer`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(customer),
+        }).then(res => res.json())
+            .then(data => {
+                customer.value = data;
             });
 
-            if (response.ok) {
-                customer.value = await response.json();
-                return await response.json();
+    }
 
-            } else if (response.status === 401) {
-                console.error("Unbefugter Zugriff - Token ungültig");
-            } else {
-                console.error("Fehler beim Abrufen der Kundendaten", response.status);
-            }
-        } catch (error) {
-            console.error("Fehler bei der Anfrage:", error);
-        }
+    function clearCustomer() {
+        customer.value = null;
     }
 
     return {
         customer,
         getCustomer,
+        updateCustomer,
+        clearCustomer,
     }
 })

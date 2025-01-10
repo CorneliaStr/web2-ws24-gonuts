@@ -1,7 +1,7 @@
 <template>
   <div v-if="menuVisible" class="menu">
     <ul>
-      <li @click="closeMenu">Profil</li>
+      <li @click="navigateToAccount">Profil</li>
       <li @click="navigateToOrderHistory">Bestellungen</li>
       <li @click="navigateToFavorites">Favoriten</li>
       <li @click="logout">Abmelden</li>
@@ -13,8 +13,12 @@
 import {ref, defineExpose} from 'vue';
 import router from "@/router/router.js";
 import {useAuthStore} from '@/stores/authStore';
+import {useCustomerStore} from "@/stores/customerStore.js";
+import {useOrderStore} from "@/stores/orderStore.js";
 
 const authStore = useAuthStore();
+const customerStore = useCustomerStore();
+const orderStore = useOrderStore();
 
 const menuVisible = ref(false);
 
@@ -26,9 +30,9 @@ const closeMenu = () => {
   menuVisible.value = false;
 };
 
-const navigateToFavorites = () =>  {
+const navigateToAccount = () =>  {
   closeMenu();
-  router.push('/favorites')
+  router.push('/account')
 };
 
 const navigateToOrderHistory = () =>  {
@@ -36,8 +40,15 @@ const navigateToOrderHistory = () =>  {
   router.push('/orderHistory')
 };
 
+const navigateToFavorites = () =>  {
+  closeMenu();
+  router.push('/favorites')
+};
+
 const logout = () => {
   authStore.logout();
+  customerStore.clearCustomer()
+  orderStore.clearOrder();
   closeMenu();
 };
 

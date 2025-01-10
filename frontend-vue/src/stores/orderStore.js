@@ -82,6 +82,11 @@ export const useOrderStore = defineStore("order", () => {
 
     const getOrder = () => order.value;
 
+    function clearOrder() {
+        order.value = [];
+        order.value = [];
+    }
+
     return {
         order,
         orders,
@@ -91,6 +96,7 @@ export const useOrderStore = defineStore("order", () => {
         getOrderById,
         updateOrder,
         getOrder,
-        deleteOrderPosition
+        deleteOrderPosition,
+        clearOrder,
     }
 })
