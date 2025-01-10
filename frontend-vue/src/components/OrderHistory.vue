@@ -101,16 +101,25 @@ function orderTotalPrice(order) {
         width: 100%;
     }
 
-    .orderList{
-        margin-top: 3%;
-        background-color: lightgrey;
-        padding: 10px;
-    }
+
 
     .orderList h2{
        margin-left: 0%;
     }
 
+    .orderList {
+      flex: 1 1 calc(20% - 20px);
+      box-sizing: border-box;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: left;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: inherit;
 
+      margin: 5px;
+    }
 
 </style>
