@@ -33,6 +33,12 @@ public class OrderController {
         return orderService.getCart(token);
     }
 
+    @GetMapping(value = "/cart/{id}",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public OrderDTO getCart(@PathVariable Long id) {
+        return orderService.getCart(id);
+    }
+
     @GetMapping(value = "/orderHistory",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<OrderDTO> getOrders(@RequestHeader("Authorization") String token) {
