@@ -14,6 +14,7 @@ import ProductTable from "@/components/Admin/ProductTable.vue";
 import AdminView from "@/components/Admin/AdminView.vue";
 import Login from "@/components/Login.vue";
 import {useAuthStore} from '@/stores/authStore';
+import OrderHistory from "@/components/OrderHistory.vue";
 
 const routes = [
     { path: "/", component: Home },
@@ -25,6 +26,7 @@ const routes = [
     { path: "/account", component: Account },
     { path: "/shipping", component: Shipping },
     { path: "/payment", component: Payment },
+    { path: "/orderHistory", component: OrderHistory },
     { path: "/admin", component: AdminView, meta: { requiresAdmin: true }},
     { path: "/productTable", component: ProductTable, meta: { requiresAdmin: true } },
     { path: "/addProduct", component: ProductForm, meta: { requiresAdmin: true } },

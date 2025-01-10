@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,6 +70,22 @@ public class OrderServiceImpl implements OrderService {
 
         Order cart = getCart(customer);
         return orderMapper.mapEntityToDto(cart);
+    }
+
+    @Override
+    public List<OrderDTO> getOrders(String token) {
+        Customer customer = this.customerService.getCustomerEntityByToken(token);
+        Optional<List<Order>> orderOptional = orderRepository.findByCustomerAndDateIsNotNull(customer);
+        if(orderOptional.isPresent()){
+            List<OrderDTO> orders = new ArrayList<>();
+            for(Order order : orderOptional.get()){
+                OrderDTO orderDTO = new OrderDTO();
+                orderDTO = orderMapper.mapEntityToDto(order);
+                orders.add(orderDTO);
+            }
+            return orders;
+        }
+        return null;
     }
 
     private Order getCart(Customer customer) {

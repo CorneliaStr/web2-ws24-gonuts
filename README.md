@@ -4,8 +4,6 @@
 * [Projektsteckbrief](https://github.com/CorneliaStr/web2-ws24-gonuts/wiki/Projektsteckbrief)
 * [Funktionale Anforderungen](https://github.com/CorneliaStr/web2-ws24-gonuts/wiki/Funktionale-Anforderungen)
 * [Fachmodell](https://github.com/CorneliaStr/web2-ws24-gonuts/wiki/Fachmodell)
-* [Oberflächenkonzept](https://github.com/CorneliaStr/web2-ws24-gonuts/wiki/Oberfl%C3%A4chenkonzept)
-
 
 # Getting Started 
 

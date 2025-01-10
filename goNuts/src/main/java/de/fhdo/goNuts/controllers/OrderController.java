@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RequestMapping("api/order")
 @RestController
@@ -29,6 +31,12 @@ public class OrderController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public OrderDTO getCart(@RequestHeader("Authorization") String token) {
         return orderService.getCart(token);
+    }
+
+    @GetMapping(value = "/orderHistory",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public List<OrderDTO> getOrders(@RequestHeader("Authorization") String token) {
+        return orderService.getOrders(token);
     }
 
     @PostMapping(value = "/addProduct",
